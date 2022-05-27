@@ -1,0 +1,35 @@
+<?php
+
+use App\Http\Livewire\Company;
+use App\Http\Livewire\DataStatic;
+use App\Http\Livewire\Employes;
+use App\Http\Livewire\General;
+use App\Http\Livewire\History;
+use App\Http\Livewire\Home;
+use App\Http\Livewire\Login;
+use App\Http\Livewire\Users;
+use App\Http\Livewire\Profil;
+use App\Http\Livewire\Password;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', Login::class)->name('login');
+Route::get('/accueil', Home::class)->name('home');
+Route::get('/utilisateurs', Users::class)->name('users');
+Route::get('/donnees_statiques', DataStatic::class)->name('staticData');
+Route::get('/entreprises', Company::class)->name('entreprises');
+Route::get('/employes', Employes::class)->name('employe');
+Route::get('/historiques', History::class)->name('history');
+Route::get('/profil', Profil::class)->name('profil');
+Route::get('/mot_de_passe', Password::class)->name('password');
+Route::get('/configuration_generale', General::class)->name('general');
