@@ -1,7 +1,7 @@
 <div>
-    <button  class="btn btn-success mb-2" ><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
-
-    <div class="row">
+  <button @if($etat==="list") wire:click.prevent="changeEtat"  class="btn btn-success mb-2" ><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button @endif>
+    @if ($etat === "list")
+      <div class="row">
         <div class="col-12 col-sm-12 col-lg-4">
             <div class="card author-box card-primary">
               <div class="card-body">
@@ -30,5 +30,9 @@
               </div>
             </div>
         </div>
-    </div>
+      </div>
+    @elseif($etat === "add")
+      
+            @include('livewire.admin.employe.add')
+    @endif
 </div>
