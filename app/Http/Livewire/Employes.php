@@ -54,7 +54,7 @@ class Employes extends Component
         'form.pays.required' => 'Le prenom est requis'
     ];
 
-    public function addEmploye(){
+    public function store(){
 
     }
 
