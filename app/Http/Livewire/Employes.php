@@ -14,7 +14,7 @@ class Employes extends Component
     public $country;
 
     public function changeEtat(){
-        if($this->etat){
+        if($this->etat === 'list'){
             $this->etat = "add";
         }else {
             $this->etat = "list";
@@ -61,7 +61,7 @@ class Employes extends Component
     public function render()
     {
         $this->staticData = StaticData::where("type", "Type de fonction")->where("entreprise_id", Auth::user()->entreprise_id)->get();
-        $this->country = Country::all();
+        $this->country = Country::orderBy('nom_fr', 'ASC')->get();
         return view('livewire.admin.employes', [
 
             ])->layout('layouts.app', [

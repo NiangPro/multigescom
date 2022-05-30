@@ -1,5 +1,5 @@
 <div>
-  <button @if($etat==="list") wire:click.prevent="changeEtat"  class="btn btn-success mb-2" ><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button @endif>
+  <button  wire:click.prevent="changeEtat"  class="btn btn-success mb-2" ><i class="fa fa-plus" aria-hidden="true"></i>@if($etat==="list") Ajout @else Retour @endif</button>
     @if ($etat === "list")
       <div class="row">
         <div class="col-12 col-sm-12 col-lg-4">
@@ -32,7 +32,7 @@
         </div>
       </div>
     @elseif($etat === "add")
-      
+
             @include('livewire.admin.employe.add')
     @endif
 </div>
