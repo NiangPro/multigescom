@@ -33,17 +33,17 @@ class Employes extends Component
     ];
 
     public $rules = [
-        'form.prenom' => 'require|string',
-        'form.nom' => 'require|string',
-        'form.email' => 'require|string',
-        'form.tel' => 'require|string',
-        'form.fonction' => 'require|string',
-        'form.adresse' => 'require|string',
-        'form.sexe' => 'require|string',
-        'form.pays' => 'require|string',
+        'form.prenom' => 'required|string',
+        'form.nom' => 'required|string',
+        'form.email' => 'required|string',
+        'form.tel' => 'required|string',
+        'form.fonction' => 'required|string',
+        'form.adresse' => 'required|string',
+        'form.sexe' => 'required|string',
+        'form.pays' => 'required|string',
     ];
 
-    protected  $alerte = [
+    protected  $messages = [
         'form.prenom.required' => 'Le prenom est requis',
         'form.nom.required' => 'Le prenom est requis',
         'form.email.required' => 'Le prenom est requis',
@@ -56,6 +56,7 @@ class Employes extends Component
 
     public function store(){
 
+        $this->validate();
     }
 
     public function render()

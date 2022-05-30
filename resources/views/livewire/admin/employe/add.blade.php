@@ -9,14 +9,22 @@
                         <div class="form-group">
                             <label for="">Prenom <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('form.prenom') is-invalid @enderror" wire:model="form.prenom">
-                            @error('form.prenom') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.prenom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Nom <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('form.nom') is-invalid @enderror" wire:model="form.nom">
-                            @error('form.nom') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.nom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -24,15 +32,23 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" class="form-control @error('form.email') is-invalid @enderror" wire:model="form.email">
-                            @error('form.email') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            <input type="email" class="form-control @error('form.email') is-invalid @enderror" wire:model="form.email">
+                            @error('form.email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">N° Telephone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('form.tel') is-invalid @enderror" wire:model="form.tel">
-                            @error('form.tel') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            <input type="tel" class="form-control @error('form.tel') is-invalid @enderror" wire:model="form.tel">
+                            @error('form.tel')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -44,14 +60,18 @@
                                 <option value="masculin">Masculin</option>
                                 <option value="feminin">Feminin</option>
                             </select>
-                            @error('form.sexe') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.sexe')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Adresse <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('form.adresse') is-invalid @enderror" wire:model="form.adresse">
-                            @error('form.adresse') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.adresse') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>
                 </div>
@@ -64,7 +84,7 @@
                                     <option value="{{$f->id}}">{{$f->valeur}}</option>
                                 @endforeach
                             </select>
-                            @error('form.fonction') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.fonction') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -75,7 +95,7 @@
                                     <option value="{{$c->id}}">{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
-                            @error('form.pays') <span class="error text-danger">{{$alerte}}</span> @enderror
+                            @error('form.pays') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>
                 </div>
