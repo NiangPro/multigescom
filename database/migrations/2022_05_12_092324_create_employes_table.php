@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('employes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('id');
+            $table->string('prenom');
+            $table->string('nom');
+            $table->string('email');
+            $table->string('fonction');
+            $table->string('adresse');
+            $table->string('tel');
+            $table->string('sexe');
+            $table->string('profil');
+            $table->string('pays');
         });
     }
 
