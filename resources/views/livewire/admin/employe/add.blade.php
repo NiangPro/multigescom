@@ -79,9 +79,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Fonction <span class="text-danger">*</span></label>
-                            <select class="form-control @error('form.fonction') is-invalid @enderror" wire:model="form.fonction" id="exampleFormControlSelect1">
+                            <select class="form-control @error('form.fonction') is-invalid @enderror" wire:model="form.fonction">
+                                <option value="">Selectionner une fonction</option>
                                 @foreach ($staticData as $f)
-                                    <option value="{{$f->id}}">{{$f->valeur}}</option>
+                                    <option value="{{$f->valeur}}">{{$f->valeur}}</option>
                                 @endforeach
                             </select>
                             @error('form.fonction') <span class="error text-danger">{{$message}}</span> @enderror
@@ -91,8 +92,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Pays <span class="text-danger">*</span></label>
                             <select class="form-control @error('form.pays') is-invalid @enderror" wire:model="form.pays" id="exampleFormControlSelect1">
+                                <option value="">Selectionner un pays</option>
                                 @foreach ($country as $c)
-                                    <option value="{{$c->id}}">{{$c->nom_fr}}</option>
+                                    <option value="{{$c->nom_fr}}">{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
                             @error('form.pays') <span class="error text-danger">{{$message}}</span> @enderror
@@ -102,7 +104,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="align-items-end">
-                            <button type="reset" class="btn btn-danger">Anuler</button>&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-danger">Annuler</button>&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success">Ajouter</button>
                         </div>
                     </div>

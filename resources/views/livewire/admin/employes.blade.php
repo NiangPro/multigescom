@@ -1,5 +1,5 @@
 <div>
-  <button  wire:click.prevent="changeEtat"  class="btn btn-success mb-2" ><i class="fa fa-plus" aria-hidden="true"></i>@if($etat==="list") Ajout @else Retour @endif</button>
+  <button  wire:click.prevent="changeEtat"  class="btn btn-success mb-2" >@if($etat==="list")<i class="fa fa-plus" aria-hidden="true"></i> Ajout @else<i class="fa fa-list" aria-hidden="true"></i> Liste @endif</button>
     @if ($etat === "list")
       <div class="row mt-3">
         <div class="col-12 col-sm-12 col-lg-4">

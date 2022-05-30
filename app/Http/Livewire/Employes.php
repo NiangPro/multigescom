@@ -36,7 +36,7 @@ class Employes extends Component
         'form.prenom' => 'required|string',
         'form.nom' => 'required|string',
         'form.email' => 'required|string',
-        'form.tel' => 'required|string',
+        'form.tel' => ['required', 'min:9', 'max:9', 'regex:/^[33|70|75|76|77|78]+[0-9]{7}$/'],
         'form.fonction' => 'required|string',
         'form.adresse' => 'required|string',
         'form.sexe' => 'required|string',
@@ -45,13 +45,16 @@ class Employes extends Component
 
     protected  $messages = [
         'form.prenom.required' => 'Le prenom est requis',
-        'form.nom.required' => 'Le prenom est requis',
-        'form.email.required' => 'Le prenom est requis',
-        'form.tel.required' => 'Le prenom est requis',
-        'form.fonction.required' => 'Le prenom est requis',
-        'form.adresse.required' => 'Le prenom est requis',
-        'form.sexe.required' => 'Le prenom est requis',
-        'form.pays.required' => 'Le prenom est requis'
+        'form.nom.required' => 'Le nom est requis',
+        'form.email.required' => 'le mail est requis',
+        'form.tel.required' => 'Le telephone est requis',
+        'form.tel.regex' => 'Le n° de telephone est invalide',
+        'form.tel.min' => 'Le n° de telephone doit avoir au minimum 9 chiffres',
+        'form.tel.max' => 'Le n° de telephone doit avoir au maximum 9 chiffres',
+        'form.fonction.required' => 'La fonction est requise',
+        'form.adresse.required' => 'L\'adresse est requis',
+        'form.sexe.required' => 'Le sexe est requis',
+        'form.pays.required' => 'Le pays est requis'
     ];
 
     public function store(){
