@@ -22,7 +22,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="lib/css/style.css">
   <link rel="stylesheet" href="lib/css/components.css">
-
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
   @else
   <script
   src="https://kit.fontawesome.com/64d58efce2.js"

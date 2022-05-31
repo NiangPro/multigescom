@@ -1,6 +1,11 @@
     <div class="card card-primary mt-3">
         <div class="card-header">
-            <h4>Formulaire d'ajout employé</h4>
+            <h4>@if ($etat === "add")
+                    Formulaire d'ajout employé
+                @else
+                    Informations personnelles  
+                @endif
+            </h4>
         </div>
         <div class="card-body">
             <form wire:submit.prevent="store">
@@ -8,7 +13,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Prenom <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('form.prenom') is-invalid @enderror" wire:model="form.prenom">
+                            <input placeholder="Prénom" type="text" class="form-control @error('form.prenom') is-invalid @enderror" wire:model="form.prenom">
                             @error('form.prenom')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -19,7 +24,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Nom <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('form.nom') is-invalid @enderror" wire:model="form.nom">
+                            <input placeholder="Nom" type="text" class="form-control @error('form.nom') is-invalid @enderror" wire:model="form.nom">
                             @error('form.nom')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -31,8 +36,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control @error('form.email') is-invalid @enderror" wire:model="form.email">
+                            <label for="">Email <span class="text-danger">*</span></label>
+                            <input placeholder="Email" type="email" class="form-control @error('form.email') is-invalid @enderror" wire:model="form.email">
                             @error('form.email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -43,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">N° Telephone <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control @error('form.tel') is-invalid @enderror" wire:model="form.tel">
+                            <input placeholder="Tel" type="tel" class="form-control @error('form.tel') is-invalid @enderror" wire:model="form.tel">
                             @error('form.tel')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -57,6 +62,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Sexe <span class="text-danger">*</span></label>
                             <select class="form-control @error('form.sexe') is-invalid @enderror" wire:model="form.sexe" id="exampleFormControlSelect1">
+                                <option value="Homme">Selectionner un sexe</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                             </select>
@@ -70,7 +76,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Adresse <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('form.adresse') is-invalid @enderror" wire:model="form.adresse">
+                            <input placeholder="Adresse" type="text" class="form-control @error('form.adresse') is-invalid @enderror" wire:model="form.adresse">
                             @error('form.adresse') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>
@@ -104,8 +110,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="align-items-end">
-                            <button type="reset" class="btn btn-danger">Annuler</button>&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success">Ajouter</button>
+                            <button type="submit" class="btn btn-success">
+                                @if ($etat === "add")
+                                    Ajouter
+                                @else
+                                    Modifier
+                                @endif
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -8,17 +8,25 @@ use Livewire\Component;
 use App\Models\StaticData;
 use App\Models\Country;
 use App\Models\Employe;
+use Livewire\WithFileUploads;
 
 class Employes extends Component
 {
+    use WithFileUploads;
+
     public $etat = "list";
     public $staticData;
     public $country;
     public $astuce;
+    public $employes = [];
+    public $current_employe;
+    public $profil;
 
     public function changeEtat(){
+
         if($this->etat === 'list'){
             $this->etat = "add";
+            $this->initForm();
         }else {
             $this->etat = "list";
         }
@@ -33,6 +41,7 @@ class Employes extends Component
         'adresse' => '',
         'sexe' => '',
         'pays' => '',
+        'id' => null,
     ];
 
     public $rules = [
@@ -60,27 +69,107 @@ class Employes extends Component
         'form.pays.required' => 'Le pays est requis'
     ];
 
-    public function store(){
+    public function getEmploye($id){
+        $this->etat="info";
+        $this->initForm();
 
+        $this->current_employe = Employe::where('id', $id)->first();
+        $this->form['id'] = $this->current_employe->id;
+        $this->form['prenom'] = $this->current_employe->prenom;
+        $this->form['nom'] = $this->current_employe->nom;
+        $this->form['email'] = $this->current_employe->email;
+        $this->form['tel'] = $this->current_employe->tel;
+        $this->form['fonction'] = $this->current_employe->fonction;
+        $this->form['adresse'] = $this->current_employe->adresse;
+        $this->form['sexe'] = $this->current_employe->sexe;
+        $this->form['pays'] = $this->current_employe->pays;
+        
+    }
+
+    public function deleteEmploye($id){
+        $employe = Employe::where("id", $id)->first();
+        $employe->delete();
+     
+        $this->astuce->addHistorique('Suppression d\'un employé', "delete");
+        $this->dispatchBrowserEvent('deleteSuccessful');
+    }
+
+    public function initForm(){
+        $this->form['prenom']='';
+        $this->form['nom']='';
+        $this->form['email']='';
+        $this->form['tel']='';
+        $this->form['fonction']='';
+        $this->form['adresse']='';
+        $this->form['sexe']='';
+        $this->form['pays']='';
+    }
+
+    public function editProfil()
+    {
+        if ($this->profil) {
+            $this->validate([
+                'profil' => 'image'
+            ]);
+            $imageName = 'company'.\md5($this->current_employe->id).'jpg';
+
+            $this->profil->storeAs('public/images', $imageName);
+
+            $employe = Employe::where('id', $this->current_employe->id)->first();
+
+            $employe->profil = $imageName;
+            $employe->save();
+
+            $this->astuce->addHistorique('Changement de logo d\'un employé', "update");
+
+            $this->profil = "";
+            $this->dispatchBrowserEvent('profilEditSuccessful');
+        }
+    }
+
+
+    public function store(){
+        
         $this->validate();
 
-        Employe::create([
-            'prenom' => $this->form['prenom'],
-            'nom' => $this->form['nom'],
-            'email' => $this->form['email'],
-            'tel' => $this->form['tel'],
-            'adresse' => $this->form['adresse'],
-            'pays' => $this->form['pays'],
-            'fonction' => $this->form['fonction'],
-            'sexe' => $this->form['sexe'],
-            'profil' => $this->form['sexe'] === 'Homme' ? 'user-male.png' : 'user-female.png',
+        if(isset($this->current_employe->id) && $this->current_employe->id !== null){
+            $employe = Employe::where("id", $this->current_employe->id)->first();
+            
 
-        ]);
+            $employe->prenom = $this->form['prenom'];
+            $employe->nom = $this->form['nom'];
+            $employe->email = $this->form['email'];
+            $employe->tel = $this->form['tel'];
+            $employe->fonction = $this->form['fonction'];
+            $employe->adresse = $this->form['adresse'];
+            $employe->sexe = $this->form['sexe'];
+            $employe->pays = $this->form['pays'];
 
-        $this->astuce->addHistorique("Ajout employé", "add");
-        $this->dispatchBrowserEvent("addSuccessful");
-        $this->changeEtat();
+            $employe->save();
+            $this->astuce->addHistorique("Mis à jour employé", "update");
+            $this->dispatchBrowserEvent("updateSuccessful");
+            $this->initForm();
+        }else{
 
+            Employe::create([
+                'prenom' => $this->form['prenom'],
+                'nom' => $this->form['nom'],
+                'email' => $this->form['email'],
+                'tel' => $this->form['tel'],
+                'adresse' => $this->form['adresse'],
+                'pays' => $this->form['pays'],
+                'fonction' => $this->form['fonction'],
+                'sexe' => $this->form['sexe'],
+                'profil' => $this->form['sexe'] === 'Homme' ? 'user-male.png' : 'user-female.png',
+
+            ]);
+
+            $this->astuce->addHistorique("Ajout employé", "add");
+            $this->dispatchBrowserEvent("addSuccessful");
+            $this->changeEtat();
+
+            $this->initForm();
+        }
     }
 
     public function render()
@@ -88,6 +177,7 @@ class Employes extends Component
         $this->astuce = new Astuce();
         $this->staticData = StaticData::where("type", "Type de fonction")->where("entreprise_id", Auth::user()->entreprise_id)->get();
         $this->country = Country::orderBy('nom_fr', 'ASC')->get();
+        $this->employes = Employe::orderBy('id', 'DESC')->get();
         return view('livewire.admin.employes', [
 
             ])->layout('layouts.app', [
