@@ -2,16 +2,19 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Astuce;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\StaticData;
 use App\Models\Country;
+use App\Models\Employe;
 
 class Employes extends Component
 {
     public $etat = "list";
     public $staticData;
     public $country;
+    public $astuce;
 
     public function changeEtat(){
         if($this->etat === 'list'){
@@ -60,10 +63,29 @@ class Employes extends Component
     public function store(){
 
         $this->validate();
+
+        Employe::create([
+            'prenom' => $this->form['prenom'],
+            'nom' => $this->form['nom'],
+            'email' => $this->form['email'],
+            'tel' => $this->form['tel'],
+            'adresse' => $this->form['adresse'],
+            'pays' => $this->form['pays'],
+            'fonction' => $this->form['fonction'],
+            'sexe' => $this->form['sexe'],
+            'profil' => $this->form['sexe'] === 'Homme' ? 'user-male.png' : 'user-female.png',
+
+        ]);
+
+        $this->astuce->addHistorique("Ajout employé", "add");
+        $this->dispatchBrowserEvent("addSuccessful");
+        $this->changeEtat();
+
     }
 
     public function render()
     {
+        $this->astuce = new Astuce();
         $this->staticData = StaticData::where("type", "Type de fonction")->where("entreprise_id", Auth::user()->entreprise_id)->get();
         $this->country = Country::orderBy('nom_fr', 'ASC')->get();
         return view('livewire.admin.employes', [

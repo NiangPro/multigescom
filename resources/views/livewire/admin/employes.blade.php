@@ -34,3 +34,28 @@
             @include('livewire.admin.employe.add')
     @endif
 </div>
+
+
+@section('js')
+<script>
+
+
+    window.addEventListener('addSuccessful', event =>{
+        iziToast.success({
+        title: 'Employé',
+        message: 'Ajout avec succes',
+        position: 'topRight'
+        });
+    });
+
+    window.addEventListener('updateSuccessful', event =>{
+        iziToast.success({
+        title: 'Utilisateur',
+        message: 'Mis à jour avec succes',
+        position: 'topRight'
+        });
+    });
+
+</script>
+
+@endsection

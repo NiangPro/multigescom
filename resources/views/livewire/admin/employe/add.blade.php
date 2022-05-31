@@ -57,8 +57,8 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Sexe <span class="text-danger">*</span></label>
                             <select class="form-control @error('form.sexe') is-invalid @enderror" wire:model="form.sexe" id="exampleFormControlSelect1">
-                                <option value="masculin">Masculin</option>
-                                <option value="feminin">Feminin</option>
+                                <option value="Homme">Homme</option>
+                                <option value="Femme">Femme</option>
                             </select>
                             @error('form.sexe')
                                 <span class="invalid-feedback" role="alert">
