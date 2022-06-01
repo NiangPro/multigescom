@@ -21,7 +21,7 @@ class Employes extends Component
     public $employes = [];
     public $current_employe;
     public $profil;
-
+    public $showDiv=false;
     public function changeEtat(){
 
         if($this->etat === 'list'){
@@ -68,6 +68,11 @@ class Employes extends Component
         'form.sexe.required' => 'Le sexe est requis',
         'form.pays.required' => 'Le pays est requis'
     ];
+
+    public function openDiv()
+    {
+        $this->showDiv =! $this->showDiv;
+    }
 
     public function getEmploye($id){
         $this->etat="info";
@@ -124,6 +129,7 @@ class Employes extends Component
 
             $this->profil = "";
             $this->dispatchBrowserEvent('profilEditSuccessful');
+            $this->getEmploye($this->current_employe->id);
         }
     }
 
