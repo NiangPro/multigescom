@@ -69,9 +69,20 @@ class Employes extends Component
         'form.pays.required' => 'Le pays est requis'
     ];
 
-    public function openDiv()
+    public function delete($id)
     {
         $this->showDiv =! $this->showDiv;
+        $this->current_employe = Employe::where('id', $id)->first();
+
+    }
+
+    public function remove(){
+
+        $employe = Employe::where('id', $this->current_employe->id)->first();
+        $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
+        $employe->delete();
+        $this->dispatchBrowserEvent('deleteSuccessful');
+
     }
 
     public function getEmploye($id){
@@ -116,7 +127,7 @@ class Employes extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'company'.\md5($this->current_employe->id).'jpg';
+            $imageName = 'employe'.\md5($this->current_employe->id).'jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 
