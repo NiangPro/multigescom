@@ -88,13 +88,13 @@ class Employes extends Component
         $this->form['adresse'] = $this->current_employe->adresse;
         $this->form['sexe'] = $this->current_employe->sexe;
         $this->form['pays'] = $this->current_employe->pays;
-        
+
     }
 
     public function deleteEmploye($id){
         $employe = Employe::where("id", $id)->first();
         $employe->delete();
-     
+
         $this->astuce->addHistorique('Suppression d\'un employé', "delete");
         $this->dispatchBrowserEvent('deleteSuccessful');
     }
@@ -135,12 +135,12 @@ class Employes extends Component
 
 
     public function store(){
-        
+
         $this->validate();
 
         if(isset($this->current_employe->id) && $this->current_employe->id !== null){
             $employe = Employe::where("id", $this->current_employe->id)->first();
-            
+
 
             $employe->prenom = $this->form['prenom'];
             $employe->nom = $this->form['nom'];
