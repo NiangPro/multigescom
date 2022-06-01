@@ -30,7 +30,6 @@ class DataStatic extends Component
     protected $rules =[
         'form.type' => 'required',
         'form.valeur' => 'required',
-        'form.entreprise_id' => 'required',
     ];
 
     protected $messages = [

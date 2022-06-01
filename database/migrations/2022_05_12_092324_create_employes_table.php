@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('profil');
             $table->string('pays');
+            $table->unsignedBigInteger('entreprise_id');
+            $table->foreign('entreprise_id')->references('id')->on('entreprises')->onDelete('cascade');
             $table->timestamps();
         });
     }

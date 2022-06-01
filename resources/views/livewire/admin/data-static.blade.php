@@ -71,6 +71,13 @@
         message: 'Mis à jour avec succes',
         position: 'topRight'
         });
+
+        window.addEventListener('addSuccessful', event =>{
+        iziToast.success({
+        title: 'Donnée statique',
+        message: 'Ajout avec succes',
+        position: 'topRight'
+        });
     });
 
    </script>

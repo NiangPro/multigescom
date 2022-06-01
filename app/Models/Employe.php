@@ -20,6 +20,17 @@ class Employe extends Model
         'adresse',
         'sexe',
         'profil',
-        'pays'
+        'pays',
+        'entreprise_id',
     ];
+
+    public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class, "entreprise_id");
+    }
+
+    public function contrats()
+    {
+        return $this->hasMany(Contrat::class);
+    }
 }

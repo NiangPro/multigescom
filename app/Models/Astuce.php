@@ -11,6 +11,14 @@ class Astuce extends Model
 {
     use HasFactory;
 
+    public function getStaticData($type)
+    {
+        return StaticData::where("type", $type)
+            ->where("entreprise_id", Auth::user()->entreprise_id)
+            ->where("statut", 1)
+            ->get();
+    }
+
     public function addHistorique($description, $type)
     {
         Historique::create([

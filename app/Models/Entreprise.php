@@ -31,4 +31,9 @@ class Entreprise extends Model
     {
         return $this->hasMany(StaticData::class);
     }
+
+    public function employes()
+    {
+        return $this->hasMany(Employe::class);
+    }
 }

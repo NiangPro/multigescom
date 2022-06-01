@@ -16,7 +16,6 @@ class Employes extends Component
 
     public $etat = "list";
     public $staticData;
-    public $country;
     public $astuce;
     public $employes = [];
     public $current_employe;
@@ -176,6 +175,7 @@ class Employes extends Component
                 'adresse' => $this->form['adresse'],
                 'pays' => $this->form['pays'],
                 'fonction' => $this->form['fonction'],
+                'entreprise_id' => Auth::user()->entreprise_id,
                 'sexe' => $this->form['sexe'],
                 'profil' => $this->form['sexe'] === 'Homme' ? 'user-male.png' : 'user-female.png',
 
@@ -192,11 +192,12 @@ class Employes extends Component
     public function render()
     {
         $this->astuce = new Astuce();
-        $this->staticData = StaticData::where("type", "Type de fonction")->where("entreprise_id", Auth::user()->entreprise_id)->get();
-        $this->country = Country::orderBy('nom_fr', 'ASC')->get();
+        $this->staticData = $this->astuce->getStaticData("Type de fonction");
+
+
         $this->employes = Employe::orderBy('id', 'DESC')->get();
         return view('livewire.admin.employes', [
-
+            "country" => Country::orderBy('nom_fr', 'ASC')->get()
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
