@@ -2,10 +2,16 @@
         <div class="card-header">
             <h4>@if ($etat === "add")
                     Formulaire d'ajout employé
-                @else
+                @elseif($etat === "info")
                     Informations personnelles  
                 @endif
             </h4>
+            <span class="float-right ml-4" >
+                <a class="float-right d-flex" type="button" style="margin-left:362px;">
+                    <i class="fa fa-folder-open fa-2x text-primary"></i> 
+                    <h4> Voir contrat</h4>
+                </a>
+            </span>
         </div>
         <div class="card-body">
             <form wire:submit.prevent="store">
