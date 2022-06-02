@@ -55,7 +55,7 @@
 
     window.addEventListener('deleteSuccessful', event =>{
         iziToast.success({
-        title: 'Employé',
+        title: 'Document',
         message: 'Suppression avec succes',
         position: 'topRight'
         });

@@ -17,7 +17,7 @@
             @endif
         </div>
         <div class="card-body">
-            <form wire:submit.prevent="storeEmploye">
+            <form wire:submit.prevent="store">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

@@ -102,6 +102,15 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   transform: scale(1.1);
 }
 
+.left-i{
+  position: relative;
+  left: -5px;
+}
+.left-eye{
+  position: relative;
+  left: -7px;
+}
+
 .back-info{
   color: var(--primary);
 }

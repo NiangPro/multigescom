@@ -12,21 +12,42 @@
         </span>
     </div>
     <div class="card-body mt-2 mb-2">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card-file">
-                    <button type="button" class="btn float-right f-delete btn-outline-danger btn-sm btn-rounded">
-                        <i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <div class="align-self-center halfway-fab text-center i-file">
-                        <a type="button" class="profile-image">
-                            <img src="storage/imageS/file.png" alt="" width="120" height="150">
-                            <div class="text-center mb-4">
-                                <span class="text-blcak text-uppercase">Cni</span>
-                            </div> 
-                        </a>
-                    </div>
-                </div> 
+        @if ($showDoc)
+            <div id="message" class="container col-sm-6 text-center alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Voulez-vous vraiment supprimer ce document</strong>
+            <span class="float-right mt-n1">
+                <button wire:click.prevent="removeDocument" class="btn btn-success btn-sm"  data-dismiss="alert" aria-label="Close">Oui</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="alert" aria-label="Close">Non</button>
+            </span>
             </div>
+        @endif
+        <div class="row">
+            @foreach ($this->current_employe->contrats as $contrat)
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1 card-primary">
+                      <div class="card-icon ">
+                        <img src="storage/images/file.png" alt="" height="80" width="80">
+                      </div>
+                      <div class="card-wrap">
+                        <div class="card-header">
+                            <span style="display: flex; flex-direction: column; left:3px;">
+                                <a target="_blank" href="storage/contrats/{{$contrat->fichier}}" class="btn mb-1 btn-icon btn-outline-success btn-sm" title="Ouvrir"><i class="fa fa-eye left-eye"></i></a>
+                                <button wire:click.prevent="deleteDocument({{$contrat->id}})"
+                                 class="btn btn-icon btn-outline-danger btn-sm" title="Supprimer"><i class="fa fa-trash left-i"></i></button>
+                            </span>
+                        </div>
+                        <hr>
+                        <div class="card-body pt-2">
+                            <h6 class="text-center mt-n3 mb-2">{{Str::substr($contrat->titre, 0, 11) }} @if (strlen($contrat->titre)> 8)
+                                ...
+                            @endif</h6>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            @endforeach
+            
         </div>
     </div>
 </div>

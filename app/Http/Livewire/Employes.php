@@ -22,8 +22,11 @@ class Employes extends Component
     public $current_employe;
     public $profil;
     public $showDiv=false;
+    public $showDoc=false;
     public $doc = 1;
     public $file_name;
+    public $contrats;
+    public $document;
 
     public function changeEtat(){
 
@@ -93,6 +96,21 @@ class Employes extends Component
         'form.pays.required' => 'Le pays est requis',
     ];
 
+    public function deleteDocument($id){
+        $this->showDoc =! $this->showDoc;
+        $this->document = Contrat::where('id', $id)->first();
+    }
+
+    public function removeDocument(){
+        $doc =  Contrat::where('id', $this->document->id)->first();
+        $this->astuce->addHistorique('Suppression d\'un document ('.$this->document->titre.')', "delete");
+        $doc->delete();
+        $this->dispatchBrowserEvent('deleteSuccessful');
+
+        $this->current_employe = Employe::where('id', $this->current_employe->id)->first();
+
+    }
+
     public function addDocument(){
         if(isset($this->current_employe->id) && $this->current_employe->id !== null){
             $this->validate([
@@ -115,6 +133,8 @@ class Employes extends Component
             $this->changePosition();
             $this->initContratForm();
 
+            $this->current_employe = Employe::where('id', $this->current_employe->id)->first();
+
         }
     }
 
@@ -130,7 +150,6 @@ class Employes extends Component
     {
         $this->showDiv =! $this->showDiv;
         $this->current_employe = Employe::where('id', $id)->first();
-
     }
 
     public function remove(){
@@ -202,7 +221,7 @@ class Employes extends Component
     }
 
 
-    public function storeEmploye(){
+    public function store(){
 
         $this->validate();
 
@@ -252,16 +271,17 @@ class Employes extends Component
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Type de fonction");
 
-
         $this->employes = Employe::orderBy('id', 'DESC')->get();
         return view('livewire.admin.employes', [
-            "country" => Country::orderBy('nom_fr', 'ASC')->get()
+            "country" => Country::orderBy('nom_fr', 'ASC')->get(),
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
                 "icon" => "fas fa-user-friends"
             ]);
-        }
+    }
+
+        
 
         public function mount(){
             if(!Auth::user()){
