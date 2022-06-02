@@ -36,4 +36,9 @@ class Entreprise extends Model
     {
         return $this->hasMany(Employe::class);
     }
+
+    public function produits()
+    {
+        return $this->hasMany(Produit::class);
+    }
 }

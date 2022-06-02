@@ -18,4 +18,7 @@
         </div>
     </div>
     @endforeach
+    <div class="container">
+        {{ $superAdmins->links() }}
+    </div>
 </div>

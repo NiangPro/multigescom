@@ -45,4 +45,7 @@
         </div>
     </div>
     @endforeach
+    <div class="container">
+        {{ $companies->links() }}
+    </div>
 </div>

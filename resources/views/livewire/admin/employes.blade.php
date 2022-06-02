@@ -47,6 +47,9 @@
           <!-- Modal -->
 
         @endforeach
+        <div class="container">
+            {{ $employes->links() }}
+        </div>
       </div>
     @elseif($etat === "add")
       @include('livewire.admin.employe.add')

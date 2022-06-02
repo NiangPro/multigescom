@@ -10,6 +10,7 @@ use App\Http\Livewire\Login;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Profil;
 use App\Http\Livewire\Password;
+use App\Http\Livewire\Produits;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/utilisateurs', Users::class)->name('users');
 Route::get('/donnees_statiques', DataStatic::class)->name('staticData');
 Route::get('/entreprises', Company::class)->name('entreprises');
 Route::get('/employes', Employes::class)->name('employe');
+Route::get('/produits', Produits::class)->name('produit');
 Route::get('/historiques', History::class)->name('history');
 Route::get('/profil', Profil::class)->name('profil');
 Route::get('/mot_de_passe', Password::class)->name('password');

@@ -7,10 +7,12 @@ use App\Models\Entreprise;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Company extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $title;
     public $astuce;
@@ -191,7 +193,7 @@ class Company extends Component
     {
         $this->astuce = new Astuce();
         return view('livewire.superAdmin.company', [
-            'companies' => Entreprise::orderBy('nom', 'ASC')->get()
+            'companies' => Entreprise::orderBy('nom', 'ASC')->paginate(8)
         ])->layout('layouts.app', [
             'title' => "Les Entreprises",
             "page" => "entreprise",

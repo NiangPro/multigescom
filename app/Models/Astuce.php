@@ -31,7 +31,7 @@ class Astuce extends Model
 
     public function superAdmins()
     {
-        return User::where('role', 'Super Admin')->orderBy('prenom', 'ASC')->get();
+        return User::where('role', 'Super Admin')->orderBy('prenom', 'ASC')->paginate(8);
     }
 
     public function admins()
