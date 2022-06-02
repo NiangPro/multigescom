@@ -46,6 +46,11 @@
  *    1.41 Avatar
  *    1.42 Wizard
  */
+
+ .avatar{
+     background-color: transparent !important;
+     box-shadow: 1px 1px 1px 1px grey;
+ }
 /* 1.1 Article */
 .article {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
