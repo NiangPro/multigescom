@@ -7,7 +7,7 @@
                 @endif
             </h4>
             <span class="float-right ml-4" >
-                <a class="float-right d-flex" type="button" style="margin-left:362px;">
+                <a wire:click.prevent='changeStatut' class="float-right d-flex" type="button" style="margin-left:362px;">
                     <i class="fa fa-folder-open fa-2x text-primary"></i> 
                     <h4> Voir contrat</h4>
                 </a>

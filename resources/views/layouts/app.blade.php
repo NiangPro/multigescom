@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="{{asset('lib/css/calendar-gc.min.css')}}" />
 
   <link rel="stylesheet" href="lib/css/iziToast.min.css">
+  @yield('css')
   @livewireStyles
 </head>
 

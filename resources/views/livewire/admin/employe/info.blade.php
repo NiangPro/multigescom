@@ -30,7 +30,11 @@
     
         </div>
         <div class="col-12 col-md-12 col-lg-9">
-            @include('livewire.admin.employe.add')
+            @if ($statut === "info")
+                @include('livewire.admin.employe.add')
+            @elseif($statut === "contrat")
+                @include('livewire.admin.employe.contrat')
+            @endif
         </div>
         </div>
     </div>

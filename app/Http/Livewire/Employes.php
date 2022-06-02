@@ -15,6 +15,7 @@ class Employes extends Component
     use WithFileUploads;
 
     public $etat = "list";
+    public $statut= "info";
     public $staticData;
     public $astuce;
     public $employes = [];
@@ -28,6 +29,14 @@ class Employes extends Component
             $this->initForm();
         }else {
             $this->etat = "list";
+        }
+    }
+
+    public function changeStatut(){
+        if($this->statut === 'info'){
+            $this->statut = "contrat";
+        }else {
+            $this->statut = "info";
         }
     }
 
