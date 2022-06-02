@@ -9,16 +9,17 @@ use Livewire\Component;
 use App\Models\Country;
 use App\Models\Employe;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Employes extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $etat = "list";
     public $statut= "info";
     public $staticData;
     public $astuce;
-    public $employes = [];
     public $current_employe;
     public $profil;
     public $showDiv=false;
@@ -252,16 +253,15 @@ class Employes extends Component
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Type de fonction");
 
-
-        $this->employes = Employe::orderBy('id', 'DESC')->get();
         return view('livewire.admin.employes', [
-            "country" => Country::orderBy('nom_fr', 'ASC')->get()
+            "country" => Country::orderBy('nom_fr', 'ASC')->get(),
+            "employes" => Employe::orderBy('id', 'DESC')->paginate(6)
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
                 "icon" => "fas fa-user-friends"
             ]);
-        }
+    }
 
         public function mount(){
             if(!Auth::user()){
