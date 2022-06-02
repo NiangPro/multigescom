@@ -3,14 +3,15 @@
             <h4>@if ($etat === "add")
                     Formulaire d'ajout employé
                 @elseif($etat === "info")
-                    Informations personnelles  
+                    Informations personnelles
                 @endif
             </h4>
             @if ($etat === "info")
                 <span class="float-right ml-4" >
                     <a wire:click.prevent='changeStatut()' class="float-right d-flex" type="button" style="margin-left:362px;">
-                        <i class="fa fa-folder-open fa-2x text-primary"></i> 
-                        <h4> Voir contrat</h4>
+                        {{-- <i class="fa fa-folder-open fa-2x text-primary"></i>  --}}
+                        <img src="{{asset('storage/images/doc.png')}}" width="50" height="50" alt="">
+                        <strong class="pt-2 text-primary">  Voir contrat</strong>
                     </a>
                 </span>
             @endif

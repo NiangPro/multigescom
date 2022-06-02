@@ -26,12 +26,12 @@
                     <div class="label">fichier</div>
                     <input type="file" class="custom-file-input @error('contratForm.fichier') is-invalid @enderror" wire:model="contratForm.fichier"  wire:model="contratForm.fichier" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                     <label class="custom-file-label" for="inputGroupFile01">Choisir</label>
-                    {{-- <div wire:loading wire:target="profil">Chargement...</div> --}}
+                    <div wire:loading wire:target="contratForm.fichier" class="text-success">Chargement...</div>
                     @error('contratForm.fichier')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror  
+                    @enderror
                 </div>
             </div>
             <div>

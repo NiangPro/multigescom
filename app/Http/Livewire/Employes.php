@@ -6,7 +6,6 @@ use App\Models\Astuce;
 use App\Models\Contrat;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Models\StaticData;
 use App\Models\Country;
 use App\Models\Employe;
 use Livewire\WithFileUploads;
@@ -97,13 +96,13 @@ class Employes extends Component
     public function addDocument(){
         if(isset($this->current_employe->id) && $this->current_employe->id !== null){
             $this->validate([
-                'contratForm.titre'=>'Le titre est requis',
-                'contratForm.fichier'=>'Veuiller choisir un fichier',
+                'contratForm.titre'=>'required',
+                'contratForm.fichier'=>'required|file',
             ]);
 
             $fileName = 'contrat_'.uniqid().'.pdf';
 
-            $this->contratForm['fichier']->storeAs('public/images', $fileName);
+            $this->contratForm['fichier']->storeAs('public/contrats', $fileName);
 
             Contrat::create([
                 'titre' => $this->contratForm['titre'],
