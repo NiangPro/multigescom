@@ -101,6 +101,23 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   transition: 1s;
   transform: scale(1.1);
 }
+
+.back-info{
+  color: var(--primary);
+}
+
+.back-info:hover{
+  color: white;
+}
+
+.btn-add{
+  margin-left: 341px;
+}
+
+.btn-list{
+  margin-left: 437px;
+}
+
 .bg-primary {
   background-color: #6777ef !important; }
 

@@ -5,6 +5,11 @@
                 Document(s) personnel(s)
             @endif
         </h4>
+        <span class="btn-add">
+            <button wire:click.prevent='changeStatut()' class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
+                &nbsp;
+            <button wire:click.prevent='changePosition' class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+        </span>
     </div>
     <div class="card-body mt-2 mb-2">
         <div class="row">
