@@ -32,10 +32,36 @@
         <div class="col-12 col-md-12 col-lg-9">
             @if ($statut === "info")
                 @include('livewire.admin.employe.add')
-            @elseif($statut === "contrat")
+            @elseif($statut === "contrat" && $doc===0)
                 @include('livewire.admin.employe.contrat')
+            @elseif($statut === "contrat" && $doc===1)
+                @include('livewire.admin.employe.addDocument')
             @endif
         </div>
         </div>
     </div>
 </div>
+
+@section('js')
+<script>
+
+    window.addEventListener('addSuccessful', event =>{
+        iziToast.success({
+        title: 'Contrat',
+        message: 'Ajout avec succes',
+        position: 'topRight'
+        });
+    });
+
+    window.addEventListener('deleteSuccessful', event =>{
+        iziToast.success({
+        title: 'Employé',
+        message: 'Suppression avec succes',
+        position: 'topRight'
+        });
+
+        $('#message').hide();
+    });
+</script>
+
+@endsection

@@ -6,15 +6,17 @@
                     Informations personnelles  
                 @endif
             </h4>
-            <span class="float-right ml-4" >
-                <a wire:click.prevent='changeStatut' class="float-right d-flex" type="button" style="margin-left:362px;">
-                    <i class="fa fa-folder-open fa-2x text-primary"></i> 
-                    <h4> Voir contrat</h4>
-                </a>
-            </span>
+            @if ($etat === "info")
+                <span class="float-right ml-4" >
+                    <a wire:click.prevent='changeStatut()' class="float-right d-flex" type="button" style="margin-left:362px;">
+                        <i class="fa fa-folder-open fa-2x text-primary"></i> 
+                        <h4> Voir contrat</h4>
+                    </a>
+                </span>
+            @endif
         </div>
         <div class="card-body">
-            <form wire:submit.prevent="store">
+            <form wire:submit.prevent="storeEmploye">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

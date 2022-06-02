@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Astuce;
+use App\Models\Contrat;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\StaticData;
@@ -22,6 +23,9 @@ class Employes extends Component
     public $current_employe;
     public $profil;
     public $showDiv=false;
+    public $doc = 1;
+    public $file_name;
+
     public function changeEtat(){
 
         if($this->etat === 'list'){
@@ -35,9 +39,15 @@ class Employes extends Component
     public function changeStatut(){
         if($this->statut === 'info'){
             $this->statut = "contrat";
+            $this->changePosition();
         }else {
             $this->statut = "info";
+            $this->changePosition();
         }
+    }
+
+    public functiOn changePosition(){
+        $this->doc = $this->doc=== 0 ? 1 : 0;
     }
 
     public $form = [
@@ -50,6 +60,13 @@ class Employes extends Component
         'sexe' => '',
         'pays' => '',
         'id' => null,
+    ];
+
+    public $contratForm = [
+        'id'=> null,
+        'titre'=> '',
+        'fichier'=> '',
+        'employe_id'=> '',
     ];
 
     public $rules = [
@@ -74,8 +91,41 @@ class Employes extends Component
         'form.fonction.required' => 'La fonction est requise',
         'form.adresse.required' => 'L\'adresse est requis',
         'form.sexe.required' => 'Le sexe est requis',
-        'form.pays.required' => 'Le pays est requis'
+        'form.pays.required' => 'Le pays est requis',
     ];
+
+    public function addDocument(){
+        if(isset($this->current_employe->id) && $this->current_employe->id !== null){
+            $this->validate([
+                'contratForm.titre'=>'Le titre est requis',
+                'contratForm.fichier'=>'Veuiller choisir un fichier',
+            ]);
+
+            $fileName = 'contrat_'.uniqid().'.pdf';
+
+            $this->contratForm['fichier']->storeAs('public/images', $fileName);
+
+            Contrat::create([
+                'titre' => $this->contratForm['titre'],
+                'fichier' => $fileName,
+                'employe_id' => $this->current_employe->id,
+            ]);
+
+            $this->astuce->addHistorique("Ajout document", "add");
+            $this->dispatchBrowserEvent("addSuccessful");
+            $this->changePosition();
+            $this->initContratForm();
+
+        }
+    }
+
+    public function initContratForm(){
+        $this->contratForm['titre']='';
+        $this->contratForm['fichier']='';
+        $this->contratForm['employe_id']='';
+
+    }
+
 
     public function delete($id)
     {
@@ -153,7 +203,7 @@ class Employes extends Component
     }
 
 
-    public function store(){
+    public function storeEmploye(){
 
         $this->validate();
 
