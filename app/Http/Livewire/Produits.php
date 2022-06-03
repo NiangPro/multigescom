@@ -55,7 +55,10 @@ class Produits extends Component
 
     public function store(){
         $this->validate();
-
+        if(empty($this->form['type'])){
+            $this->dispatchBrowserEvent("typeEmpty");
+        }
+        
         if(isset($this->current_produit->id) && $this->current_produit->id !== null){
             $produit = Produit::where("id", $this->current_produit->id)->first();
 
@@ -66,7 +69,7 @@ class Produits extends Component
             $produit->taxe = $this->form['taxe'];
 
             $produit->save();
-            $this->astuce->addHistorique("Mis à jour employé", "update");
+            $this->astuce->addHistorique("Mis à jour produit ou service", "update");
             $this->dispatchBrowserEvent("updateSuccessful");
             $this->status =  "listProduct";
             $this->initForm();
@@ -82,7 +85,7 @@ class Produits extends Component
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
         
-                $this->astuce->addHistorique("Ajout employé", "add");
+                $this->astuce->addHistorique("Ajout produit", "add");
                 $this->dispatchBrowserEvent("addSuccessful");
                 $this->status =  "listProduct";
                 $this->initForm();

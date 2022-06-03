@@ -22,13 +22,20 @@
         });
 
         window.addEventListener('updateSuccessful', event =>{
-        iziToast.success({
-        title: 'Produit et Service',
-        message: 'Mis à jour avec succes',
-        position: 'topRight'
+            iziToast.success({
+            title: 'Produit et Service',
+            message: 'Mis à jour avec succes',
+            position: 'topRight'
+            });
         });
-    });
 
+        window.addEventListener('typeEmpty', event =>{
+            iziToast.error({
+            title: 'Type',
+            message: 'Veullez choisir untype',
+            position: 'topRight'
+            });
+        });
 
         window.addEventListener('deleteSuccessful', event =>{
             iziToast.success({
