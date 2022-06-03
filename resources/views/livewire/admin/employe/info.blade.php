@@ -32,9 +32,9 @@
         <div class="col-12 col-md-12 col-lg-9">
             @if ($statut === "info")
                 @include('livewire.admin.employe.add')
-            @elseif($statut === "contrat" && $doc===0)
+            @elseif($statut === "list")
                 @include('livewire.admin.employe.contrat')
-            @elseif($statut === "contrat" && $doc===1)
+            @elseif($statut === "add")
                 @include('livewire.admin.employe.addDocument')
             @endif
         </div>

@@ -6,21 +6,21 @@
             @endif
         </h4>
         <span class="btn-add">
-            <button wire:click.prevent='changeStatut()' class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
+            <button wire:click.prevent="changeStatut('info')" class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
                 &nbsp;
-            <button wire:click.prevent='changePosition' class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+            <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
         </span>
     </div>
-    <div class="card-body mt-2 mb-2">
-        @if ($showDoc)
-            <div id="message" class="container col-sm-6 text-center alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Voulez-vous vraiment supprimer ce document</strong>
-            <span class="float-right mt-n1">
-                <button wire:click.prevent="removeDocument" class="btn btn-success btn-sm"  data-dismiss="alert" aria-label="Close">Oui</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="alert" aria-label="Close">Non</button>
-            </span>
+    @if ($showDoc)
+            <div id="message" class="container col-sm-8 text-center alert alert-info alert-dismissible fade show" role="alert">
+                <strong>Voulez-vous vraiment supprimer ce document</strong>
+                <span class="float-right mt-n1">
+                    <button wire:click.prevent="removeDocument" class="btn btn-danger btn-sm"  data-dismiss="alert" aria-label="Close">Oui</button>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="alert" aria-label="Close">Non</button>
+                </span>
             </div>
         @endif
+    <div class="card-body mt-2 mb-2">
         <div class="row">
             @foreach ($this->current_employe->contrats as $contrat)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">

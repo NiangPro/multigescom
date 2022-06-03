@@ -8,7 +8,7 @@
             </h4>
             @if ($etat === "info")
                 <span class="float-right ml-4" >
-                    <a wire:click.prevent='changeStatut()' class="float-right d-flex" type="button" style="margin-left:362px;">
+                    <a wire:click.prevent="changeStatut('list')" class="float-right d-flex" type="button" style="margin-left:362px;">
                         {{-- <i class="fa fa-folder-open fa-2x text-primary"></i>  --}}
                         <img src="{{asset('storage/images/doc.png')}}" width="50" height="50" alt="">
                         <strong class="pt-2 text-primary">  Voir contrat</strong>

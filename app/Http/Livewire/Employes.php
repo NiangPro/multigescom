@@ -24,7 +24,6 @@ class Employes extends Component
     public $profil;
     public $showDiv=false;
     public $showDoc=false;
-    public $doc = 1;
     public $file_name;
     public $contrats;
     public $document;
@@ -39,18 +38,8 @@ class Employes extends Component
         }
     }
 
-    public function changeStatut(){
-        if($this->statut === 'info'){
-            $this->statut = "contrat";
-            $this->changePosition();
-        }else {
-            $this->statut = "info";
-            $this->changePosition();
-        }
-    }
-
-    public functiOn changePosition(){
-        $this->doc = $this->doc=== 0 ? 1 : 0;
+    public function changeStatut($statut){
+        $this->statut = $statut;
     }
 
     public $form = [
@@ -131,7 +120,6 @@ class Employes extends Component
 
             $this->astuce->addHistorique("Ajout document", "add");
             $this->dispatchBrowserEvent("addSuccessful");
-            $this->changePosition();
             $this->initContratForm();
 
             $this->current_employe = Employe::where('id', $this->current_employe->id)->first();
@@ -272,26 +260,15 @@ class Employes extends Component
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Type de fonction");
 
-<<<<<<< HEAD
-        $this->employes = Employe::orderBy('id', 'DESC')->get();
-        return view('livewire.admin.employes', [
-            "country" => Country::orderBy('nom_fr', 'ASC')->get(),
-=======
         return view('livewire.admin.employes', [
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
             "employes" => Employe::orderBy('id', 'DESC')->paginate(6)
->>>>>>> main
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
                 "icon" => "fas fa-user-friends"
             ]);
     }
-<<<<<<< HEAD
-
-        
-=======
->>>>>>> main
 
         public function mount(){
             if(!Auth::user()){

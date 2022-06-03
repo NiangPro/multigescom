@@ -1,12 +1,12 @@
 <div class="card card-primary mt-3">
     <div class="card-header">
         <h4>
-            @if ($statut === "contrat" && $doc===1)
+            @if ($statut === "add")
                Ajout document
             @endif
         </h4>
         <span class="btn-list">
-            <button wire:click.prevent='changePosition()' class="btn back-info btn-outline-primary">
+            <button wire:click.prevent="changeStatut('list')" class="btn back-info btn-outline-primary">
                 <i class="fa fa-list" aria-hidden="true"></i> Liste document(s)</button>
         </span>
     </div>
