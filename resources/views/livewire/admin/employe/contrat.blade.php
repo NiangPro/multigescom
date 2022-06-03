@@ -5,11 +5,12 @@
                 Document(s) personnel(s)
             @endif
         </h4>
-        <span class="btn-add">
-            <button wire:click.prevent="changeStatut('info')" class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
-                &nbsp;
-            <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
-        </span>
+        <div class="card-header-action">
+            <div class="btn-group">
+                <button wire:click.prevent="changeStatut('info')" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
+                <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+            </div>
+        </div>
     </div>
     @if ($showDoc)
             <div id="message" class="container col-sm-8 text-center alert alert-info alert-dismissible fade show" role="alert">
@@ -47,23 +48,12 @@
                 </div>
 
             @endforeach
+            @if (count($this->current_employe->contrats) <= 0)
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <span class="text-center text-danger">Aucune données </span>
+                </div>
+            @endif
             
         </div>
     </div>
 </div>
-
-@section('css')
-    <style>
-        .card-file:hover {
-            transform: scale(1.1)!important;
-        }
-
-        .card-file{
-            height:200px;
-            width:200px;
-            border:1px solid black;
-            transition:.3s;
-            margin: 3rem;
-        }
-    </style>
-@endsection
