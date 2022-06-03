@@ -260,9 +260,11 @@ class Employes extends Component
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Type de fonction");
 
+
         return view('livewire.admin.employes', [
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
             "employes" => Employe::orderBy('id', 'DESC')->paginate(6)
+
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
