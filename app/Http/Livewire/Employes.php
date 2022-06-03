@@ -84,6 +84,9 @@ class Employes extends Component
         'form.adresse.required' => 'L\'adresse est requis',
         'form.sexe.required' => 'Le sexe est requis',
         'form.pays.required' => 'Le pays est requis',
+        'contratForm.fichier.required' => 'Le fichier est requis',
+        'contratForm.titre.required' => 'Le titre est requis',
+        'contratForm.fichier.file' => 'Selectionner un ficher pdf',
     ];
 
     public function deleteDocument($id){
