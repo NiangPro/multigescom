@@ -14,6 +14,8 @@ class Company extends Component
     use WithFileUploads, WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    protected $listeners = ['remove'];
+
     public $title;
     public $astuce;
     public $etat;
@@ -54,6 +56,7 @@ class Company extends Component
         'form.fermeture.required' => 'La date de fermeture est requise',
     ];
 
+
     public function add()
     {
         $this->init();
@@ -65,12 +68,30 @@ class Company extends Component
     public function getId($id)
     {
         $this->idDeleting = $id;
+        $this->alertConfirm();
         // dd($this->idDeleting);
     }
 
-    public function delete($id)
+    public function alertConfirm()
     {
-        $company = Entreprise::where('id', $id)->first();
+        $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',
+                'message' => 'Êtes-vous sûr?',
+                'text' => 'Vouliez-vous supprimer?'
+            ]);
+    }
+
+
+
+    public function remove()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Entreprise!',
+            'text' => 'Suppression avec succès.'
+        ]);
+
+        $company = Entreprise::where('id', $this->idDeleting)->first();
         $company->delete();
         $this->astuce->addHistorique('Suppression d\'une entreprise', "delete");
 

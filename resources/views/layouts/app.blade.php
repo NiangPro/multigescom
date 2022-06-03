@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="lib/css/style.css">
   <link rel="stylesheet" href="lib/css/components.css">
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
+
   @else
   <script
   src="https://kit.fontawesome.com/64d58efce2.js"
@@ -103,12 +103,36 @@
   @endif
   <script src="lib/js/iziToast.min.js"></script>
   <script src="lib/js/calendar-gc.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   @yield('js')
 
 <script>
 
-        $('#deleteModal').appendTo("#app");
+window.addEventListener('swal:modal', event => {
+    swal({
+      title: event.detail.message,
+      text: event.detail.text,
+      icon: event.detail.type,
+      confirmButtonText: "Oui"
+    });
+});
+
+window.addEventListener('swal:confirm', event => {
+    swal({
+      title: event.detail.message,
+      text: event.detail.text,
+      icon: event.detail.type,
+      buttons: true,
+      dangerMode: true,
+
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        window.livewire.emit('remove');
+      }
+    });
+});
 
 </script>
 

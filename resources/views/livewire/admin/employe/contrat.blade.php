@@ -6,7 +6,7 @@
             @endif
         </h4>
         <span class="btn-add">
-            <button wire:click.prevent='changeStatut' class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
+            <button wire:click.prevent="changeStatut('info')" class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
                 &nbsp;
             <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
         </span>

@@ -28,19 +28,7 @@ class Employes extends Component
     public $contrats;
     public $document;
 
-    public function changeEtat(){
 
-        if($this->etat === 'list'){
-            $this->etat = "add";
-            $this->initForm();
-        }else {
-            $this->etat = "list";
-        }
-    }
-
-    public function changeStatut($statut){
-        $this->statut = $statut;
-    }
 
     public $form = [
         'prenom' => '',
@@ -89,6 +77,20 @@ class Employes extends Component
         'contratForm.fichier.file' => 'Selectionner un ficher pdf',
     ];
 
+    public function changeEtat(){
+
+        if($this->etat === 'list'){
+            $this->etat = "add";
+            $this->initForm();
+        }else {
+            $this->etat = "list";
+        }
+    }
+
+    public function changeStatut($statut){
+        $this->statut = $statut;
+    }
+
     public function deleteDocument($id){
         $this->showDoc =! $this->showDoc;
         $this->document = Contrat::where('id', $id)->first();
@@ -100,7 +102,8 @@ class Employes extends Component
         $doc->delete();
         $this->dispatchBrowserEvent('deleteSuccessful');
 
-        $this->current_employe = Employe::where('id', $this->current_employe->id)->first();
+        $this->getEmploye($this->current_employe->id);
+
 
     }
 
@@ -125,7 +128,8 @@ class Employes extends Component
             $this->dispatchBrowserEvent("addSuccessful");
             $this->initContratForm();
 
-            $this->current_employe = Employe::where('id', $this->current_employe->id)->first();
+            $this->getEmploye($this->current_employe->id);
+            $this->changeStatut("list");
 
         }
     }
@@ -142,16 +146,34 @@ class Employes extends Component
     {
         $this->showDiv =! $this->showDiv;
         $this->current_employe = Employe::where('id', $id)->first();
+        $this->alertConfirm();
     }
 
-    public function remove(){
+    protected $listeners = ['remove'];
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',
+                'message' => 'Êtes-vous sûr?',
+                'text' => 'Vouliez-vous supprimer?'
+            ]);
+    }
+
+    public function remove()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Entreprise!',
+            'text' => 'Suppression avec succès.'
+        ]);
 
         $employe = Employe::where('id', $this->current_employe->id)->first();
         $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
         $employe->delete();
-        $this->dispatchBrowserEvent('deleteSuccessful');
-
     }
+
+
 
     public function getEmploye($id){
         $this->etat="info";

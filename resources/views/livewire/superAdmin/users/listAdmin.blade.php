@@ -41,7 +41,7 @@
         <td>{{$sa->entreprise->nom}}</td>
         <td>
             <button  class="btn btn-icon btn-outline-success btn-sm" wire:click.prevent="info({{$sa->id}})"><i class="far fa-eye"></i></button>
-            <button  class="btn btn-icon btn-outline-danger btn-sm  trigger--fire-modal-1" data-confirm="Voulez-vous supprimer?" data-confirm-yes="delete()"><i class="fa fa-trash"></i></button>
+            <button  class="btn btn-icon btn-outline-danger btn-sm " wire:click.prevent="delete({{$sa->id}})"><i class="fa fa-trash"></i></button>
         </td>
         </tr>
 

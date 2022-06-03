@@ -25,6 +25,7 @@ class Users extends Component
     ];
     public $astuce;
     public $user;
+    public $idDeleting;
 
     public $form = [
         'id' => null,
@@ -66,6 +67,36 @@ class Users extends Component
         'form.tel.min' => 'Minimum 9 chiffres',
         'form.tel.regex' => 'Le telephone est invalid',
     ];
+
+    protected $listeners = ['remove'];
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',
+                'message' => 'Êtes-vous sûr?',
+                'text' => 'Vouliez-vous supprimer?'
+            ]);
+    }
+
+    public function remove()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Entreprise!',
+            'text' => 'Suppression avec succès.'
+        ]);
+
+        $user = User::where('id', $this->idDeleting)->first();
+
+        if ($user->isAdmin){
+
+        }else{
+
+        }
+
+        $user->delete();
+    }
 
     public function superAdmin()
     {
@@ -160,9 +191,10 @@ class Users extends Component
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
-        dd("bien");
+        $this->idDeleting = $id;
+        $this->alertConfirm();
     }
     public function store()
     {
