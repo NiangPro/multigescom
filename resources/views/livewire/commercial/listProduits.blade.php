@@ -1,4 +1,4 @@
-<div class="card mt-2">
+<div class="card mt-2 card-primary">
     <div class="card-body">
         <div class="section-title mt-0"><strong>Liste des Produits</strong></div>
         <div class="table-responsive">
