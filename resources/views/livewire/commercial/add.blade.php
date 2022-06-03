@@ -1,8 +1,8 @@
-<div class="card mt-2">
+<div class="card mt-2 card-primary">
     <div class="card-header">
         <h4>
             Formulaire @if ($status ==="editProduct")
-                de modification @else 
+                de modification @else
                 d'ajout
             @endif  produit / service</h4>
         <div class="card-header-action">
@@ -75,7 +75,7 @@
                             </span>
                         @enderror
                     </div>
-                </div> 
+                </div>
                 <div class="form-group col-md-8">
                     <label for="">Taxe</label>
                     <div class="input-group mb-2">
@@ -99,12 +99,12 @@
             </div>
             <div class="mb-4">
                 <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                <button type="submit" class="btn btn-success"> 
+                <button type="submit" class="btn btn-success">
                     @if ($status ==="editProduct")
-                        Modifier    
+                        Modifier
                     @else
                         Ajouter
-                    @endif   
+                    @endif
                 </button>
             </div>
         </form>
