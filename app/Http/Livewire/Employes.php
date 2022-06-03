@@ -49,7 +49,7 @@ class Employes extends Component
         'employe_id'=> '',
     ];
 
-    public $rules = [
+    protected $rules = [
         'form.prenom' => 'required|string',
         'form.nom' => 'required|string',
         'form.email' => 'required|string',
