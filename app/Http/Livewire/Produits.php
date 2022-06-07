@@ -44,6 +44,8 @@ class Produits extends Component
                 'message' => 'User Delete Successfully!',
                 'text' => 'It will not list on users table soon.'
             ]);
+
+        }
     public $status = "listProduct";
     public $tva;
     public $astuce;
