@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Clients;
 use App\Http\Livewire\Company;
 use App\Http\Livewire\DataStatic;
 use App\Http\Livewire\Employes;
@@ -31,6 +32,7 @@ Route::get('/donnees_statiques', DataStatic::class)->name('staticData');
 Route::get('/entreprises', Company::class)->name('entreprises');
 Route::get('/employes', Employes::class)->name('employe');
 Route::get('/produits', Produits::class)->name('produit');
+Route::get('/clients', Clients::class)->name('client');
 Route::get('/historiques', History::class)->name('history');
 Route::get('/profil', Profil::class)->name('profil');
 Route::get('/mot_de_passe', Password::class)->name('password');
