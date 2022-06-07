@@ -22,13 +22,11 @@ class Employes extends Component
     public $astuce;
     public $current_employe;
     public $profil;
-    public $showDiv=false;
     public $showDoc=false;
     public $file_name;
     public $contrats;
     public $document;
-
-
+    protected $listeners = ['remove', 'removeDocument'];
 
     public $form = [
         'prenom' => '',
@@ -92,15 +90,23 @@ class Employes extends Component
     }
 
     public function deleteDocument($id){
-        $this->showDoc =! $this->showDoc;
+        // $this->showDoc =! $this->showDoc;
         $this->document = Contrat::where('id', $id)->first();
+        $this->alertConfirm();
     }
 
     public function removeDocument(){
+
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Entreprise!',
+            'text' => 'Suppression avec succès.'
+        ]);
+
         $doc =  Contrat::where('id', $this->document->id)->first();
         $this->astuce->addHistorique('Suppression d\'un document ('.$this->document->titre.')', "delete");
         $doc->delete();
-        $this->dispatchBrowserEvent('deleteSuccessful');
+        // $this->dispatchBrowserEvent('deleteSuccessful');
 
         $this->getEmploye($this->current_employe->id);
 
@@ -144,12 +150,9 @@ class Employes extends Component
 
     public function delete($id)
     {
-        $this->showDiv =! $this->showDiv;
         $this->current_employe = Employe::where('id', $id)->first();
         $this->alertConfirm();
     }
-
-    protected $listeners = ['remove'];
 
     public function alertConfirm()
     {
@@ -171,6 +174,7 @@ class Employes extends Component
         $employe = Employe::where('id', $this->current_employe->id)->first();
         $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
         $employe->delete();
+        redirect(route('employe'));
     }
 
 
@@ -274,7 +278,7 @@ class Employes extends Component
 
             $this->astuce->addHistorique("Ajout employé", "add");
             $this->dispatchBrowserEvent("addSuccessful");
-            $this->changeEtat();
+            $this->etat="list";
 
             $this->initForm();
         }

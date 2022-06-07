@@ -17,7 +17,12 @@
                     <tr>
                         <td>{{$produit->nom}}</td>
                         <td>{{$produit->description}}</td>
-                        <td>{{$produit->type}}</td>
+                        <td>
+                            
+                        <span style="color: white;padding: 4px; @if($produit->type=='Produit') background-color:green; @else background-color:rgb(250, 172, 29); @endif ">
+                            {{$produit->type}}
+                        </span>
+                        </td>
                         <td>{{$produit->tarif}}</td>
                         <td>{{$produit->taxe}}</td>
                         <td>

@@ -4,37 +4,32 @@
         <div class="table-responsive">
             <table class="table table-hover" id="table-2">
             <thead>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Tarif</th>
-                <th>Taxe</th>
-                <th>Action</th>
+                <tr>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>tel</th>
+                    <th>email</th>
+                    <th>Pays</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Tarif</th>
-                <th>Taxe</th>
-                <th>Action</th>
-                {{-- @foreach ($produits as $produit)
+                @foreach ($clients as $client)
                     <tr>
-                        <td>{{$produit->nom}}</td>
-                        <td>{{$produit->description}}</td>
-                        <td>{{$produit->type}}</td>
-                        <td>{{$produit->tarif}}</td>
-                        <td>{{$produit->taxe}}</td>
+                        <td>{{$client->nom}}</td>
+                        <td>{{$client->adresse}}</td>
+                        <td>{{$client->tel}}</td>
+                        <td>{{$client->email}}</td>
+                        <td>{{$client->pays->nom_fr}}</td>
                         <td>
                             <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-success btn-sm" wire:click.prevent="getProduct({{$produit->id}})"><i class="far fa-edit"></i></button>
+                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getClient({{$client->id}})"><i class="far fa-eye"></i></button>
                                 <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
-                                trigger--fire-modal-1" wire:click.prevent="deleteProduct({{$produit->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                trigger--fire-modal-1" wire:click.prevent="deleteClient({{$client->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
             </table>
         </div>

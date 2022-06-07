@@ -90,13 +90,13 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Pays<span class="text-danger">*</span></div>
                             </div>
-                            <select class="form-control @error('form.pays') is-invalid @enderror" wire:model="form.pays" id="exampleFormControlSelect1">
+                            <select class="form-control @error('form.country_id') is-invalid @enderror" wire:model="form.country_id" id="exampleFormControlSelect1">
                                 <option value="">Selectionner un pays</option>
                                 @foreach ($country as $c)
-                                    <option value="{{$c->nom_fr}}">{{$c->nom_fr}}</option>
+                                    <option value="{{$c->id}}">{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
-                            @error('form.pays') <span class="error text-danger">{{$message}}</span> @enderror
+                            @error('form.country_id') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>   
                 </div>

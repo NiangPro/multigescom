@@ -1,16 +1,6 @@
 <div>
   <button  wire:click.prevent="changeEtat()"  class="btn btn-primary mb-2" >@if($etat==="list")<i class="fa fa-plus" aria-hidden="true"></i> Ajout @else<i class="fa fa-list" aria-hidden="true"></i> Liste @endif</button>
     @if ($etat === "list")
-      @if ($showDiv)
-        <div id="message" class="container col-sm-6 text-center alert alert-info alert-dismissible fade show" role="alert">
-          <strong>Voulez-vous vraiment supprimer <span style="color: black;">{{$current_employe->prenom}} {{$current_employe->nom}} ?</span></strong>
-          <span class="float-right mt-n1">
-            <button wire:click.prevent="remove" class="btn btn-danger btn-sm"  data-dismiss="alert" aria-label="Close">Oui</button>&nbsp;&nbsp;
-            <button type="button" class="btn btn-success btn-sm" data-dismiss="alert" aria-label="Close">Non</button>
-          </span>
-        </div>
-      @endif
-
       <div class="row mt-3">
         @foreach ($employes as $item)
           <div class="col-12 col-sm-12 col-lg-4">

@@ -65,7 +65,7 @@
                             <span class="selectgroup-button">Produit</span>
                         </label>
                         <label class="selectgroup-item">
-                            <input type="radio" name="type" value="Commercial" class="selectgroup-input @error('form.type') is-invalid
+                            <input type="radio" name="type" value="Service" class="selectgroup-input @error('form.type') is-invalid
                             @enderror" wire:model="form.type">
                             <span class="selectgroup-button">Service</span>
                         </label>
