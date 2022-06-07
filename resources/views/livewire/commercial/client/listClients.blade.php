@@ -1,6 +1,6 @@
 <div class="card mt-2 card-primary">
     <div class="card-body">
-        <div class="section-title mt-0"><strong>Liste des Produits</strong></div>
+        <div class="section-title mt-0"><strong>Liste des Clients</strong></div>
         <div class="table-responsive">
             <table class="table table-hover" id="table-2">
             <thead>
@@ -13,7 +13,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($produits as $produit)
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Tarif</th>
+                <th>Taxe</th>
+                <th>Action</th>
+                {{-- @foreach ($produits as $produit)
                     <tr>
                         <td>{{$produit->nom}}</td>
                         <td>{{$produit->description}}</td>
@@ -28,7 +34,7 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
             </table>
         </div>

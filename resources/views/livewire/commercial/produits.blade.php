@@ -2,11 +2,11 @@
     {{-- Care about people's approval and you will be their prisoner. --}}
   <button wire:click.prevent="changeEtat('addProduct')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
     @if ($status ==="addProduct")
-        @include('livewire.commercial.add')
+        @include('livewire.commercial.produit.add')
     @elseif($status ==="listProduct")
-        @include('livewire.commercial.listProduits')
+        @include('livewire.commercial.produit.listProduits')
     @elseif($status ==="editProduct")
-        @include('livewire.commercial.add')
+        @include('livewire.commercial.produit.add')
     @endif
 </div>
 

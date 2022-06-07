@@ -12,44 +12,11 @@ class Produits extends Component
 {
 
     protected $listeners = ['remove'];
-
-    public function alertSuccess()
-    {
-        $this->dispatchBrowserEvent('swal:modal', [
-                'type' => 'success',
-                'message' => 'User Created Successfully!',
-                'text' => 'It will list on users table soon.'
-            ]);
-    }
-
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function alertConfirm()
-    {
-        $this->dispatchBrowserEvent('swal:confirm', [
-                'type' => 'warning',
-                'message' => 'Are you sure?',
-                'text' => 'If deleted, you will not be able to recover this imaginary file!'
-            ]);
-    }
-
-    public function remove()
-    {
-        /* Write Delete Logic */
-        $this->dispatchBrowserEvent('swal:modal', [
-                'type' => 'success',
-                'message' => 'User Delete Successfully!',
-                'text' => 'It will not list on users table soon.'
-            ]);
-
-        }
     public $status = "listProduct";
     public $tva;
     public $astuce;
     public $current_produit;
+    public $idDeleting;
 
     public $form = [
         'nom' => '',
@@ -87,6 +54,40 @@ class Produits extends Component
         $this->form['type'] = $this->current_produit->type;
         $this->form['tarif'] = $this->current_produit->tarif;
         $this->form['taxe'] = $this->current_produit->taxe;
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+
+    public function deleteProduct($id){
+        $this->idDeleting = $id;
+        $this->alertConfirm();
+    }
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'message' => 'Êtes-vous sûr?',
+            'text' => 'Vouliez-vous supprimer?'
+        ]);
+    }
+
+    public function remove()
+    {
+        /* Write Delete Logic */
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Produit/Service',
+            'text' => 'Suppression avec succéss!.'
+        ]);
+
+        $produit = Produit::where('id', $this->idDeleting)->first();
+        $produit->delete();
+        $this->astuce->addHistorique('Suppression d\'un produit/service', "delete");
     }
 
     public function store(){
