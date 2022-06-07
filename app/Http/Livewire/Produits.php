@@ -78,16 +78,16 @@ class Produits extends Component
 
     public function remove()
     {
+
+        $produit = Produit::where('id', $this->idDeleting)->first();
+        $produit->delete();
+        $this->astuce->addHistorique('Suppression d\'un produit/service', "delete");
         /* Write Delete Logic */
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => 'Produit/Service',
             'text' => 'Suppression avec succéss!.'
         ]);
-
-        $produit = Produit::where('id', $this->idDeleting)->first();
-        $produit->delete();
-        $this->astuce->addHistorique('Suppression d\'un produit/service', "delete");
     }
 
     public function store(){
