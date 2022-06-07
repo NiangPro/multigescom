@@ -11,6 +11,16 @@
                 <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+=======
+        <span class="btn-add">
+            <button wire:click.prevent="changeStatut('info')" class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
+                &nbsp;
+            <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+        </span>
+>>>>>>> 3c5c504ded4878bef48dcb79cd6266e45b907cb4
+>>>>>>> d742475f1d574de4c4170d54eef3f386f1c4c1cd
     </div>
     @if ($showDoc)
             <div id="message" class="container col-sm-8 text-center alert alert-info alert-dismissible fade show" role="alert">

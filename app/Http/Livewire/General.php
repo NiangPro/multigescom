@@ -30,6 +30,26 @@ class General extends Component
         'icon.icon' => 'Veuillez choisir une image',
     ];
 
+    protected $listeners = ['remove'];
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',
+                'message' => 'Êtes-vous sûr?',
+                'text' => 'Vouliez-vous supprimer?'
+            ]);
+    }
+
+    public function remove()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Entreprise!',
+            'text' => 'Suppression avec succès.'
+        ]);
+    }
+
     public function editConfig()
     {
         $path = base_path('.env');

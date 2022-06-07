@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <button  class="btn btn-icon btn-outline-success btn-sm" wire:click.prevent="info({{$sa->id}})"><i class="far fa-eye"></i></button>
-                <button  class="btn btn-icon btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                <button  class="btn btn-icon btn-outline-danger btn-sm" wire:click.prevent="delete({{$sa->id}})"><i class="fa fa-trash"></i></button>
 
             </div>
           </div>
