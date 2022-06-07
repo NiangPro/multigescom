@@ -5,20 +5,12 @@
                 Document(s) personnel(s)
             @endif
         </h4>
-<<<<<<< HEAD
         <div class="card-header-action">
             <div class="btn-group">
                 <button wire:click.prevent="changeStatut('info')" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
                 <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
             </div>
         </div>
-=======
-        <span class="btn-add">
-            <button wire:click.prevent='changeStatut' class="btn back-info btn-outline-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button>
-                &nbsp;
-            <button wire:click.prevent="changeStatut('add')" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
-        </span>
->>>>>>> 3c5c504ded4878bef48dcb79cd6266e45b907cb4
     </div>
     @if ($showDoc)
             <div id="message" class="container col-sm-8 text-center alert alert-info alert-dismissible fade show" role="alert">
