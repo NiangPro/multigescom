@@ -4,33 +4,34 @@
             {{-- view product --}}
             <div class="row pt-3" id="ads">
                 @foreach ($produits as $produit)
-                <!-- Category Card -->
-                    <div class="col-md-3">
-                        <div class="card rounded">
-                            <div class="card-image">
-                                <span class="card-notify-badge
-                                    @if ($produit->type==='Produit')
-                                        prod-prod
-                                    @else
-                                        prod-serv
-                                    @endif">{{$produit->type}}</span>
-                                    <a class="card-notify-year btn-group text-center" type="button" wire:click.prevent="deleteProduct({{$produit->id}})" data-confirm-yes="remove()">
-                                        <i class="fa fa-trash card-notify-icon"></i>
-                                    </a>
-                                <img class="image-fluid" src="{{asset('storage/images/'.$produit->image_produit)}}" alt="Alternate Text" />
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="ad-title m-auto">
-                                    <h5>
-                                        {{Str::substr($produit->nom, 0, 11) }} @if (strlen($produit->nom)> 8)
-                                        ...
-                                        @endif
-                                    </h5>
-                                </div>
-                                <button class="ad-btn" type="button" wire:click.prevent="getProduct({{$produit->id}})">Voir</button>
-                            </div>
+                <div class="col-sm-3 col-md-6 col-lg-3">
+                    <article class="article article-style-b">
+                      <div class="article-header card-img-overlay">
+                        <div class="article-image" data-background="{{asset('storage/images/'.$produit->image_produit)}}">
                         </div>
-                    </div>
+                        <div class="article-badge">
+                          <div class="article-badge-item @if ($produit->type === "Produit")
+                              bg-info
+                          @else
+                              bg-warning
+                          @endif"><i class="fas fa-fire"></i> {{$produit->type}}</div>
+                        </div>
+                      </div>
+                      <div class="article-details">
+                        <div class="article-title">
+                          <h5>{{ucfirst(Str::substr($produit->nom, 0, 14)) }} @if (strlen($produit->nom)> 8)
+                            ...
+                            @endif</h5>
+                        </div>
+
+                        <div class="article-cta">
+                            <button class="btn btn-primary"  wire:click.prevent="getProduct({{$produit->id}})">Voir plus</button>
+
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+
                 @endforeach
                 <div class="container">
                     {{ $produits->links() }}
