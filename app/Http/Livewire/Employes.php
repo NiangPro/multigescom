@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Country;
 use App\Models\Employe;
+use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Node\Block\Document;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -24,9 +26,10 @@ class Employes extends Component
     public $profil;
     public $showDoc=false;
     public $file_name;
+    public $typeDeleted;
     public $contrats;
     public $document;
-    protected $listeners = ['remove', 'removeDocument'];
+    protected $listeners = ['remove'];
 
     public $form = [
         'prenom' => '',
@@ -89,27 +92,25 @@ class Employes extends Component
         $this->statut = $statut;
     }
 
+
+
     public function deleteDocument($id){
-        // $this->showDoc =! $this->showDoc;
         $this->document = Contrat::where('id', $id)->first();
         $this->alertConfirm();
+        $this->typeDeleted = "document";
     }
 
     public function removeDocument(){
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Entreprise!',
+            'message' => 'Contrat!',
             'text' => 'Suppression avec succès.'
         ]);
 
         $doc =  Contrat::where('id', $this->document->id)->first();
         $this->astuce->addHistorique('Suppression d\'un document ('.$this->document->titre.')', "delete");
         $doc->delete();
-        // $this->dispatchBrowserEvent('deleteSuccessful');
-
-        $this->getEmploye($this->current_employe->id);
-
 
     }
 
@@ -151,6 +152,7 @@ class Employes extends Component
     public function delete($id)
     {
         $this->current_employe = Employe::where('id', $id)->first();
+        $this->typeDeleted = "employe";
         $this->alertConfirm();
     }
 
@@ -165,16 +167,19 @@ class Employes extends Component
 
     public function remove()
     {
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type' => 'success',
-            'message' => 'Entreprise!',
-            'text' => 'Suppression avec succès.'
-        ]);
+        if ($this->typeDeleted === "employe"){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',
+                'message' => 'Entreprise!',
+                'text' => 'Suppression avec succès.'
+            ]);
 
-        $employe = Employe::where('id', $this->current_employe->id)->first();
-        $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
-        $employe->delete();
-        redirect(route('employe'));
+            $employe = Employe::where('id', $this->current_employe->id)->first();
+            $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
+            $employe->delete();
+        }else{
+            $this->removeDocument();
+        }
     }
 
 

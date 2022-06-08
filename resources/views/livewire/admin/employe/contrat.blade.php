@@ -12,7 +12,6 @@
             </div>
         </div>
     </div>
-    
     <div class="card-body mt-2 mb-2">
         <div class="row">
             @foreach ($this->current_employe->contrats as $contrat)
@@ -28,6 +27,7 @@
                                 <button wire:click.prevent="deleteDocument({{$contrat->id}})"
                                 data-confirm-yes="removeDocument()"
                                 class="btn btn-icon btn-outline-danger btn-sm" title="Supprimer"><i class="fa fa-trash left-i"></i></button>
+                                <button wire:click.prevent="download({{$contrat->id}})" class="btn btn-icon btn-sm btn-outline-info"><i class="fa fa-download left-i" aria-hidden="true"></i></button>
                             </span>
                         </div>
                         <hr>
@@ -46,7 +46,7 @@
                     <span class="text-center text-danger">Aucune données </span>
                 </div>
             @endif
-            
+
         </div>
     </div>
 </div>
