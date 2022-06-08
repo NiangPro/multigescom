@@ -24,7 +24,6 @@ class Employes extends Component
     public $astuce;
     public $current_employe;
     public $profil;
-    public $showDoc=false;
     public $file_name;
     public $typeDeleted;
     public $contrats;

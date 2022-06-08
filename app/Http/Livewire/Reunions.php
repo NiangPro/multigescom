@@ -7,6 +7,13 @@ use Livewire\Component;
 
 class Reunions extends Component
 {
+    protected $listeners = ['remove'];
+    public $status = "listReunions";
+
+    public function changeEtat($etat){
+        $this->status = $etat;
+    }
+
     public function render()
     {
         return view('livewire.commercial.reunions')->layout('layouts.app', [
