@@ -6,17 +6,21 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Astuce;
 use App\Models\Produit;
-
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Produits extends Component
-{
-
+{   
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
     protected $listeners = ['remove'];
+
     public $status = "listProduct";
     public $tva;
     public $astuce;
     public $current_produit;
     public $idDeleting;
+    public $image_produit;
 
     public $form = [
         'nom' => '',
@@ -117,6 +121,7 @@ class Produits extends Component
                 'nom' => $this->form['nom'],
                 'description' => $this->form['description'],
                 'type' => $this->form['type'],
+                'image_produit' => $this->form['type'] === "Produit" ? 'produit.png' : 'service.png',
                 'tarif' => $this->form['tarif'],
                 'taxe' => $this->form['taxe'],
                 'entreprise_id' => Auth::user()->entreprise_id,
@@ -128,6 +133,30 @@ class Produits extends Component
                 $this->initForm();
         }
     }
+
+    public function editImage()
+    {
+        if ($this->image_produit) {
+            $this->validate([
+                'image_produit' => 'image'
+            ]);
+            $imageName = 'produit'.\md5($this->current_produit->id).'jpg';
+
+            $this->image_produit->storeAs('public/images', $imageName);
+
+            $produit = Produit::where('id', $this->current_produit->id)->first();
+
+            $produit->image_produit = $imageName;
+            $produit->save();
+
+            $this->astuce->addHistorique('Changement image d\'un produit/service', "update");
+
+            $this->image_produit = "";
+            $this->dispatchBrowserEvent('imageEditSuccessful');
+            $this->getProduct($this->current_produit->id);
+        }
+    }
+
 
     public function initForm(){
         $this->form['nom']='';
@@ -147,7 +176,7 @@ class Produits extends Component
         $this->tva = $this->astuce->getStaticData("TVA");
 
         return view('livewire.commercial.produits', [
-            "produits" => Produit::orderBy('id','DESC')->get(),
+            "produits" => Produit::orderBy('id','DESC')->paginate(6),
         ])->layout('layouts.app',[
             'title' => 'Produits & Services',
             "page" => "produit",

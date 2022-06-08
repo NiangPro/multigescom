@@ -77,6 +77,16 @@
 
         $('#message').hide();
     });
+
+    window.addEventListener('profilEditSuccessful', event =>{
+        iziToast.success({
+        title: 'Profil',
+        message: 'Modification avec succéss',
+        position: 'topRight'
+        });
+
+        $('#message').hide();
+    });
 </script>
 
 @endsection

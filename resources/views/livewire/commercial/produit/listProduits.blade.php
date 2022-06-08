@@ -1,41 +1,32 @@
 <div class="card mt-2 card-primary">
     <div class="card-body">
         <div class="section-title mt-0"><strong>Liste des Produits</strong></div>
-        <div class="table-responsive">
-            <table class="table table-hover" id="table-2">
-            <thead>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Tarif</th>
-                <th>Taxe</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
+            {{-- view product --}}
+            <div class="row pt-3" id="ads">
                 @foreach ($produits as $produit)
-                    <tr>
-                        <td>{{$produit->nom}}</td>
-                        <td>{{$produit->description}}</td>
-                        <td>
-                            
-                        <span style="color: white;padding: 4px; @if($produit->type=='Produit') background-color:green; @else background-color:rgb(250, 172, 29); @endif ">
-                            {{$produit->type}}
-                        </span>
-                        </td>
-                        <td>{{$produit->tarif}}</td>
-                        <td>{{$produit->taxe}}</td>
-                        <td>
-                            <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-success btn-sm" wire:click.prevent="getProduct({{$produit->id}})"><i class="far fa-edit"></i></button>
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
-                                trigger--fire-modal-1" wire:click.prevent="deleteProduct({{$produit->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                <!-- Category Card -->
+                    <div class="col-md-3">
+                        <div class="card rounded">
+                            <div class="card-image">
+                                <span class="card-notify-badge">{{$produit->type}}</span>
+                                    <a class="card-notify-year btn-group text-center" type="button" wire:click.prevent="deleteProduct({{$produit->id}})" data-confirm-yes="remove()">
+                                        <i class="fa fa-trash card-notify-icon"></i>
+                                    </a>
+                                <img class="image-fluid" src="{{asset('storage/images/'.$produit->image_produit)}}" alt="Alternate Text" />
                             </div>
-                        </td>
-                    </tr>
+                            <div class="card-body text-center">
+                                <div class="ad-title m-auto">
+                                    <h5>{{$produit->nom}}</h5>
+                                </div>
+                                <a class="ad-btn" type="button" wire:click.prevent="getProduct({{$produit->id}})">Voir</a>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
-            </tbody>
-            </table>
+                <div class="container">
+                    {{ $produits->links() }}
+                </div>
+            </div>
         </div>
     </div>
 </div>

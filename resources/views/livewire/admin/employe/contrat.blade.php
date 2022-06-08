@@ -12,15 +12,7 @@
             </div>
         </div>
     </div>
-    {{-- @if ($showDoc)
-            <div id="message" class="container col-sm-8 text-center alert alert-info alert-dismissible fade show" role="alert">
-                <strong>Voulez-vous vraiment supprimer ce document</strong>
-                <span class="float-right mt-n1">
-                    <button wire:click.prevent="removeDocument" class="btn btn-danger btn-sm"  data-dismiss="alert" aria-label="Close">Oui</button>&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="alert" aria-label="Close">Non</button>
-                </span>
-            </div>
-        @endif --}}
+    
     <div class="card-body mt-2 mb-2">
         <div class="row">
             @foreach ($this->current_employe->contrats as $contrat)

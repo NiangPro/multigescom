@@ -46,5 +46,14 @@
 
             $('#message').hide();
         });
+        window.addEventListener('imageEditSuccessful', event =>{
+        iziToast.success({
+        title: 'Image',
+        message: 'Modification avec succéss',
+        position: 'topRight'
+        });
+
+        $('#message').hide();
+    });
     </script>
 @endsection
