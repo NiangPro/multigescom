@@ -8,7 +8,12 @@
                     <div class="col-md-3">
                         <div class="card rounded">
                             <div class="card-image">
-                                <span class="card-notify-badge">{{$produit->type}}</span>
+                                <span class="card-notify-badge 
+                                    @if ($produit->type==='Produit')
+                                        prod-prod
+                                    @else
+                                        prod-serv
+                                    @endif">{{$produit->type}}</span>
                                     <a class="card-notify-year btn-group text-center" type="button" wire:click.prevent="deleteProduct({{$produit->id}})" data-confirm-yes="remove()">
                                         <i class="fa fa-trash card-notify-icon"></i>
                                     </a>
@@ -16,7 +21,11 @@
                             </div>
                             <div class="card-body text-center">
                                 <div class="ad-title m-auto">
-                                    <h5>{{$produit->nom}}</h5>
+                                    <h5>
+                                        {{Str::substr($produit->nom, 0, 11) }} @if (strlen($produit->nom)> 8)
+                                        ...
+                                        @endif
+                                    </h5>
                                 </div>
                                 <a class="ad-btn" type="button" wire:click.prevent="getProduct({{$produit->id}})">Voir</a>
                             </div>

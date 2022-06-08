@@ -140,12 +140,19 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
       position: absolute;
       left: -10px;
       top: -20px;
-      background: #6777ef;
       text-align: center;
       border-radius: 30px 30px 30px 30px; 
       padding: 5px 10px;
       font-size: 14px;
 
+  }
+
+  .prod-prod{
+     background: green;
+  }
+
+  .prod-serv{
+    background-color: var(--warning);
   }
 
 #ads .card-notify-year {
@@ -240,8 +247,8 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   }
 
   .image-fluid{
-    max-width: 100%;
-	  height: auto;
+    width: 100%;
+    height: 150px;
   }
 /* end card product */
 
