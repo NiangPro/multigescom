@@ -66,7 +66,7 @@ class Produits extends Component
      * @return response()
      */
 
-    public function deleteClient($id){
+    public function deleteProduct($id){
         $this->idDeleting = $id;
         $this->alertConfirm();
     }
