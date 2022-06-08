@@ -81,21 +81,29 @@ class Users extends Component
 
     public function remove()
     {
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type' => 'success',
-            'message' => 'Entreprise!',
-            'text' => 'Suppression avec succès.'
-        ]);
 
         $user = User::where('id', $this->idDeleting)->first();
 
-        if ($user->isAdmin){
+        if ($user->role === "Admin"){
+            $countAdmin = User::where("role", "Admin")->where("entreprise_id", $user->entreprise_id)->count();
+            dd($countAdmin);
+        }else{
+            $countAdmin = User::where("role", "Super Admin")->count();
+        }
+
+        if ($countAdmin <= 1) {
 
         }else{
 
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',
+                'message' => 'Entreprise!',
+                'text' => 'Suppression avec succès.'
+            ]);
+
+            $user->delete();
         }
 
-        $user->delete();
     }
 
     public function superAdmin()
