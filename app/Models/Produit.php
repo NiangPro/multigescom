@@ -16,6 +16,7 @@ class Produit extends Model
         'description',
         'type',
         'tarif',
+        'produit_image',
         'taxe',
         'entreprise_id'
     ];

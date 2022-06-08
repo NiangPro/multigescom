@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nom');
             $table->text('description')->nullable();
             $table->string('type');
+            $table->string('image_produit');
             $table->double('tarif');
             $table->float('taxe');
             $table->unsignedBigInteger('entreprise_id');

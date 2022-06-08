@@ -96,11 +96,11 @@ class Clients extends Component
                 'country_id' => $this->form['country_id'],
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
-    
+
             $this->astuce->addHistorique("Ajout client", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->status="listClients";
-    
+
             $this->initForm();
         }
     }

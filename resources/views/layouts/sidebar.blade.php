@@ -39,6 +39,7 @@
           <li class="@if ($page == "produit") active @endif"><a class="nav-link" href="{{route('produit')}}"><i class="fab fa-product-hunt" aria-hidden="true"></i> <span>Produits</span></a></li>
           <li class="@if ($page == "client") active @endif"><a class="nav-link" href="{{route('client')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>Clients</span></a></li>
           <li class="@if ($page == "fournisseur") active @endif"><a class="nav-link" href="{{route('fournisseur')}}"><i class="fas fa-street-view" aria-hidden="true"></i> <span>Fournisseurs</span></a></li>
+          <li class="@if ($page == "prospect") active @endif"><a class="nav-link" href="{{route('prospect')}}"><i class="fa fa-tty" aria-hidden="true"></i> <span>Prospects</span></a></li>
 
           @endif
           <li class="@if ($page == "history") active @endif"><a class="nav-link" href="{{route('history')}}"><i class="fa fa-history" aria-hidden="true"></i> <span>Historiques</span></a></li>

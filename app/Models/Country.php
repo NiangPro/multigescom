@@ -17,4 +17,14 @@ class Country extends Model
         'nom_en',
         'nom_fr',
     ];
+
+    public function client()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    public function fournisseur()
+    {
+        return $this->hasMany(Fournisseur::class);
+    }
 }

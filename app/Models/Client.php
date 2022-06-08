@@ -27,6 +27,6 @@ class Client extends Model
 
     public function pays()
     {
-        return $this->belongsTo(Country::class, "entreprise_id");
+        return $this->belongsTo(Country::class, "country_id");
     }
 }
