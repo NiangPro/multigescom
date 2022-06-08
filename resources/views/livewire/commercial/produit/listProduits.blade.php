@@ -8,7 +8,7 @@
                     <div class="col-md-3">
                         <div class="card rounded">
                             <div class="card-image">
-                                <span class="card-notify-badge 
+                                <span class="card-notify-badge
                                     @if ($produit->type==='Produit')
                                         prod-prod
                                     @else
