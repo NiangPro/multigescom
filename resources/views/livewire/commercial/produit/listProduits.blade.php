@@ -27,7 +27,7 @@
                                         @endif
                                     </h5>
                                 </div>
-                                <a class="ad-btn" type="button" wire:click.prevent="getProduct({{$produit->id}})">Voir</a>
+                                <button class="ad-btn" type="button" wire:click.prevent="getProduct({{$produit->id}})">Voir</button>
                             </div>
                         </div>
                     </div>
