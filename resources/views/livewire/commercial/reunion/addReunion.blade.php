@@ -58,7 +58,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Date<span class="text-danger">*</span></div>
                           </div>
-                          <input type="date" class="form-control @error('form.date') is-invalid
+                          <input type="datetime-local" class="form-control @error('form.date') is-invalid
                             @enderror" wire:model="form.date">
                             @error('form.date')
                                 <span class="invalid-feedback" role="alert">

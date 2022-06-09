@@ -16,7 +16,7 @@
 
         window.addEventListener('addSuccessful', event =>{
             iziToast.success({
-            title: 'Prospect',
+            title: 'Reunion',
             message: 'Ajout avec succes',
             position: 'topRight'
             });
@@ -24,20 +24,10 @@
 
         window.addEventListener('updateSuccessful', event =>{
             iziToast.success({
-            title: 'Prospect',
+            title: 'Reunion',
             message: 'Mis à jour avec succes',
             position: 'topRight'
             });
-        });
-
-        window.addEventListener('deleteSuccessful', event =>{
-            iziToast.success({
-            title: 'Prospect',
-            message: 'Suppression avec succes',
-            position: 'topRight'
-            });
-
-            $('#message').hide();
         });
         
     </script>
