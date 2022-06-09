@@ -33,4 +33,9 @@ class Employe extends Model
     {
         return $this->hasMany(Contrat::class);
     }
+
+    public function prospects()
+    {
+        return $this->hasMany(Prospect::class);
+    }
 }
