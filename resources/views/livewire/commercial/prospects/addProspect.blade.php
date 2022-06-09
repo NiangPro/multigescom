@@ -20,11 +20,11 @@
                     <div class="form-group">
                         <div class="input-group mb-2">
                           <div class="input-group-prepend">
-                            <div class="input-group-text">Sujet<span class="text-danger">*</span></div>
+                            <div class="input-group-text">Nom<span class="text-danger">*</span></div>
                           </div>
-                          <input type="text" class="form-control @error('form.sujet') is-invalid
-                            @enderror" placeholder="Sujet" wire:model="form.sujet">
-                            @error('form.sujet')
+                          <input type="text" class="form-control @error('form.nom') is-invalid
+                            @enderror" placeholder="Nom" wire:model="form.nom">
+                            @error('form.nom')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -38,13 +38,17 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Source<span class="text-danger">*</span></div>
                           </div>
-                          <input type="text" class="form-control @error('form.source') is-invalid
-                            @enderror" placeholder="Source" wire:model="form.source">
+                          <select class="form-control @error('form.source') is-invalid @enderror" wire:model="form.source" id="exampleFormControlSelect1">
+                            <option value="">Selectionner une source</option>
+                                @foreach ($staticData as $item)
+                                    <option value="{{$item->id}}">{{$item->valeur}}</option>
+                                @endforeach
+                            </select>
                             @error('form.source')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
+                            @enderror    
                         </div>
                     </div>
                 </div>
@@ -53,16 +57,16 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Assigné à<span class="text-danger">*</span></div>
-                          </div>
-                          <input type="text" class="form-control @error('form.assigne') is-invalid
-                            @enderror" placeholder="Assigné à" wire:model="form.assigne">
-                            @error('form.assigne')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Assigné à<span class="text-danger">*</span></div>
+                            </div>
+                            <select class="form-control @error('form.assignation') is-invalid @enderror" wire:model="form.assignation" id="exampleFormControlSelect1">
+                                <option value="">Selectionner un employé</option>
+                                @foreach ($employes as $item)
+                                    <option value="{{$item->id}}">{{$item->prenom}} {{$item->nom}}</option>
+                                @endforeach
+                            </select>
+                            @error('form.country_id') <span class="error text-danger">{{$message}}</span> @enderror
                         </div>
                     </div>
                 </div>

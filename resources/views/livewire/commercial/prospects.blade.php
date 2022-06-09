@@ -39,6 +39,14 @@
 
             $('#message').hide();
         });
+
+        window.addEventListener('approveSuccessful', event =>{
+            iziToast.success({
+            title: 'Prospect',
+            message: 'approuvé comme client avec succes',
+            position: 'topRight'
+            });
+        });
         
     </script>
 @endsection

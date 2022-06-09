@@ -5,35 +5,37 @@
             <table class="table table-hover" id="table-2">
             <thead>
                 <tr>
-                    <th>Sujet</th>
-                    <th>Source</th>
-                    <th>Assigné à</th>
-                    <th>Pays</th>
+                    <th>Nom</th>
                     <th>Adresse</th>
                     <th>Email</th>
                     <th>Tel</th>
+                    <th>Pays</th>
+                    <th>Source</th>
+                    <th>Assigné à</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($prospects as $pros)
+                @foreach ($prospects as $pros)
                     <tr>
-                        <td>{{$pros->sujet}}</td>
-                        <td>{{$pros->source}}</td>
-                        <td>{{$pros->tel}}</td>
+                        <td>{{$pros->nom}}</td>
+                        <td>{{$pros->adresse}}</td>
                         <td>{{$pros->email}}</td>
+                        <td>{{$pros->tel}}</td>
                         <td>{{$pros->pays->nom_fr}}</td>
+                        <td>{{$pros->source}}</td>
+                        <td>{{$pros->assignation}}</td>
                         <td>
                             <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getClient({{$client->id}})"><i class="far fa-eye"></i></button>
+                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getProspect({{$pros->id}})"><i class="far fa-eye"></i></button>
                                 <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
-                                trigger--fire-modal-1" wire:click.prevent="deleteClient({{$client->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
-                                <button  class="btn ml-1 btn-icon btn-outline-success btn-sm  
-                                trigger--fire-modal-1" >Approuver</button>
+                                trigger--fire-modal-1" wire:click.prevent="delete({{$pros->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                <button title="definir comme client" class="btn ml-1 btn-icon btn-outline-success btn-sm  
+                                trigger--fire-modal-1" wire:click.prevent="approve({{$pros->id}})">Approuver</button>
                             </div>
                         </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
             </table>
         </div>
