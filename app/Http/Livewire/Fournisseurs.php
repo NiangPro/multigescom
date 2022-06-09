@@ -99,7 +99,7 @@ class Fournisseurs extends Component
     
             $this->astuce->addHistorique("Ajout fournisseur", "add");
             $this->dispatchBrowserEvent("addSuccessful");
-            $this->status="listfournisseurs";
+            $this->status="listFournisseurs";
     
             $this->initForm();
         }

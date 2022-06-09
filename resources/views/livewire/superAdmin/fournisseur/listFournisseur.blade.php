@@ -7,8 +7,8 @@
                 <tr>
                     <th>Nom</th>
                     <th>Adresse</th>
-                    <th>téléphone</th>
-                    <th>email</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
                     <th>Pays</th>
                     <th>Action</th>
                 </tr>
