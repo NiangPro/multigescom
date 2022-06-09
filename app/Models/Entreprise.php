@@ -51,4 +51,9 @@ class Entreprise extends Model
     {
         return $this->hasMany(Fournisseur::class);
     }
+
+    public function reunions()
+    {
+        return $this->hasMany(Reunion::class);
+    }
 }
