@@ -10,8 +10,6 @@
                     <th>Email</th>
                     <th>Tel</th>
                     <th>Pays</th>
-                    <th>Source</th>
-                    <th>Assigné à</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -23,8 +21,6 @@
                         <td>{{$pros->email}}</td>
                         <td>{{$pros->tel}}</td>
                         <td>{{$pros->pays->nom_fr}}</td>
-                        <td>{{$pros->source}}</td>
-                        <td>{{$pros->assignation}}</td>
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getProspect({{$pros->id}})"><i class="far fa-eye"></i></button>
