@@ -56,4 +56,9 @@ class Entreprise extends Model
     {
         return $this->hasMany(Reunion::class);
     }
+
+    public function prospects()
+    {
+        return $this->hasMany(Prospect::class);
+    }
 }
