@@ -22,6 +22,11 @@ class Entreprise extends Model
         'fermeture'
     ];
 
+    public function taches()
+    {
+        return $this->hasMany(Tache::class);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

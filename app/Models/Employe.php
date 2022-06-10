@@ -29,6 +29,11 @@ class Employe extends Model
         return $this->belongsTo(Entreprise::class, "entreprise_id");
     }
 
+    public function taches()
+    {
+        return $this->hasMany(Tache::class);
+    }
+
     public function contrats()
     {
         return $this->hasMany(Contrat::class);

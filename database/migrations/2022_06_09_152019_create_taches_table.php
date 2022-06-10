@@ -14,7 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('taches', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('titre');
+            $table->string('priorite');
+            $table->string('statut');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->text('description');
+            $table->unsignedBigInteger('assignation');
+            $table->foreign('assignation')->references('id')->on('employes')->onDelete("cascade");
+            $table->unsignedBigInteger('entreprise_id');
+            $table->foreign('entreprise_id')->references('id')->on('entreprises')->onDelete("cascade");
             $table->timestamps();
         });
     }
