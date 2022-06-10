@@ -32,4 +32,9 @@ class Country extends Model
     {
         return $this->hasMany(Prospect::class);
     }
+
+    public function employes()
+    {
+        return $this->hasMany(User::class);
+    }
 }

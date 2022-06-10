@@ -29,7 +29,7 @@ class Prospect extends Model
 
     public function employe()
     {
-        return $this->belongsTo(Employe::class, "assignation");
+        return $this->belongsTo(User::class, "assignation");
     }
 
     public function entreprise()

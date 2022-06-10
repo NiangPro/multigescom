@@ -76,14 +76,14 @@
             <label class="form-label">Rôle</label>
             <div class="selectgroup selectgroup-pills">
               <label class="selectgroup-item">
-            <input type="radio" name="role" wire:model="form.role" value="Super Admin" class="selectgroup-input" checked="">
+                <input type="radio" name="role" wire:model="form.role" value="Super Admin" class="selectgroup-input" checked="">
             <span class="selectgroup-button">Super Admin</span>
               </label>
               <label class="selectgroup-item">
                 <input type="radio" name="role" wire:model="form.role" value="Admin" class="selectgroup-input">
                 <span class="selectgroup-button">Admin</span>
               </label>
-              @if (isset(Auth()->user()->role) && Auth()->user()->role !== "Super Admin")
+              {{-- @if (isset(Auth()->user()->role) && Auth()->user()->role !== "Super Admin")
 
               <label class="selectgroup-item">
                 <input type="radio" name="role" wire:model="form.role" value="Comptable" class="selectgroup-input">
@@ -94,7 +94,7 @@
                 <span class="selectgroup-button">Commercial</span>
               </label>
 
-              @endif
+              @endif --}}
               @error('form.role')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

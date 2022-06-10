@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Country;
 use App\Models\Employe;
-use Illuminate\Support\Facades\Storage;
-use League\CommonMark\Node\Block\Document;
+use App\Models\User;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -150,7 +149,7 @@ class Employes extends Component
 
     public function delete($id)
     {
-        $this->current_employe = Employe::where('id', $id)->first();
+        $this->current_employe = User::where('id', $id)->first();
         $this->typeDeleted = "employe";
         $this->alertConfirm();
     }
@@ -173,7 +172,7 @@ class Employes extends Component
                 'text' => 'Suppression avec succès.'
             ]);
 
-            $employe = Employe::where('id', $this->current_employe->id)->first();
+            $employe = User::where('id', $this->current_employe->id)->first();
             $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
             $employe->delete();
         }else{
@@ -187,7 +186,7 @@ class Employes extends Component
         $this->etat="info";
         $this->initForm();
 
-        $this->current_employe = Employe::where('id', $id)->first();
+        $this->current_employe = User::where('id', $id)->first();
         $this->form['id'] = $this->current_employe->id;
         $this->form['prenom'] = $this->current_employe->prenom;
         $this->form['nom'] = $this->current_employe->nom;
@@ -201,7 +200,7 @@ class Employes extends Component
     }
 
     public function deleteEmploye($id){
-        $employe = Employe::where("id", $id)->first();
+        $employe = User::where("id", $id)->first();
         $employe->delete();
 
         $this->astuce->addHistorique('Suppression d\'un employé', "delete");
@@ -230,7 +229,7 @@ class Employes extends Component
 
             $this->profil->storeAs('public/images', $imageName);
 
-            $employe = Employe::where('id', $this->current_employe->id)->first();
+            $employe = User::where('id', $this->current_employe->id)->first();
 
             $employe->profil = $imageName;
             $employe->save();
@@ -249,7 +248,7 @@ class Employes extends Component
         $this->validate();
 
         if(isset($this->current_employe->id) && $this->current_employe->id !== null){
-            $employe = Employe::where("id", $this->current_employe->id)->first();
+            $employe = User::where("id", $this->current_employe->id)->first();
 
 
             $employe->prenom = $this->form['prenom'];
@@ -267,13 +266,15 @@ class Employes extends Component
             $this->initForm();
         }else{
 
-            Employe::create([
+            User::create([
                 'prenom' => $this->form['prenom'],
                 'nom' => $this->form['nom'],
                 'email' => $this->form['email'],
                 'tel' => $this->form['tel'],
                 'adresse' => $this->form['adresse'],
+                'role' => "Employe",
                 'pays' => $this->form['pays'],
+                'password' => "admin@1",
                 'fonction' => $this->form['fonction'],
                 'entreprise_id' => Auth::user()->entreprise_id,
                 'sexe' => $this->form['sexe'],
@@ -297,7 +298,7 @@ class Employes extends Component
 
         return view('livewire.admin.employes', [
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
-            "employes" => Employe::orderBy('id', 'DESC')->paginate(6)
+            "employes" => User::where('role', "Employe")->orderBy('id', 'DESC')->paginate(6)
 
             ])->layout('layouts.app', [
                 'title' => "Employés",

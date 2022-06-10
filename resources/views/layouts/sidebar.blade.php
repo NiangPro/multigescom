@@ -29,8 +29,12 @@
 
           <li class="menu-header">Super Admin</li>
           <li class="@if ($page == "entreprise") active @endif"><a class="nav-link" href="{{route('entreprises')}}"><i class="fas fa-th-large"></i> <span>Entreprises</span></a></li>
+          @endif
+
+          @if (Auth()->user()->role === 'Admin' || Auth()->user()->role === 'Super Admin')
           <li class="@if ($page == "users") active @endif"><a class="nav-link" href="{{route('users')}}"><i class="fas fa-users-cog"></i> <span>Utilisateurs</span></a></li>
-          @elseif (Auth()->user()->role === 'Admin')
+          @endif
+          @if (Auth()->user()->role === 'Admin')
           <li class="menu-header">Admin</li>
           <li class="@if ($page == "staticData") active @endif"><a class="nav-link" href="{{route('staticData')}}"><i class="fa fa-database" aria-hidden="true"></i> <span>Données Statiques</span></a></li>
           <li class="@if ($page == "employe") active @endif"><a class="nav-link" href="{{route('employe')}}"><i class="fas fa-user-friends"></i> <span>Employés</span></a></li>

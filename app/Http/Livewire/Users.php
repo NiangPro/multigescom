@@ -267,15 +267,15 @@ class Users extends Component
     {
         $this->astuce = new Astuce();
 
-        return view('livewire.superAdmin.users',[
-            'entreprises' => Entreprise::orderBy('nom', 'ASC')->get(),
-            'superAdmins' => $this->astuce->superAdmins(),
-            'admins' => $this->astuce->admins(),
-        ])->layout('layouts.app',[
-            'title' => 'Les Utilisateurs',
-            "page" => "users",
-            "icon" => "fa fa-users-cog"
-        ]);
+       return view('livewire.superAdmin.users',[
+                'entreprises' => Entreprise::orderBy('nom', 'ASC')->get(),
+                'superAdmins' => $this->astuce->superAdmins(),
+                'admins' => $this->astuce->admins(),
+            ])->layout('layouts.app',[
+                'title' => 'Les Utilisateurs',
+                "page" => "users",
+                "icon" => "fa fa-users-cog"
+            ]);
     }
 
     public function mount(){

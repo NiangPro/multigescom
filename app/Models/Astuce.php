@@ -54,6 +54,11 @@ class Astuce extends Model
         return Entreprise::orderBy('nom', 'ASC')->get();
     }
 
+    public function employes()
+    {
+        return User::where('role', "Employe")->orderBy("Prenom", "ASC")->get();
+    }
+
     public function superAdminHistorique()
     {
         $data = [];
