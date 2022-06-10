@@ -15,6 +15,7 @@ use App\Http\Livewire\Password;
 use App\Http\Livewire\Produits;
 use App\Http\Livewire\Prospects;
 use App\Http\Livewire\Reunions;
+use App\Http\Livewire\Taches;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,7 @@ Route::get('/produits', Produits::class)->name('produit');
 Route::get('/clients', Clients::class)->name('client');
 Route::get('/fournisseurs', Fournisseurs::class)->name('fournisseur');
 Route::get('/prospects', Prospects::class)->name('prospect');
+Route::get('/taches', Taches::class)->name('tache');
 Route::get('/reunions', Reunions::class)->name('reunion');
 Route::get('/historiques', History::class)->name('history');
 Route::get('/profil', Profil::class)->name('profil');
