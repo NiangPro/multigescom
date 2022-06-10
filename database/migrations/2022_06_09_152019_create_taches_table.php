@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('date_fin');
             $table->text('description');
             $table->unsignedBigInteger('assignation');
-            $table->foreign('assignation')->references('id')->on('employes')->onDelete("cascade");
+            $table->foreign('assignation')->references('id')->on('users')->onDelete("cascade");
             $table->unsignedBigInteger('entreprise_id');
             $table->foreign('entreprise_id')->references('id')->on('entreprises')->onDelete("cascade");
             $table->timestamps();

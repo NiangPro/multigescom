@@ -20,10 +20,13 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('nom');
             $table->string('tel');
+            $table->string('fonction')->nullable();
             $table->string('sexe')->nullable();
             $table->string('profil')->nullable();
             $table->string('role')->nullable();
             $table->string('email')->unique();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on("countries")->onDelete("cascade");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

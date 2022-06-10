@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +23,8 @@ class User extends Authenticatable
         'entreprise_id',
         'sexe',
         'profil',
+        'fonction',
+        'country_id',
         'tel',
         'role',
         'email',
@@ -48,6 +49,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function contrats()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function taches()
+    {
+        return $this->hasMany(Tache::class);
+    }
+
+    public function propects()
+    {
+        return $this->hasMany(Prospect::class);
+    }
+
+    public function pays()
+    {
+        return $this->belongsTo(Country::class, "country_id");
+    }
 
     public function entreprise()
     {
