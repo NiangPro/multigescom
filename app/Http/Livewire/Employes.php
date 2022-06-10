@@ -206,6 +206,7 @@ class Employes extends Component
 
         $this->astuce->addHistorique('Suppression d\'un employé', "delete");
         $this->dispatchBrowserEvent('deleteSuccessful');
+        $this->etat="list";
     }
 
     public function initForm(){

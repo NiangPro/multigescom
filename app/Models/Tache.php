@@ -31,4 +31,5 @@ class Tache extends Model
     {
         return $this->belongsTo(Entreprise::class, "entreprise_id");
     }
+
 }

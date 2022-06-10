@@ -92,6 +92,8 @@ class Produits extends Component
             'message' => 'Produit/Service',
             'text' => 'Suppression avec succéss!.'
         ]);
+
+        $this->status = "listProduct";
     }
 
     public function store(){

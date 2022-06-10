@@ -121,6 +121,8 @@ class Clients extends Component
             'message' => 'Client',
             'text' => 'Suppression avec succéss!.'
         ]);
+
+        $this->status = "listClients";
     }
 
     public function alertConfirm()

@@ -13,7 +13,7 @@
           </div>
         </div>
     </div>
-    <div class="card-body container col-8 mt-0">
+    <div class="card-body container col-10 mt-0">
         <form wire:submit.prevent="store">
             <div class="row">
                 <div class="col-md-6">
@@ -23,7 +23,7 @@
                             <div class="input-group-text">Titre<span class="text-danger">*</span></div>
                           </div>
                           <input type="text" class="form-control @error('form.titre') is-invalid
-                            @enderror" placeholder="titre" wire:model="form.titre">
+                            @enderror" placeholder="Titre" wire:model="form.titre">
                             @error('form.titre')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -44,7 +44,11 @@
                                     <option value="{{$item->id}}">{{$item->prenom}} {{$item->nom}}</option>
                                 @endforeach
                             </select>
-                            @error('form.assignation') <span class="error text-danger">{{$message}}</span> @enderror
+                            @error('form.assignation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -90,7 +94,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Description<span class="text-danger">*</span></div>
                             </div>
-                            <textarea class="form-control @error('form.description') is-invalid
+                            <textarea placeholder="Description" class="form-control @error('form.description') is-invalid
                             @enderror" wire:model="form.description"></textarea>
                             @error('form.description')
                                 <span class="invalid-feedback" role="alert">
@@ -109,12 +113,16 @@
                                 <div class="input-group-text">Priorité<span class="text-danger">*</span></div>
                             </div>
                             <select class="form-control @error('form.priorite') is-invalid @enderror" wire:model="form.priorite" id="exampleFormControlSelect1">
-                                <option value="">Selectionner un employé</option>
+                                <option value="">Selectionner une priorité</option>
                                 @foreach ($staticData as $item)
-                                    <option value="{{$item->id}}">{{$item->prenom}} {{$item->nom}}</option>
+                                    <option value="{{$item->valeur}}">{{$item->valeur}}</option>
                                 @endforeach
                             </select>
-                            @error('form.priorite') <span class="error text-danger">{{$message}}</span> @enderror
+                            @error('form.priorite')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -130,7 +138,11 @@
                                 <option value="En cours">En cours</option>
                                 <option value="Terminé">Terminé</option>
                             </select>
-                            @error('form.priorite') <span class="error text-danger">{{$message}}</span> @enderror
+                            @error('form.priorite')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>

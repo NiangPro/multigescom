@@ -139,7 +139,7 @@ class Prospects extends Component
 
     // delete reunion
     public function remove(){
-        $prospect = Prospect::where("id", $this->current_prospect->id)->first();
+        $prospect = Prospect::where("id", $this->idDeleting->id)->first();
         $prospect->delete();
 
         $this->astuce->addHistorique('Suppression d\'un prospect', "delete");
@@ -150,6 +150,7 @@ class Prospects extends Component
             'message' => 'Prospect',
             'text' => 'Suppression avec succéss!.'
         ]);
+        $this->status="listProspects";
     }
 
     public function approve($id){

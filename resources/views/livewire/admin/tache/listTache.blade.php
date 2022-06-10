@@ -15,23 +15,48 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($taches as $tache)
+                @foreach ($taches as $tache)
                     <tr>
                         <td>{{$tache->titre}}</td>
-                        <td>{{$tache->assignation}}</td>
-                        <td>{{$tache->dateDebut}}</td>
-                        <td>{{$tache->dateFin}}</td>
-                        <td>{{$tache->priorite}}</td>
-                        <td>{{$tache->statut}}</td>
+                        <td>{{$tache->employe->prenom}} {{$tache->employe->nom}}</td>
+                        <td>{{$tache->date_debut}}</td>
+                        <td>{{$tache->date_fin}}</td>
+                        <td>
+                            <div class="text-small font-weight-600 
+                                @if ($tache->priorite==='Urgent')
+                                    text-success
+                                @elseif($tache->priorite==='Haute')
+                                    text-info
+                                @elseif($tache->priorite==='Moyen')
+                                    text-warning
+                                @elseif($tache->priorite==='Faible')
+                                    text-light
+                                @else
+                                    text-secondary
+                                @endif">
+                                <i class="fas fa-circle"></i> {{$tache->priorite}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="badge badge-warning 
+                                @if ($tache->statut==='Terminé')
+                                    bg-success
+                                @elseif($tache->statut==='En cours')
+                                    bg-warning
+                                @else
+                                    bg-danger
+                                @endif">{{$tache->statut}}
+                            </div>
+                        </td>
                         <td>
                             <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getReunion({{$tache->id}})"><i class="far fa-eye"></i></button>
+                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getTache({{$tache->id}})"><i class="far fa-eye"></i></button>
                                 <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
                                 trigger--fire-modal-1" wire:click.prevent="delete({{$tache->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
             </table>
         </div>

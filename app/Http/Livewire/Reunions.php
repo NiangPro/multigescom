@@ -104,7 +104,7 @@ class Reunions extends Component
 
     // delete reunion
     public function remove(){
-        $reunion = Reunion::where("id", $this->current_meet->id)->first();
+        $reunion = Reunion::where("id", $this->idDeleting->id)->first();
         $reunion->delete();
 
         $this->astuce->addHistorique('Suppression d\'une reunion', "delete");
@@ -115,6 +115,8 @@ class Reunions extends Component
             'message' => 'Reunion',
             'text' => 'Suppression avec succéss!.'
         ]);
+
+        $this->status="listReunions";
     }
 
     public function render()
