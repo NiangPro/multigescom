@@ -117,7 +117,7 @@ class Prospects extends Component
             $this->astuce->addHistorique("Ajout prospect", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->status="listProspects";
-    
+
             $this->initForm();
         }
 
@@ -170,7 +170,7 @@ class Prospects extends Component
         $this->astuce->addHistorique("changement prospect vers client", "add");
         $this->dispatchBrowserEvent("approveSuccessful");
         $prospect->delete();
-        
+
     }
 
     public function render()
@@ -181,7 +181,7 @@ class Prospects extends Component
         return view('livewire.commercial.prospects',[
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
             "prospects" => Prospect::orderBy('id', 'DESC')->get(),
-            "employes" => Employe::orderBy('id', 'DESC')->get(),
+            "employes" => $this->astuce->employes(),
         ])->layout('layouts.app', [
             'title' => "Prospects",
             "page" => "prospect",

@@ -105,11 +105,11 @@ class Taches extends Component
                 'statut' => $this->form['statut'],
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
-    
+
             $this->astuce->addHistorique("Ajout tâche", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->status="listTaches";
-        
+
             $this->initForm();
         }
     }
@@ -155,7 +155,7 @@ class Taches extends Component
         $this->staticData = $this->astuce->getStaticData("Priorité des tâches");
 
         return view('livewire.admin.taches',[
-            "employes" => Employe::orderBy('id', 'DESC')->get(),
+            "employes" => $this->astuce->employes(),
             "taches" => Tache::orderBy('id', 'DESC')->get(),
         ])->layout('layouts.app', [
             'title' => "Taches",

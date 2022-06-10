@@ -19,10 +19,10 @@
                     <tr>
                         <td>{{$tache->titre}}</td>
                         <td>{{$tache->employe->prenom}} {{$tache->employe->nom}}</td>
-                        <td>{{$tache->date_debut}}</td>
-                        <td>{{$tache->date_fin}}</td>
+                        <td>{{ date("d/m/Y", strtotime($tache->date_debut))}}</td>
+                        <td>{{ date("d/m/Y", strtotime($tache->date_fin))}}</td>
                         <td>
-                            <div class="text-small font-weight-600 
+                            <div class="text-small font-weight-600
                                 @if ($tache->priorite==='Urgent')
                                     text-success
                                 @elseif($tache->priorite==='Haute')
@@ -38,7 +38,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="badge badge-warning 
+                            <div class="badge badge-warning
                                 @if ($tache->statut==='Terminé')
                                     bg-success
                                 @elseif($tache->statut==='En cours')
@@ -51,7 +51,7 @@
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getTache({{$tache->id}})"><i class="far fa-eye"></i></button>
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
+                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
                                 trigger--fire-modal-1" wire:click.prevent="delete({{$tache->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>

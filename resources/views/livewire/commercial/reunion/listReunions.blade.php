@@ -15,12 +15,12 @@
                 @foreach ($reunions as $reunion)
                     <tr>
                         <td>{{$reunion->titre}}</td>
-                        <td>{{$reunion->date}}</td>
+                        <td>{{date("d/m/Y à H:i", strtotime($reunion->date))}}</td>
                         <td>{{$reunion->description}}</td>
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getReunion({{$reunion->id}})"><i class="far fa-eye"></i></button>
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
+                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
                                 trigger--fire-modal-1" wire:click.prevent="delete({{$reunion->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
