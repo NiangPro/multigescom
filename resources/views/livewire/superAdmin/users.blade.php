@@ -41,6 +41,14 @@
         });
     });
 
+     window.addEventListener('haveNotService', event =>{
+        iziToast.error({
+        title: 'Utilisateur',
+        message: 'Les super admins n\'appartiennent à aucune entreprise',
+        position: 'topRight'
+        });
+    });
+
     window.addEventListener('addSuccessful', event =>{
         iziToast.success({
         title: 'Utilisateur',

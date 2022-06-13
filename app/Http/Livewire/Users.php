@@ -241,22 +241,26 @@ class Users extends Component
             if($this->form['role'] === "Admin" && $this->form['entreprise_id'] === null){
                 $this->dispatchBrowserEvent("adminNoCompany");
             }else{
-                User::create([
-                    'nom'=>$this->form['nom'],
-                    'prenom'=>$this->form['prenom'],
-                    'role'=>$this->form['role'],
-                    'email'=>$this->form['email'],
-                    'tel'=>$this->form['tel'],
-                    'sexe'=>$this->form['sexe'],
-                    'profil' => $this->form['sexe'] === "Homme" ? "user-male.png" : "user-female.png",
-                    'entreprise_id'=>$this->form['entreprise_id'],
-                    'password'=>Hash::make($this->form['password']),
-                ]);
+                if ($this->form['role'] === "Super Admin" && $this->form['entreprise_id'] !== null) {
+                    $this->dispatchBrowserEvent("haveNotService");
+                }else{
+                    User::create([
+                        'nom'=>$this->form['nom'],
+                        'prenom'=>$this->form['prenom'],
+                        'role'=>$this->form['role'],
+                        'email'=>$this->form['email'],
+                        'tel'=>$this->form['tel'],
+                        'sexe'=>$this->form['sexe'],
+                        'profil' => $this->form['sexe'] === "Homme" ? "user-male.png" : "user-female.png",
+                        'entreprise_id'=>$this->form['entreprise_id'],
+                        'password'=>Hash::make($this->form['password']),
+                    ]);
 
-            $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
+                    $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
 
-                $this->dispatchBrowserEvent("addSuccessful");
-                $this->formInit();
+                    $this->dispatchBrowserEvent("addSuccessful");
+                    $this->formInit();
+                }
             }
 
         }

@@ -34,7 +34,15 @@
           <li class="menu-header">Admin</li>
           <li class="@if ($page == "staticData") active @endif"><a class="nav-link" href="{{route('staticData')}}"><i class="fa fa-database" aria-hidden="true"></i> <span>Données Statiques</span></a></li>
           <li class="@if ($page == "employe") active @endif"><a class="nav-link" href="{{route('employe')}}"><i class="fas fa-user-friends"></i> <span>Employés</span></a></li>
-
+          <li class="nav-item dropdown @if ($page == "comptable" || $page == "commercial"  || $page == "general") active @endif">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-users-cog" aria-hidden="true"></i> <span>Autres Utilisateurs</span></a>
+            <ul class="dropdown-menu">
+                <li  class="@if ($page == "commercial") active @endif"><a href="{{route('commercial')}}"><i class="fa fa-user-circle" aria-hidden="true"></i> Commerciaux</a></li>
+                <li class="@if ($page == "comptable") active @endif"><a href="{{route('comptable')}}"><i class="fa fa-user-secret" aria-hidden="true"></i>Comptable</a></li>
+            </ul>
+          </li>
+          @endif
+          @if (Auth()->user()->role === 'Admin' || Auth()->user()->role === 'Commercial')
           <li class="menu-header">Commercial</li>
           <li class="@if ($page == "produit") active @endif"><a class="nav-link" href="{{route('produit')}}"><i class="fab fa-product-hunt" aria-hidden="true"></i> <span>Produits</span></a></li>
           <li class="@if ($page == "client") active @endif"><a class="nav-link" href="{{route('client')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>Clients</span></a></li>
@@ -54,7 +62,7 @@
                 <li class="@if ($page == "password") active @endif"><a href="{{route('password')}}"><i class="fa fa-lock" aria-hidden="true"></i>Mot de passe</a></li>
                 @if (Auth()->user()->role === 'Admin' || Auth()->user()->role === 'Super Admin')
                 <li class="@if ($page == "general") active @endif"><a href="{{route('general')}}"><i class="fa fa-wrench" aria-hidden="true"></i> General</a></li>
-            @endif
+                @endif
             </ul>
           </li>
 

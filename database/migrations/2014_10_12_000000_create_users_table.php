@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('fonction')->nullable();
             $table->string('sexe')->nullable();
             $table->string('profil')->nullable();
+            $table->string('adresse')->nullable();
             $table->string('role')->nullable();
             $table->string('email')->unique();
             $table->unsignedBigInteger('country_id')->nullable();

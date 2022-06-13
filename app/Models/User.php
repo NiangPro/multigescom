@@ -27,6 +27,7 @@ class User extends Authenticatable
         'country_id',
         'tel',
         'role',
+        'adresse',
         'email',
         'password',
     ];
