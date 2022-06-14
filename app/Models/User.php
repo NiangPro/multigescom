@@ -51,6 +51,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function todolists()
+    {
+        return $this->hasMany(Todolist::class);
+    }
+
     public function contrats()
     {
         return $this->hasMany(Contract::class);

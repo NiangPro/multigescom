@@ -21,7 +21,7 @@ class Home extends Component
     public function formadd()
     {
         $this->todo = "add";
-        dd("bien");
+        $this->dispatchBrowserEvent('swal:add');
     }
 
     public function addTodo()

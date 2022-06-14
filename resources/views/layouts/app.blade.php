@@ -125,6 +125,8 @@ window.addEventListener('swal:confirm', event => {
       icon: event.detail.type,
       buttons: true,
       dangerMode: true,
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Non',
 
     })
     .then((willDelete) => {

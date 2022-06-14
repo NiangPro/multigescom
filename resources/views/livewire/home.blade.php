@@ -73,11 +73,6 @@
 </div>
 @section('js')
     <script>
-        // $('#addModal').appendTo("body");
-        $('#btnAdd').click(function () {
-            $('#addModal').appendTo(".section-body");
-        })
-
 
     </script>
 @endsection
