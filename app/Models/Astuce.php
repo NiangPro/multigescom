@@ -41,7 +41,7 @@ class Astuce extends Model
 
     public function commercials()
     {
-        return User::where('role', 'Commercial')->orderBy('prenom', 'ASC')->get();
+        return User::where('role', 'Commercial')->orderBy('prenom', 'DESC')->paginate(3);
     }
 
     public function comptables()

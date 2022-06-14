@@ -14,6 +14,7 @@ class Reunions extends Component
     public $astuce;
     public $idDeleting;
     protected $listeners = ['remove'];
+    public $events = [];
 
     public $form = [
         'titre' => '',
@@ -119,8 +120,14 @@ class Reunions extends Component
         $this->status="listReunions";
     }
 
+    // calendrier
+
+    
+    // fin calendrier
+
     public function render()
     {
+        $this->events = json_encode(Reunion::all());
         $this->astuce = new Astuce();
         return view('livewire.commercial.reunions',
             [

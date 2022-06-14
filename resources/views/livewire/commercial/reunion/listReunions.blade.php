@@ -29,6 +29,45 @@
             </tbody>
             </table>
         </div>
+        {{-- calendar --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div id='calendar'></div>
+            </div>
+        </div>
     </div>
 </div>
 
+
+@section('js')
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById("calendar")
+    
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'fr',
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,listWeek'
+            },
+            // events:[
+            //     reunions.map(function(element){
+            //         return `{'
+            //             'id'=>${element.id},
+            //             'title'=>${element.titre},
+            //             'start'=>${element.date},
+            //         }`;
+            //     })
+            // ]
+            events: [
+                { id: '1', title: 'Event 1', start: '2022-06-14', resourceId: 'a' }
+            ]
+        })
+        calendar.render()
+      });
+
+  </script>
+@endsection

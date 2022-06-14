@@ -17,12 +17,12 @@
   <link rel="stylesheet" href="lib/css/datatables.min.css">
   <link rel="stylesheet" href="lib/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="lib/css/select.bootstrap4.min.css">
-
-
+  
   <!-- Template CSS -->
   <link rel="stylesheet" href="lib/css/style.css">
   <link rel="stylesheet" href="lib/css/components.css">
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" />
 
   @else
   <script
@@ -104,8 +104,8 @@
   <script src="lib/js/iziToast.min.js"></script>
   <script src="lib/js/calendar-gc.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  @yield('js')
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+   @yield('js')
 
 <script>
 
