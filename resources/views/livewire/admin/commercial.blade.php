@@ -48,7 +48,7 @@
 
     window.addEventListener('updateSuccessful', event =>{
         iziToast.success({
-        title: 'Utilisateur',
+        title: 'Commercial',
         message: 'Mis à jour avec succes',
         position: 'topRight'
         });
@@ -56,7 +56,7 @@
 
     window.addEventListener('profilEditSuccessful', event =>{
         iziToast.success({
-        title: 'Utilisateur',
+        title: 'Profil Commercial',
         message: 'Mis à jour avec succes',
         position: 'topRight'
         });

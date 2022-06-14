@@ -155,7 +155,7 @@ class Commercial extends Component
         $user = User::where('id', $this->idDeleting)->first();
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
-                'message' => 'Entreprise!',
+                'message' => 'Commercial!',
                 'text' => 'Suppression avec succès.'
             ]);
 
@@ -184,7 +184,7 @@ class Commercial extends Component
             $user->entreprise_id = $this->form['entreprise_id'];
 
             $user->save();
-            $this->astuce->addHistorique("Mis à jour des informations d'un utilisateur", "update");
+            $this->astuce->addHistorique("Mis à jour des informations d'un commercial", "update");
 
             $this->dispatchBrowserEvent("updateSuccessful");
             $this->getCommercial($user->id);
