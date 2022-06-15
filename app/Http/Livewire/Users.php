@@ -41,6 +41,14 @@ class Users extends Component
         'password_confirmation' => "",
     ];
 
+    public $todoForm=[
+        'id'=>null,
+        'titre'=>'',
+        'date'=>'',
+        'statut'=>'',
+        'user_id'=>null
+    ];
+
     protected $rules = [
         'form.prenom' => 'required|string',
         'form.nom' => 'required|string',
@@ -50,6 +58,9 @@ class Users extends Component
         'form.entreprise_id' => 'nullable|string',
         'form.email' => ['required', 'email', 'unique:users,email'],
         'form.password' => 'required|string|min:6|confirmed',
+        'todoForm.titre' => 'required|string',
+        'todoForm.date' => 'required|string',
+        'todoForm.statut' => 'required|string',
     ];
 
     protected $messages = [
@@ -66,6 +77,9 @@ class Users extends Component
         'form.tel.max' => 'Maximum 9 chiffres',
         'form.tel.min' => 'Minimum 9 chiffres',
         'form.tel.regex' => 'Le telephone est invalid',
+        'todoForm.titre' => 'Le titre est requis',
+        'todoForm.date' => 'La date est requise',
+        'todoForm.statut' => 'Le statut est requis',
     ];
 
     protected $listeners = ['remove'];
