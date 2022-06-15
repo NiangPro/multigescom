@@ -246,6 +246,24 @@ class Commercial extends Component
 
     }
 
+    public function changeEvent($value){
+        $this->user = User::where('id', $value)->first();
+    }   
+
+    public function exist(){
+        if(isset($this->user->id) && $this->user->id !== null){
+            $user = User::where('id', $this->user->id)->first();
+
+            $user->role = "Commercial";
+
+            $user->save();
+            $this->astuce->addHistorique("Mis à jour des informations d'un utilisateur", "update");
+
+            $this->dispatchBrowserEvent("updateSuccessful");
+            $this->etat="list";
+        }
+    }
+
     public function render()
     {
         $this->astuce = new Astuce();
@@ -253,6 +271,7 @@ class Commercial extends Component
         return view('livewire.admin.commercial',[
             'entreprises' => Entreprise::orderBy('nom', 'ASC')->get(),
             'commerciaux' => $this->astuce->commercials(),
+            'employes' => $this->astuce->employes(),
         ])->layout('layouts.app', [
             'title' => "Commerciaux",
             "page" => "commercial",

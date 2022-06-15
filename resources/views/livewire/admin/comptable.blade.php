@@ -4,13 +4,16 @@
           <h4>{{ $title }}</h4>
           <div class="card-header-action">
             <div class="btn-group">
-                <button  class="btn @if( $etat=== "add") btn-success @else btn-primary @endif " wire:click.prevent="changeEtat('add')"><i class="fa fa-plus"></i> Ajout</button>
+                <button  class="btn @if( $etat=== "add") btn-success @else btn-primary @endif " wire:click.prevent="changeEtat('add')"><i class="fa fa-plus"></i>  @if ($etat === "add" || $etat === "exist") Nouveau @elseif($etat === "list") Ajout @endif </button>
+                @if ($etat === "add" || $etat === "exist")
+                    <button  class="btn @if( $etat=== "exist") btn-success @else btn-primary @endif"  wire:click.prevent="changeEtat('exist')"><i class="fa fa-down"></i> Existant</button>
+                @endif
                 <button  class="btn @if( $etat=== "list") btn-success @else btn-primary @endif"  wire:click.prevent="changeEtat('list')"><i class="fa fa-list-alt"></i> Liste</button>
             </div>
           </div>
         </div>
         <div class="card-body">
-            @if ($etat === "add")
+            @if ($etat === "add" || $etat === "exist")
                 @include('livewire.admin.comptable.addComptable')
             @elseif($etat === "list")
                 @include('livewire.admin.comptable.listComptable')

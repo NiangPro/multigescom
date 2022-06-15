@@ -246,6 +246,24 @@ class Comptable extends Component
 
     }
 
+    public function changeEvent($value){
+        $this->user = User::where('id', $value)->first();
+    }   
+
+    public function exist(){
+        if(isset($this->user->id) && $this->user->id !== null){
+            $user = User::where('id', $this->user->id)->first();
+
+            $user->role = "Comptable";
+
+            $user->save();
+            $this->astuce->addHistorique("Mis à jour des informations d'un utilisateur", "update");
+
+            $this->dispatchBrowserEvent("updateSuccessful");
+            $this->etat="list";
+
+        }
+    }
 
     public function render()
     {
@@ -253,6 +271,7 @@ class Comptable extends Component
         return view('livewire.admin.comptable',[
             'entreprises' => Entreprise::orderBy('nom', 'ASC')->get(),
             'comptables' => $this->astuce->comptables(),
+            'employes' => $this->astuce->employes(),
         ])->layout('layouts.app', [
             'title' => "Comptables",
             "page" => "comptable",
