@@ -29,6 +29,25 @@ class Astuce extends Model
         ]);
     }
 
+    public function createFirstSuperAdmin()
+    {
+        $countUser = User::count();
+
+        if($countUser < 1){
+            User::create([
+                'nom'=>"Niang",
+                'prenom'=>"Bassirou",
+                'role'=>"Super Admin",
+                'email'=>"NiangProgrammeur@gmail.com",
+                'tel'=>"783123657",
+                'sexe'=>"Homme",
+                'profil' => "user-male.png",
+                'entreprise_id'=>null,
+                'password'=>'$2y$10$rAVZ/DGGDV5KooV1NqJ48Om35GkkYcqFd/lAkehgzA3.D5A5YcrtC',
+            ]);
+        }
+    }
+
     public function superAdmins()
     {
         return User::where('role', 'Super Admin')->orderBy('prenom', 'ASC')->paginate(8);

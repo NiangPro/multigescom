@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admins;
 use App\Http\Livewire\Clients;
 use App\Http\Livewire\Commercial;
 use App\Http\Livewire\Company;
@@ -45,6 +46,7 @@ Route::get('/taches', Taches::class)->name('tache');
 Route::get('/reunions', Reunions::class)->name('reunion');
 Route::get('/commerciaux', Commercial::class)->name('commercial');
 Route::get('/comptables', Comptable::class)->name('comptable');
+Route::get('/administrateurs', Admins::class)->name('admin');
 Route::get('/historiques', History::class)->name('history');
 Route::get('/profil', Profil::class)->name('profil');
 Route::get('/mot_de_passe', Password::class)->name('password');

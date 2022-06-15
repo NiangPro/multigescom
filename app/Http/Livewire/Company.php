@@ -227,11 +227,16 @@ class Company extends Component
             return redirect(route('login'));
         }
 
+        if(!Auth::user()->isSuperAdmin()){
+            return redirect(route("home"));
+        }
+
         $this->init();
     }
 
     public function init()
     {
+
         $this->etat = "list";
         $this->title = "Listes des Entreprises";
 

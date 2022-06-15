@@ -30,15 +30,17 @@
           <li class="menu-header">Super Admin</li>
           <li class="@if ($page == "entreprise") active @endif"><a class="nav-link" href="{{route('entreprises')}}"><i class="fas fa-th-large"></i> <span>Entreprises</span></a></li>
           <li class="@if ($page == "users") active @endif"><a class="nav-link" href="{{route('users')}}"><i class="fas fa-users-cog"></i> <span>Utilisateurs</span></a></li>
-          @elseif (Auth()->user()->role === 'Admin')
+          @endif
+          @if (Auth()->user()->role === 'Admin')
           <li class="menu-header">Admin</li>
           <li class="@if ($page == "staticData") active @endif"><a class="nav-link" href="{{route('staticData')}}"><i class="fa fa-database" aria-hidden="true"></i> <span>Données Statiques</span></a></li>
           <li class="@if ($page == "employe") active @endif"><a class="nav-link" href="{{route('employe')}}"><i class="fas fa-user-friends"></i> <span>Employés</span></a></li>
           <li class="nav-item dropdown @if ($page == "comptable" || $page == "commercial"  || $page == "general") active @endif">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-users-cog" aria-hidden="true"></i> <span>Autres Utilisateurs</span></a>
             <ul class="dropdown-menu">
+                <li  class="@if ($page == "admin") active @endif"><a href="{{route('admin')}}"><i class="fa fa-user-secret" aria-hidden="true"></i> Administrateurs</a></li>
                 <li  class="@if ($page == "commercial") active @endif"><a href="{{route('commercial')}}"><i class="fa fa-user-circle" aria-hidden="true"></i> Commerciaux</a></li>
-                <li class="@if ($page == "comptable") active @endif"><a href="{{route('comptable')}}"><i class="fa fa-user-secret" aria-hidden="true"></i>Comptable</a></li>
+                <li class="@if ($page == "comptable") active @endif"><a href="{{route('comptable')}}"><i class="fa fa-user-secret" aria-hidden="true"></i>Comptables</a></li>
             </ul>
           </li>
           @endif
@@ -48,11 +50,13 @@
           <li class="@if ($page == "client") active @endif"><a class="nav-link" href="{{route('client')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>Clients</span></a></li>
           <li class="@if ($page == "fournisseur") active @endif"><a class="nav-link" href="{{route('fournisseur')}}"><i class="fas fa-street-view" aria-hidden="true"></i> <span>Fournisseurs</span></a></li>
           <li class="@if ($page == "prospect") active @endif"><a class="nav-link" href="{{route('prospect')}}"><i class="fa fa-tty" aria-hidden="true"></i> <span>Prospects</span></a></li>
-          <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>
-          <li class="@if ($page == "tache") active @endif"><a class="nav-link" href="{{route('tache')}}"><i class="fas fa-edit" aria-hidden="true"></i> <span>Tâches</span></a></li>
 
           @endif
-          <li class="@if ($page == "history") active @endif"><a class="nav-link" href="{{route('history')}}"><i class="fa fa-history" aria-hidden="true"></i> <span>Historiques</span></a></li>
+          @if (Auth()->user()->role !== 'Super Admin')
+            <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>
+            <li class="@if ($page == "tache") active @endif"><a class="nav-link" href="{{route('tache')}}"><i class="fas fa-edit" aria-hidden="true"></i> <span>Tâches</span></a></li>
+            @endif
+            <li class="@if ($page == "history") active @endif"><a class="nav-link" href="{{route('history')}}"><i class="fa fa-history" aria-hidden="true"></i> <span>Historiques</span></a></li>
 
           <li class="menu-header">Configurations </li>
           <li class="nav-item dropdown @if ($page == "profil" || $page == "password"  || $page == "general") active @endif">

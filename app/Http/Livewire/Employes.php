@@ -298,7 +298,7 @@ class Employes extends Component
 
         return view('livewire.admin.employes', [
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
-            "employes" => User::where('role', "Employe")->orderBy('id', 'DESC')->paginate(6)
+            "employes" => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->paginate(6)
 
             ])->layout('layouts.app', [
                 'title' => "Employés",

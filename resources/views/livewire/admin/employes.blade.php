@@ -18,12 +18,13 @@
                   </div>
                   <div class="author-box-details">
                     <div class="author-box-name">
-                      <a href="#">{{$item->prenom}} {{$item->nom}}</a>
+                      <a href="#">{{substr($item->prenom, 0, 8)}} {{$item->nom}}</a>
                   </div>
                   <div class="author-box-job">{{$item->fonction}}</div>
                   <div class="author-box-description">
                       <p>
                           <i class="fa fa-phone" aria-hidden="true"></i> {{$item->tel}} <br>
+                          <span class="badge badge-pill badge-info">{{$item->role}}</span>
                       </p>
                     </div>
                     <div class="w-100 d-sm-none"></div>

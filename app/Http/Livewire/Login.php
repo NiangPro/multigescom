@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Astuce;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Login extends Component
 {
+    public $astuce;
     public $form = [
         "email" => "",
         "password" => "",
@@ -38,6 +40,8 @@ class Login extends Component
     }
     public function render()
     {
+        $this->astuce = new Astuce();
+        $this->astuce->createFirstSuperAdmin();
         return view('livewire.login1'
     )->layout('layouts.app');
     }

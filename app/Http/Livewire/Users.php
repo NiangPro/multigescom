@@ -300,6 +300,10 @@ class Users extends Component
         if(!Auth::user()){
             return redirect(route('login'));
         }
+
+        if(!Auth::user()->isSuperAdmin()){
+            return redirect(route("home"));
+        }
     }
 
     protected function formInit()
