@@ -3,11 +3,11 @@
       <div class="card-header">
         @if ($todo === 'add')
         <h4>Ajout</h4>
-        <button type="button" wire:click.prevent="formadd" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
 
+        <button type="button" wire:click.prevent="backTodo" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
         @else
         <h4>A Faire</h4>
-        <button type="button" wire:click.prevent="backTodo" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" wire:click.prevent="formadd" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
 
         @endif
 
@@ -16,9 +16,15 @@
           @if ($todo === 'add')
             <form wire:submit.prevent="addTodo">
                 <div class="form-group">
-                <label for="">Titre</label>
-                <input type="text" class="form-control" placeholder="">
+                    <label for="">Titre</label>
+                    <input type="text" class="form-control" placeholder="">
                 </div>
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="datetime-local" class="form-control" placeholder="">
+                </div>
+                    <button type="submit" class="btn btn-sm btn-icon icon-left btn-success"><i class="far fa-edit"></i>@if ($todo === "add") Ajouter @else Modifier @endif</b>
+
             </form>
           @else
             <ul class="list-unstyled list-unstyled-border">
@@ -41,3 +47,4 @@
       </div>
     </div>
 </div>
+
