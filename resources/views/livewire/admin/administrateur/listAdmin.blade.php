@@ -17,10 +17,11 @@
               <div class="author-box-name">
                 <a href="#">{{$ad->prenom}} {{$ad->nom}}</a>
             </div>
-            <div class="author-box-job">{{$ad->role}}</div>
+            <div class="author-box-job">{{$ad->fonction}}</div>
             <div class="author-box-description">
                 <p>
                     <i class="fa fa-phone" aria-hidden="true"></i> {{$ad->tel}} <br>
+                    <span class="badge badge-pill badge-info">{{$item->role}}</span>
                 </p>
               </div>
               <div class="w-100 d-sm-none"></div>
