@@ -9,7 +9,7 @@ class Depenses extends Component
 {
     public function render()
     {
-        return view('livewire.depenses')->layout('layouts.app', [
+        return view('livewire.comptable.depenses')->layout('layouts.app', [
             'title' => "Les Dépenses",
             "page" => "depense",
             "icon" => "fas fa-balance-scale"
