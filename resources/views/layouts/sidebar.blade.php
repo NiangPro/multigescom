@@ -52,8 +52,13 @@
           <li class="@if ($page == "prospect") active @endif"><a class="nav-link" href="{{route('prospect')}}"><i class="fa fa-tty" aria-hidden="true"></i> <span>Prospects</span></a></li>
 
           @endif
+          @if (Auth()->user()->role === 'Admin' || Auth()->user()->role === 'Comptable')
+          <li class="menu-header">Comptable</li>
+
+          <li class="@if ($page == "depense") active @endif"><a class="nav-link" href="{{route('depense')}}"><i class="fas fa-balance-scale   "></i> <span>Dépenses</span></a></li>
+          @endif
           @if (Auth()->user()->role !== 'Super Admin')
-            <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>
+          <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>
             <li class="@if ($page == "tache") active @endif"><a class="nav-link" href="{{route('tache')}}"><i class="fas fa-edit" aria-hidden="true"></i> <span>Tâches</span></a></li>
             @endif
             <li class="@if ($page == "history") active @endif"><a class="nav-link" href="{{route('history')}}"><i class="fa fa-history" aria-hidden="true"></i> <span>Historiques</span></a></li>
