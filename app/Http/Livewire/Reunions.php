@@ -37,6 +37,7 @@ class Reunions extends Component
 
     public function changeEtat($etat){
         $this->status = $etat;
+        $this->initForm();
     }
 
     public function initForm(){

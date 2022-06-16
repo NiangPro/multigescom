@@ -70,6 +70,7 @@ class Comptable extends Component
         if($this->etat==='add'){
             $this->title = "Formulaire d'ajout comptable";
         }
+        $this->formInit();
     }
 
     public function getComptable($id)

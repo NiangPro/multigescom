@@ -70,6 +70,7 @@ class Commercial extends Component
         if($this->etat==='add'){
             $this->title = "Formulaire d'ajout commercial";
         }
+        $this->formInit();
     }
 
     public function getCommercial($id)

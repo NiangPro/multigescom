@@ -55,7 +55,7 @@ class Astuce extends Model
 
     public function admins()
     {
-        return User::where('role', 'Admin')->orderBy('prenom', 'ASC')->get();
+        return User::where('role', 'Admin')->orderBy('id', 'DESC')->paginate(8);
     }
 
     public function commercials()

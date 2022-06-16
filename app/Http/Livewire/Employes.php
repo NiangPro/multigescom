@@ -84,6 +84,7 @@ class Employes extends Component
         }else {
             $this->etat = "list";
         }
+        $this->initForm();
     }
 
     public function changeStatut($statut){
