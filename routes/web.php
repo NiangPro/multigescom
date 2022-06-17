@@ -21,6 +21,7 @@ use App\Http\Livewire\Produits;
 use App\Http\Livewire\Prospects;
 use App\Http\Livewire\Reunions;
 use App\Http\Livewire\Taches;
+use App\Http\Livewire\Ventes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,7 @@ Route::get('/comptables', Comptable::class)->name('comptable');
 Route::get('/administrateurs', Admins::class)->name('admin');
 Route::get('/depenses', Depenses::class)->name('depense');
 Route::get('/devis', Devis::class)->name('devis');
+Route::get('/ventes', Ventes::class)->name('vente');
 Route::get('/historiques', History::class)->name('history');
 Route::get('/profil', Profil::class)->name('profil');
 Route::get('/mot_de_passe', Password::class)->name('password');
