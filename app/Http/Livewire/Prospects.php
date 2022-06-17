@@ -54,6 +54,7 @@ class Prospects extends Component
     ];
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['nom']='';
         $this->form['email']='';
         $this->form['tel']='';

@@ -210,6 +210,7 @@ class Employes extends Component
     }
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['prenom']='';
         $this->form['nom']='';
         $this->form['email']='';

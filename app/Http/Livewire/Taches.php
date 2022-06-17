@@ -50,6 +50,7 @@ class Taches extends Component
     ];
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['titre']='';
         $this->form['assignation']='';
         $this->form['date_debut']='';

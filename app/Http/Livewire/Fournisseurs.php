@@ -45,6 +45,7 @@ class Fournisseurs extends Component
     ];
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['nom']='';
         $this->form['adresse']='';
         $this->form['tel']='';

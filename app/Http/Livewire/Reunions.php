@@ -41,6 +41,7 @@ class Reunions extends Component
     }
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['titre']='';
         $this->form['description']='';
         $this->form['date']='';

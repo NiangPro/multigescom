@@ -161,6 +161,7 @@ class Produits extends Component
 
 
     public function initForm(){
+        $this->form['id']=null;
         $this->form['nom']='';
         $this->form['description']='';
         $this->form['type']='';
