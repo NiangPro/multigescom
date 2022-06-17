@@ -58,6 +58,7 @@
           <li class="@if ($page == "depense") active @endif"><a class="nav-link" href="{{route('depense')}}"><i class="fas fa-balance-scale   "></i> <span>Dépenses</span></a></li>
           <li class="@if ($page == "devis") active @endif"><a class="nav-link" href="{{route('devis')}}"><i class="fas fa-file-invoice   "></i> <span>Devis</span></a></li>
           <li class="@if ($page == "vente") active @endif"><a class="nav-link" href="{{route('vente')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>Ventes</span></a></li>
+          <li class="@if ($page == "rapport") active @endif"><a class="nav-link" href="{{route('rapport')}}"><i class="fas fa-chart-bar" aria-hidden="true"></i> <span>Rapports</span></a></li>
           @endif
           @if (Auth()->user()->role !== 'Super Admin')
           <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>

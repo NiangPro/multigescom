@@ -22,6 +22,11 @@ class Entreprise extends Model
         'fermeture'
     ];
 
+    public function devis()
+    {
+        return $this->hasMany(Devis::class);
+    }
+
     public function depenses()
     {
         return $this->hasMany(Depense::class);
