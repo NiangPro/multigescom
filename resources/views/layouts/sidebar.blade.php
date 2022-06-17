@@ -56,6 +56,7 @@
           <li class="menu-header">Comptable</li>
 
           <li class="@if ($page == "depense") active @endif"><a class="nav-link" href="{{route('depense')}}"><i class="fas fa-balance-scale   "></i> <span>Dépenses</span></a></li>
+          <li class="@if ($page == "devis") active @endif"><a class="nav-link" href="{{route('devis')}}"><i class="fas fa-file-invoice   "></i> <span>Devis</span></a></li>
           @endif
           @if (Auth()->user()->role !== 'Super Admin')
           <li class="@if ($page == "reunion") active @endif"><a class="nav-link" href="{{route('reunion')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Réunions</span></a></li>
@@ -65,7 +66,7 @@
 
           <li class="menu-header">Configurations </li>
           <li class="nav-item dropdown @if ($page == "profil" || $page == "password"  || $page == "general") active @endif">
-            <a href="#" class="nav-link has-dropdown"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Parametres  <span class="text-primary"><button class="btn btn-primary btn-sm btn-icon">3</button></span> </span></a>
+            <a href="#" class="nav-link has-dropdown"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Parametres </span></a>
             <ul class="dropdown-menu">
                 <li  class="@if ($page == "profil") active @endif"><a href="{{route('profil')}}"><i class="fa fa-user-circle" aria-hidden="true"></i> Profil</a></li>
                 <li class="@if ($page == "password") active @endif"><a href="{{route('password')}}"><i class="fa fa-lock" aria-hidden="true"></i>Mot de passe</a></li>
