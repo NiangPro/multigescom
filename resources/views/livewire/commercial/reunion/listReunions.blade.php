@@ -44,7 +44,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         const calendarEl = document.getElementById("calendar")
-    
+
         let calendar = new FullCalendar.Calendar(calendarEl, {
             locale: 'fr',
             initialView: 'dayGridMonth',
@@ -53,18 +53,8 @@
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,listWeek'
             },
-            // events:[
-            //     reunions.map(function(element){
-            //         return `{'
-            //             'id'=>${element.id},
-            //             'title'=>${element.titre},
-            //             'start'=>${element.date},
-            //         }`;
-            //     })
-            // ]
-            events: [
-                { id: '1', title: 'Event 1', start: '2022-06-14', resourceId: 'a' }
-            ]
+            // events: JSON.parse(`<?php echo $events; ?>`),
+            events: JSON.parse(@this.events)
         })
         calendar.render()
       });

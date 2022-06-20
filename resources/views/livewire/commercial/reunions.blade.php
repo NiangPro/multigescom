@@ -29,6 +29,6 @@
             position: 'topRight'
             });
         });
-        
+
     </script>
 @endsection

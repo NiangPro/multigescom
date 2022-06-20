@@ -81,11 +81,11 @@ class Reunions extends Component
                 'date' => $this->form['date'],
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
-    
+
             $this->astuce->addHistorique("Ajout reunion", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->status="listReunions";
-    
+
             $this->initForm();
         }
 
@@ -124,7 +124,7 @@ class Reunions extends Component
 
     // calendrier
 
-    
+
     // fin calendrier
 
     public function render()
@@ -134,6 +134,7 @@ class Reunions extends Component
         return view('livewire.commercial.reunions',
             [
                 "reunions" => Reunion::orderBy('id', 'DESC')->get(),
+                "events" => $this->astuce->getReunions()
             ]
         )->layout('layouts.app', [
             'title' => "Réunions",
