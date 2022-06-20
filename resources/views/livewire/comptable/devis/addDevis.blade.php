@@ -39,50 +39,111 @@
           <form class="wizard-content mt-2">
             @if ($currentStep === 1)   
                 <div class="wizard-pane">
-                <div class="form-group row align-items-center">
-                    <label class="col-md-4 text-md-right text-left">Name</label>
-                    <div class="col-lg-4 col-md-6">
-                    <input type="text" name="name" class="form-control">
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-6 text-right">
+                            <button type="button" class="btn btn-icon icon-right btn-primary" wire:click="firstStepSubmit">Suivant <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-md-4 text-md-right text-left">Email</label>
-                    <div class="col-lg-4 col-md-6">
-                    <input type="email" name="email" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-4"></div>
-                    <div class="col-lg-4 col-md-6 text-right">
-                        <button type="button" class="btn btn-icon icon-right btn-primary" wire:click="firstStepSubmit">Suivant <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
             @endif
             @if ($currentStep === 2)   
                 <div class="wizard-pane">
-                    <div class="form-group row align-items-center">
-                        <label class="col-md-4 text-md-right text-left">Prenom</label>
-                        <div class="col-lg-4 col-md-6">
-                            <input type="text" name="name" class="form-control">
+                    <div class="form-group d-flex" >
+                        <select class="form-control" wire:click="changeEvent($event.target.value)">
+                            <option>Selectionner un produit ou service</option>
+                            @foreach ($all_product as $item)
+                                <option value="{{$item->id}}">{{$item->nom}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="button" wire:click.prevent="addItem()" class="btn btn-info float-right mb-1"><i class="fa fa-plus"></i></button>
+                    
+                        <table class="table table-hover" id="table-2">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Quantite</th>
+                                    <th>Taxe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ( $tab_product as $index => $value)
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <input type="text" wire:model="tab_product.{{$index}}.nom" placeholder="Nom" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <textarea type="text" wire:model="tab_product.{{$index}}.description" placeholder="Description" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <input type="number" wire:model="tab_product.{{$index}}.montant" placeholder="Montant" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <input type="number" wire:model="tab_product.{{$index}}.quantite" placeholder="Quantite" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <input type="number" wire:model="tab_product.{{$index}}.taxe" placeholder="Tva" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <button type="button" class="btn btn-sm btn-danger text-white mt-3"
+                                                    wire:click.prevent="removeItem({{$index}})">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="form-group row d-flex justify-content-between" >
+                            <div class="col-lg-4 col-md-6"></div>
+                            <div class="col-lg-4 col-md-6">
+                                <table class="float-right">
+                                    <tr class="">
+                                        <th class="p-2">Subtotal</th>
+                                        <td class="p-2">{{$sous_total}}</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-300">
+                                        <th class="p-2">Taxes</th>
+                                        <td class="p-2" width="125">
+                                            <input type="number" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-300">
+                                        <th>Total</th>
+                                        <td>{{$total}}</td>
+                                    </tr>
+                                </table> 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-md-6 text-left">
+                                <button class="btn btn-icon icon-right btn-warning" type="button" wire:click="back(1)"><i class="fas fa-arrow-left"></i> Retour</button>
+                                <button  class="btn btn-icon icon-right btn-success ml-2" wire:click.prevent="tester"> Ajouter <i class="fas fa-plus"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row align-items-center">
-                        <label class="col-md-4 text-md-right text-left">Nom</label>
-                        <div class="col-lg-4 col-md-6">
-                            <input type="email" name="email" class="form-control">
-                        </div>
-                    </div>
-            
-                    <div class="form-group row">
-                        <div class="col-md-4"></div>
-                        <div class="col-lg-4 col-md-6 text-right">
-                            <button class="btn btn-icon icon-right btn-warning ml-2" type="button" wire:click="back(1)"><i class="fas fa-arrow-left"></i> Retour</button>
-                            <button  class="btn btn-icon icon-right btn-success">Ajouter <i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            @endif
+                @endif
           </form>
 
     </div>
