@@ -35,12 +35,13 @@
                     </a>      
                 </div>
             </div>
-        </div>
-          <form class="wizard-content mt-2">
+        </div> 
+          {{-- <form wire:submit.prevent="store" class="wizard-content mt-2"> --}}
             @if ($currentStep === 1)   
-                <div class="wizard-pane">
+                <div class="wizard-pane container">
+                    @include('livewire.comptable.devis.formDevis')
                     <div class="form-group row">
-                        <div class="col-lg-4 col-md-6 text-right">
+                        <div class="col-lg-4 col-md-6 text-left">
                             <button type="button" class="btn btn-icon icon-right btn-primary" wire:click="firstStepSubmit">Suivant <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -63,9 +64,10 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Description</th>
-                                    <th>Montant</th>
+                                    <th>Tarif</th>
                                     <th>Quantite</th>
-                                    <th>Taxe</th>
+                                    <th>Tva</th>
+                                    <th>Montant</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -81,25 +83,31 @@
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <textarea type="text" wire:model="tab_product.{{$index}}.description" placeholder="Description" class="form-control"></textarea>
+                                                <textarea style="height: 60px;" type="text" wire:model="tab_product.{{$index}}.description" placeholder="Description" class="form-control"></textarea>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input type="number" wire:model="tab_product.{{$index}}.montant" placeholder="Montant" class="form-control">
+                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input type="number" wire:model="tab_product.{{$index}}.quantite" placeholder="Quantite" class="form-control">
+                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.quantite" placeholder="Quantite" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input type="number" wire:model="tab_product.{{$index}}.taxe" placeholder="Tva" class="form-control">
+                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.taxe" placeholder="Tva" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for=""></label>
+                                                <input min="1" type="number" readonly wire:model="tab_product.{{$index}}.montant" placeholder="Tva" class="form-control">
                                             </div>
                                         </td>
                                         <td>
@@ -124,12 +132,12 @@
                                         <td class="p-2">{{$sous_total}}</td>
                                     </tr>
                                     <tr class="border-t border-gray-300">
-                                        <th class="p-2">Taxes</th>
+                                        <th class="p-2">Remise</th>
                                         <td class="p-2" width="125">
                                             <input type="number" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
                                         </td>
                                     </tr>
-                                    <tr class="border-t border-gray-300">
+                                    <tr class="border-2 border-gray-300 ml-2">
                                         <th>Total</th>
                                         <td>{{$total}}</td>
                                     </tr>
@@ -139,12 +147,11 @@
                         <div class="form-group row">
                             <div class="col-lg-4 col-md-6 text-left">
                                 <button class="btn btn-icon icon-right btn-warning" type="button" wire:click="back(1)"><i class="fas fa-arrow-left"></i> Retour</button>
-                                <button  class="btn btn-icon icon-right btn-success ml-2" wire:click.prevent="tester"> Ajouter <i class="fas fa-plus"></i></button>
+                                <button wire:click.prevent="store" class="btn btn-icon icon-right btn-success ml-2"> Ajouter <i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
                 @endif
-          </form>
-
+          {{-- </form> --}}
     </div>
 </div>

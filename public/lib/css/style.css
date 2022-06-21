@@ -127,6 +127,10 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   margin-left: 437px;
 }
 
+textarea.form-control {
+  height: auto;
+}
+
 
 /* Category Ads */
 #calendar-container {
