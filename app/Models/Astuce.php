@@ -29,6 +29,26 @@ class Astuce extends Model
         ]);
     }
 
+    public function getReunions()
+    {
+        $data = [];
+
+        $reunions = Reunion::all();
+        foreach ($reunions as $r) {
+            if ($r->entreprise_id === Auth()->user()->entreprise_id) {
+
+                array_push($data, [
+                    'id' => $r->id,
+                    'title' => $r->title,
+                    'start' => $r->date,
+                    'end' => null
+                ]);
+            }
+
+        }
+        return json_encode($this->data);
+    }
+
     public function createFirstSuperAdmin()
     {
         $countUser = User::count();

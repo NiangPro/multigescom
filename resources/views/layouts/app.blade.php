@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="lib/css/datatables.min.css">
   <link rel="stylesheet" href="lib/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="lib/css/select.bootstrap4.min.css">
-  
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="lib/css/style.css">
   <link rel="stylesheet" href="lib/css/components.css">
@@ -31,7 +31,6 @@
   ></script>
   <link rel="stylesheet" href="{{asset('lib/style.css')}}" />
   @endif
-  <link rel="stylesheet" href="{{asset('lib/css/calendar-gc.min.css')}}" />
 
   <link rel="stylesheet" href="lib/css/iziToast.min.css">
   @yield('css')
@@ -102,7 +101,6 @@
   <script src="{{asset('lib/app.js')}}"></script>
   @endif
   <script src="lib/js/iziToast.min.js"></script>
-  <script src="lib/js/calendar-gc.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
    @yield('js')
