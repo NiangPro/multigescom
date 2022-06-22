@@ -26,6 +26,15 @@
             position: 'topRight'
             });
         });
+
+        window.addEventListener('elementEmpty', event =>{
+        iziToast.error({
+        title: 'Devis',
+        message: 'Veuillez d\'abord remplir la derniere ligne',
+        position: 'topRight'
+        });
+    });
+
         
     </script>
 @endsection

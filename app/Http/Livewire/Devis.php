@@ -67,12 +67,12 @@ class Devis extends Component
         $this->validate();
 
         ModelsDevis::create([
-            'date' => $this->form['date'],
             'client_id' => $this->form['client_id'],
             'employe_id' => $this->form['employe_id'],
             'description' => $this->form['description'],
             'montant' => $this->form['montant'],
             'remise' => $this->form['remise'],
+            'date' => $this->form['date'],
             'statut' => $this->form['statut'],
             'entreprise_id' => Auth::user()->entreprise_id,
         ]);
@@ -104,15 +104,21 @@ class Devis extends Component
 
     public function addItem()
     {
-        $this->item_product = [];
-        $this->tab_product[] = [
-            'nom'=>"" ?? 'Nom',
-            'description'=>"" ?? 'Description',
-            'tarif' =>0,
-            'quantite'=>0,
-            'taxe'=>0,
-            'montant'=>0,
-        ];
+        foreach ($this->tab_product as $product) {
+            if($product['nom']==="" && $product['description']==="" &&
+            $product['tarif']===0 && $product['quantite']=== 0){
+                $this->dispatchBrowserEvent("elementEmpty");
+            }else{
+                $this->tab_product[] = [
+                    'nom'=>"" ?? 'Nom',
+                    'description'=>"" ?? 'Description',
+                    'tarif' =>0,
+                    'quantite'=>0,
+                    'taxe'=>0,
+                    'montant'=>0,
+                ];
+            }
+        }
     }
       
     public function removeItem($i)
@@ -135,42 +141,48 @@ class Devis extends Component
         $this->etat = $etat;
     }
 
-    public function changeEvent($value){
-        if(isset($value) && $value !== null){
-            $this->idItem = $value;
-            // $this->item_product = Produit::where("id", $value)->first();
+    public function changeEvent($id){
+        if($id !== null){
+            
+            array_pop($this->tab_product);
+            $product = Produit::where("id", $id)->first();
+
+            $this->tab_product[] = [
+                'nom'=> $product->nom,
+                'description'=> $product->description,
+                'tarif' => $product->tarif,
+                'quantite'=> 1,
+                'taxe'=> $product->taxe,
+                'montant'=> $product->tarif,
+            ];
+
+
         }
     }
 
-    public function calculMontant($tarif, $qt , $tva){
+    public function montanthT($tarif, $qt , $tva){
         return ($tarif*$qt*($tva/100));
     }
+
+    public function calculMontant($key){
+        $this->tab_product[$key]['montant'] = $this->montanthT(
+            $this->tab_product[$key]['tarif'], 
+            $this->tab_product[$key]['quantite'], 
+            $this->tab_product[$key]['taxe']
+        ) ;
+     }
+ 
 
     public function render()
     {
         $this->astuce = new Astuce();
         $sous_total = 0;
 
-        if($this->idItem!==0 && $this->idItem!==null){
-            $this->item_product = Produit::where("id", $this->idItem)->first();
-            if(count($this->tab_product)>=0 ){
-                $this->tab_product[count($this->tab_product)-1]['nom'] = $this->item_product->nom;
-                $this->tab_product[count($this->tab_product)-1]['description'] = $this->item_product->description;
-                $this->tab_product[count($this->tab_product)-1]['tarif'] = $this->item_product->tarif;
-                $this->tab_product[count($this->tab_product)-1]['quantite'] = 1;
-
-                $this->tab_product[count($this->tab_product)-1]['montant'] = $this->calculMontant(
-                    $this->tab_product[count($this->tab_product)-1]['tarif'],
-                    $this->tab_product[count($this->tab_product)-1]['quantite'],
-                    $this->tab_product[count($this->tab_product)-1]['taxe']
-                );
-            }
-        }
         foreach ($this->tab_product as $product) {
-           if($product['montant'] && $product['quantite']){
-                $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
-                $this->total = $sous_total;
-         }
+            if($product['montant'] && $product['quantite']){
+                    $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
+                    $this->total = $sous_total;
+            }
         }
 
         $this->staticData = $this->astuce->getStaticData("Statut des devis");
@@ -188,6 +200,17 @@ class Devis extends Component
         ]);
     }
 
+    public function initTabProduct(){
+        $this->tab_product[] = [
+            'nom'=>"",
+            'description'=>"",
+            'tarif' =>0,
+            'quantite'=>0,
+            'taxe'=>0,
+            'montant'=>0,
+        ];
+    }
+
     public function mount(){
         if(!Auth::user()){
             
@@ -199,14 +222,7 @@ class Devis extends Component
             return redirect(route("home"));
         }
 
-        $this->tab_product[] = [
-            'nom'=>"" ?? 'Nom',
-            'description'=>"" ?? 'Description',
-            'tarif' =>0,
-            'quantite'=>0,
-            'taxe'=>0,
-            'montant'=>0,
-        ];
+        $this->initTabProduct();
 
     }
 }

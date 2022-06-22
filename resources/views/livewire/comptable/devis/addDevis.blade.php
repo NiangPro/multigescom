@@ -89,19 +89,19 @@
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
+                                                <input min="1" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.quantite" placeholder="Quantite" class="form-control">
+                                                <input min="1" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.quantite" placeholder="Quantite" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input min="1" type="number" wire:model="tab_product.{{$index}}.taxe" placeholder="Tva" class="form-control">
+                                                <input min="1" type="number" wire:change='calculMontant({{$index}})' wire:model="tab_product.{{$index}}.taxe" placeholder="Tva" class="form-control">
                                             </div>
                                         </td>
                                         <td>
