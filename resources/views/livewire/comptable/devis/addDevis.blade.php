@@ -1,7 +1,7 @@
 <div class="card mt-2 card-primary">
     <div class="card-header">
         <h4>
-            Formulaire 
+            Formulaire
             @if ($etat ==="info")
                 de modification dévis
              @else
@@ -32,12 +32,12 @@
                         <div class="wizard-step-label">
                           Bon de commande
                         </div>
-                    </a>      
+                    </a>
                 </div>
             </div>
-        </div> 
+        </div>
           {{-- <form wire:submit.prevent="store" class="wizard-content mt-2"> --}}
-            @if ($currentStep === 1)   
+            @if ($currentStep === 1)
                 <div class="wizard-pane container">
                     @include('livewire.comptable.devis.formDevis')
                     <div class="form-group row">
@@ -47,10 +47,10 @@
                     </div>
                 </div>
             @endif
-            @if ($currentStep === 2)   
+            @if ($currentStep === 2)
                 <div class="wizard-pane">
                     <div class="form-group d-flex" >
-                        <select class="form-control" wire:click="changeEvent($event.target.value)">
+                        <select class="form-control" wire:model="idprod" wire:change="changeEvent">
                             <option>Selectionner un produit ou service</option>
                             @foreach ($all_product as $item)
                                 <option value="{{$item->id}}">{{$item->nom}}</option>
@@ -58,7 +58,7 @@
                         </select>
                     </div>
                     <button type="button" wire:click.prevent="addItem()" class="btn btn-info float-right mb-1"><i class="fa fa-plus"></i></button>
-                    
+
                         <table class="table table-hover" id="table-2">
                             <thead>
                                 <tr>
@@ -141,7 +141,7 @@
                                         <th>Total</th>
                                         <td>{{$total}}</td>
                                     </tr>
-                                </table> 
+                                </table>
                             </div>
                         </div>
                         <div class="form-group row">
