@@ -13,7 +13,7 @@ use Livewire\Component;
 use Symfony\Component\Mailer\Transport\Dsn;
 
 class Devis extends Component
-{   
+{
     public $etat;
     public $astuce;
     public $current_devis;
@@ -27,6 +27,7 @@ class Devis extends Component
     public $idItem=0;
     public $total=0;
     public $staticData;
+    public $idprod = null;
 
     public $form = [
         'date' => '',
@@ -120,7 +121,7 @@ class Devis extends Component
             }
         }
     }
-      
+
     public function removeItem($i)
     {
         unset($this->tab_product[$i]);
@@ -134,18 +135,18 @@ class Devis extends Component
 
     public function back($step)
     {
-        $this->currentStep = $step;    
+        $this->currentStep = $step;
     }
 
     public function changeEtat($etat){
         $this->etat = $etat;
     }
 
-    public function changeEvent($id){
-        if($id !== null){
-            
+    public function changeEvent(){
+        if(!empty($this->idprod) &&  $this->idprod!== null){
+
             array_pop($this->tab_product);
-            $product = Produit::where("id", $id)->first();
+            $product = Produit::where("id", $this->idprod)->first();
 
             $this->tab_product[] = [
                 'nom'=> $product->nom,
@@ -156,6 +157,7 @@ class Devis extends Component
                 'montant'=> $product->tarif,
             ];
 
+        $this->idprod = null;
 
         }
     }
@@ -166,12 +168,12 @@ class Devis extends Component
 
     public function calculMontant($key){
         $this->tab_product[$key]['montant'] = $this->montanthT(
-            $this->tab_product[$key]['tarif'], 
-            $this->tab_product[$key]['quantite'], 
+            $this->tab_product[$key]['tarif'],
+            $this->tab_product[$key]['quantite'],
             $this->tab_product[$key]['taxe']
         ) ;
-    }
- 
+     }
+
     public function render()
     {
         $this->astuce = new Astuce();
@@ -179,8 +181,8 @@ class Devis extends Component
 
         foreach ($this->tab_product as $product) {
             if($product['montant'] && $product['quantite']){
-                    $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
-                    $this->total = $sous_total;
+                $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
+                $this->total = $sous_total;
             }
         }
 
@@ -212,12 +214,12 @@ class Devis extends Component
 
     public function mount(){
         if(!Auth::user()){
-            
+
             return redirect(route('login'));
         }
 
         if(Auth::user()->isCommercial()){
-            
+
             return redirect(route("home"));
         }
 

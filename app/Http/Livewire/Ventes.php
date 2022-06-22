@@ -20,6 +20,7 @@ class Ventes extends Component
     public $idProd = null;
     public $staticData;
     public $tab_product = [];
+    public $total=0;
 
     public function addItem()
     {
@@ -82,11 +83,22 @@ class Ventes extends Component
     {
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Statut des devis");
+        
+        $sous_total = 0;
+
+        foreach ($this->tab_product as $product) {
+            if($product['montant'] && $product['quantite']){
+                $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
+                $this->total = $sous_total;
+            }
+        }
 
         return view('livewire.comptable.ventes',[ 
             'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'clients' => Client::orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
+            'sous_total' => $sous_total,
+            'total' => $this->total,
         ]
         )->layout('layouts.app', [
             'title' => "Les Ventes",
