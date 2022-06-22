@@ -110,8 +110,8 @@ class Devis extends Component
                 $this->dispatchBrowserEvent("elementEmpty");
             }else{
                 $this->tab_product[] = [
-                    'nom'=>"" ?? 'Nom',
-                    'description'=>"" ?? 'Description',
+                    'nom'=>"",
+                    'description'=>"",
                     'tarif' =>0,
                     'quantite'=>0,
                     'taxe'=>0,
@@ -170,9 +170,8 @@ class Devis extends Component
             $this->tab_product[$key]['quantite'], 
             $this->tab_product[$key]['taxe']
         ) ;
-     }
+    }
  
-
     public function render()
     {
         $this->astuce = new Astuce();
