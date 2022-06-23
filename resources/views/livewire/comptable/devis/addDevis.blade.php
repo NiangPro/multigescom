@@ -63,7 +63,7 @@
                             <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Description</th>
+                                    {{-- <th>Description</th> --}}
                                     <th>Tarif</th>
                                     <th>Quantite</th>
                                     <th>Tva</th>
@@ -77,19 +77,13 @@
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input type="text" wire:model="tab_product.{{$index}}.nom" placeholder="Nom" class="form-control">
+                                                <input readonly type="text" wire:model="tab_product.{{$index}}.nom" placeholder="Nom" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <textarea style="height: 60px;" type="text" wire:model="tab_product.{{$index}}.description" placeholder="Description" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for=""></label>
-                                                <input min="1" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
+                                                <input min="1" step="50" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
                                             </div>
                                         </td>
                                         <td>
@@ -134,7 +128,7 @@
                                     <tr class="border-t border-gray-300">
                                         <th class="p-2">Remise</th>
                                         <td class="p-2" width="125">
-                                            <input type="number" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
+                                            <input type="number" wire:model="remise" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
                                         </td>
                                     </tr>
                                     <tr class="border-2 border-gray-300 ml-2">

@@ -10,17 +10,16 @@ use App\Models\Produit;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Symfony\Component\Mailer\Transport\Dsn;
 
 class Devis extends Component
 {
-    public $etat;
+    public $etat="list";
     public $astuce;
     public $current_devis;
     public $idDeleting;
     protected $listeners = ['remove'];
     public $currentStep = 1;
-    public $item_product;
+    public $description;
     public $tab_product = [];
     public $i = 1;
     public $taxes;
@@ -28,6 +27,7 @@ class Devis extends Component
     public $total=0;
     public $staticData;
     public $idprod = null;
+    public $remise=0;
 
     public $form = [
         'date' => '',
@@ -64,52 +64,64 @@ class Devis extends Component
         $this->form['statut']='';
     }
 
-    public function store(){
-        $this->validate();
-
-        ModelsDevis::create([
-            'client_id' => $this->form['client_id'],
-            'employe_id' => $this->form['employe_id'],
-            'description' => $this->form['description'],
-            'montant' => $this->form['montant'],
-            'remise' => $this->form['remise'],
-            'date' => $this->form['date'],
-            'statut' => $this->form['statut'],
-            'entreprise_id' => Auth::user()->entreprise_id,
-        ]);
-
-        foreach ($this->tab_product as $key => $value) {
-            $this->$this->validate([
-                $this->tab_product[$key]['nom'] =>'required|string',
-                // $this->tab_product[$key]['decription'] =>'required|string',
-                $this->tab_product[$key]['montant'] =>'required',
-                // $this->tab_product[$key]['taxe'] =>'required|string',
-                $this->tab_product[$key]['quantite'] =>'required'
-            ],[
-                $this->tab_product[$key]['nom'].'required' =>'Le nom est requis',
-                $this->tab_product[$key]['montant'].'required' =>'le Montant est requis',
-                $this->tab_product[$key]['quantite'].'required' =>'La quantité est requise'
-            ]);
-
-            DevisItem::create([
-                'nom' => $this->tab_product[$key]['nom'],
-                'description' => $this->tab_product[$key]['decription'],
-                'montant' => $this->tab_product[$key]['montant'],
-                'taxe' => $this->tab_product[$key]['taxe'],
-                'quantite' => $this->tab_product[$key]['quantite'],
-                'devis_id' => 1,
-            ]);
+    public function emptyDevisItem($tab){
+        foreach ($tab as $product) {
+            if(empty($product['montant']) && empty($product['description'])
+             && $product['montant'] <= 1000 && $product['quantite'] === 0 ){
+                return false;
+            }else{
+                return true;
+            }
         }
     }
 
+    public function store(){
+
+        $this->validate();
+
+        if($this->emptyDevisItem($this->tab_product)){
+            $devis = ModelsDevis::create([
+                'client_id' => $this->form['client_id'],
+                'employe_id' => $this->form['employe_id'],
+                'description' => $this->form['description'],
+                'montant' => $this->total,
+                'remise' => $this->remise,
+                'date' => $this->form['date'],
+                'statut' => $this->form['statut'],
+                'entreprise_id' => Auth::user()->entreprise_id,
+            ]);
+
+            foreach ($this->tab_product as $key => $value) {
+                DevisItem::create([
+                    'nom' => $this->tab_product[$key]['nom'],
+                    'description' => $this->description,
+                    'montant' => $this->tab_product[$key]['montant'],
+                    'taxe' => $this->tab_product[$key]['taxe'],
+                    'quantite' => $this->tab_product[$key]['quantite'],
+                    'devis_id' => $devis->id,
+                ]);
+            }
+
+            $this->astuce->addHistorique("Ajout devis ".$devis->id, "add");
+
+            $this->dispatchBrowserEvent("addSuccessful");
+            $this->initForm();
+            $this->initTabProduct();
+            $this->etat="list";
+        }else{
+            $this->dispatchBrowserEvent("valueEmpty");
+        }
+    }
 
     public function addItem()
     {
-        foreach ($this->tab_product as $product) {
-            if($product['nom']==="" && $product['description']==="" &&
-            $product['tarif']===0 && $product['quantite']=== 0){
+        $index = count($this->tab_product)-1;
+        if($this->tab_product[$index]['nom']==="" && 
+            $this->tab_product[$index]['description']==="" &&
+            $this->tab_product[$index]['tarif']===0 && 
+            $this->tab_product[$index]['quantite']=== 0){
                 $this->dispatchBrowserEvent("elementEmpty");
-            }else{
+        }else{
                 $this->tab_product[] = [
                     'nom'=>"",
                     'description'=>"",
@@ -118,19 +130,26 @@ class Devis extends Component
                     'taxe'=>0,
                     'montant'=>0,
                 ];
-            }
         }
     }
 
     public function removeItem($i)
     {
-        unset($this->tab_product[$i]);
-        $this->tab_product=array_values($this->tab_product);
+        $taille = count($this->tab_product)-1;
+
+        if($taille > 0){
+            unset($this->tab_product[$i]);
+            $this->tab_product=array_values($this->tab_product);
+        }else{
+            $this->dispatchBrowserEvent("produitEmpty");
+        }
     }
 
     public function firstStepSubmit()
     {
-        $this->currentStep = 2;
+        if($this->validate()){
+            $this->currentStep = 2;
+        }
     }
 
     public function back($step)
@@ -147,6 +166,7 @@ class Devis extends Component
 
             array_pop($this->tab_product);
             $product = Produit::where("id", $this->idprod)->first();
+            $this->description = $product->description;
 
             $this->tab_product[] = [
                 'nom'=> $product->nom,
@@ -154,16 +174,15 @@ class Devis extends Component
                 'tarif' => $product->tarif,
                 'quantite'=> 1,
                 'taxe'=> $product->taxe,
-                'montant'=> $product->tarif,
+                'montant'=> $this->montanthT($product->tarif,1,$product->taxe)
             ];
 
-        $this->idprod = null;
-
+            $this->idprod = null;
         }
     }
 
     public function montanthT($tarif, $qt , $tva){
-        return ($tarif*$qt*($tva/100));
+        return ($tarif*$qt*(1+$tva/100));
     }
 
     public function calculMontant($key){
@@ -172,7 +191,43 @@ class Devis extends Component
             $this->tab_product[$key]['quantite'],
             $this->tab_product[$key]['taxe']
         ) ;
-     }
+    }
+
+    public function getDevis($id){
+        $this->current_devis = DevisItem::where("id", $id)->first();
+        $this->etat = "info";
+    }
+
+    public function delete($id){
+        $this->idDeleting = $id;
+        $this->alertConfirm();
+    }
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'message' => 'Êtes-vous sûr?',
+            'text' => 'Vouliez-vous supprimer?'
+        ]);
+    }
+
+    // delete reunion
+    public function remove(){
+        $tache = DevisItem::where("id", $this->idDeleting)->first();
+        $tache->delete();
+
+        $this->astuce->addHistorique('Suppression d\'un dévis', "delete");
+        /* Write Delete Logic */
+
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Dévis',
+            'text' => 'Suppression avec succéss!.'
+        ]);
+
+        $this->etat="list";
+    }
 
     public function render()
     {
@@ -182,16 +237,17 @@ class Devis extends Component
         foreach ($this->tab_product as $product) {
             if($product['montant'] && $product['quantite']){
                 $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
-                $this->total = $sous_total;
+                $this->total = $sous_total*(1 - $this->remise/100);
             }
         }
 
         $this->staticData = $this->astuce->getStaticData("Statut des devis");
 
         return view('livewire.comptable.devis',[
-            'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'sous_total' => $sous_total,
             'total' => $this->total,
+            'devisItem' => DevisItem::OrderBy('id', 'DESC')->get(),
+            'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'clients' => Client::orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
         ])->layout('layouts.app', [

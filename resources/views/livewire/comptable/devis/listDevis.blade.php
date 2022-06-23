@@ -5,9 +5,9 @@
             <table class="table table-hover" id="table-2">
             <thead>
                 <tr>
+                    <th>Client</th>
                     <th>Produit / Service</th>
                     <th>Montant</th>
-                    <th>Client</th>
                     <th>Date</th>
                     <th>Employé</th>
                     <th>Statut</th>
@@ -15,37 +15,38 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($devis as $dev)
+                @foreach ($devisItem as $dev)
                     <tr>
-                        <td>{{$dev->statut}}</td>
+                        <td class="text-dark strong">{{$dev->devis->client->nom}}</td>
+                        <td>{{$dev->nom}}</td>
+                        <td>{{$dev->montant}}</td>
+                        <td>{{$dev->devis->employe->prenom}} {{$dev->devis->employe->prenom}}</td>
+                        <td>{{ date("d/m/Y", strtotime($dev->devis->date))}}</td>
                         <td>
                             <div class="text-small font-weight-600
-                                @if ($dev->statut==='Envoyé')
-                                    text-primary
-                                @elseif($dev->statut==='Validé')
+                                @if ($dev->devis->statut==='Envoyé')
+                                    text-info
+                                @elseif($dev->devis->statut==='Validé')
                                     text-success
-                                @elseif($dev->statut==='Brouillon')
+                                @elseif($dev->devis->statut==='Brouillon')
                                     text-dark
                                 @else
                                     text-muted
                                 @endif">
-                                <i class="fas fa-circle"></i> {{$dev->statut}}
-                        
+                                <i class="fas fa-circle"></i> {{$dev->devis->statut}}
+                            </div>
                         </td>
-                        <td>{{ date("d/m/Y", strtotime($dev->date))}}</td>
-                        <td>{{$dev->description}}</td>
-                        <td>{{$dev->montant}}</td>
                         <td>
                             <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getDepense({{$dev->id}})"><i class="far fa-eye"></i></button>
+                                <button class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getDevis({{$dev->id}})"><i class="far fa-eye"></i></button>
                                 @if (Auth()->user()->isAdmin())
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
-                                trigger--fire-modal-1" wire:click.prevent="delete({{$dev->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                    <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
+                                    trigger--fire-modal-1" wire:click.prevent="delete({{$dev->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                                 @endif
                             </div>
                         </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
             </table>
         </div>

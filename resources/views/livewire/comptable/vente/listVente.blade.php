@@ -1,6 +1,6 @@
 <div class="card mt-2 card-primary">
     <div class="card-body">
-        <div class="section-title mt-0"><strong>Liste des Dévis</strong></div>
+        <div class="section-title mt-0"><strong>Liste des Ventes</strong></div>
         <div class="table-responsive">
             <table class="table table-hover" id="table-2">
             <thead>

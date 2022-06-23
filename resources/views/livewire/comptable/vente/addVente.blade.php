@@ -1,7 +1,7 @@
 <div class="card mt-2 card-primary">
     <div class="card-header">
         <h4>
-            Formulaire 
+            Formulaire
             @if ($etat ==="info")
                 de modification vente
              @else
@@ -22,7 +22,7 @@
                             <i class="fas fa-file-invoice"></i>
                         </div>
                         <div class="wizard-step-label">
-                            Ajout vente
+                            Information vente
                         </div>
                     </a>
                     <a class="wizard-step {{ $currentStep != 2 ? 'step2' : 'wizard-step-active' }}">
@@ -32,14 +32,14 @@
                         <div class="wizard-step-label">
                           Bon de commande
                         </div>
-                    </a>      
+                    </a>
                 </div>
             </div>
-        </div> 
+        </div>
           {{-- <form wire:submit.prevent="store" class="wizard-content mt-2"> --}}
-            @if ($currentStep === 1)   
+            @if ($currentStep === 1)
                 <div class="wizard-pane container">
-                    @include('livewire.comptable.devis.formDevis')
+                    @include('livewire.comptable.vente.formVente')
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-6 text-left">
                             <button type="button" class="btn btn-icon icon-right btn-primary" wire:click="firstStepSubmit">Suivant <i class="fas fa-arrow-right"></i></a>
@@ -47,10 +47,10 @@
                     </div>
                 </div>
             @endif
-            @if ($currentStep === 2)   
+            @if ($currentStep === 2)
                 <div class="wizard-pane">
                     <div class="form-group d-flex" >
-                        <select class="form-control" wire:model="idProd" wire:change="changeEvent">
+                        <select class="form-control" wire:model="idprod" wire:change="changeEvent">
                             <option>Selectionner un produit ou service</option>
                             @foreach ($all_product as $item)
                                 <option value="{{$item->id}}">{{$item->nom}}</option>
@@ -58,12 +58,11 @@
                         </select>
                     </div>
                     <button type="button" wire:click.prevent="addItem()" class="btn btn-info float-right mb-1"><i class="fa fa-plus"></i></button>
-                    
+
                         <table class="table table-hover" id="table-2">
                             <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Description</th>
                                     <th>Tarif</th>
                                     <th>Quantite</th>
                                     <th>Tva</th>
@@ -77,19 +76,13 @@
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <input type="text" wire:model="tab_product.{{$index}}.nom" placeholder="Nom" class="form-control">
+                                                <input readonly type="text" wire:model="tab_product.{{$index}}.nom" placeholder="Nom" class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for=""></label>
-                                                <textarea style="height: 60px;" type="text" wire:model="tab_product.{{$index}}.description" placeholder="Description" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for=""></label>
-                                                <input min="1" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
+                                                <input min="1" step="50" wire:change='calculMontant({{$index}})' type="number" wire:model="tab_product.{{$index}}.tarif" placeholder="Montant" class="form-control">
                                             </div>
                                         </td>
                                         <td>
@@ -134,14 +127,14 @@
                                     <tr class="border-t border-gray-300">
                                         <th class="p-2">Remise</th>
                                         <td class="p-2" width="125">
-                                            <input type="number" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
+                                            <input type="number" wire:model="remise" name="taxes" class="border border-indigo-500 rounded-md p-1 w-75 d-inline" min="0" max="100" wire:model="taxes">%
                                         </td>
                                     </tr>
                                     <tr class="border-2 border-gray-300 ml-2">
                                         <th>Total</th>
                                         <td>{{$total}}</td>
                                     </tr>
-                                </table> 
+                                </table>
                             </div>
                         </div>
                         <div class="form-group row">
