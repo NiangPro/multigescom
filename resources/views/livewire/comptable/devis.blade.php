@@ -22,7 +22,7 @@
             window.print();
 
             document.body.innerHTML = originalContents;
-            
+            location.reload();
         }
 
         window.addEventListener('addSuccessful', event =>{

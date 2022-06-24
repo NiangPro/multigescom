@@ -6,7 +6,8 @@
                 de modification dévis
              @else
                 d'ajout dévis
-            @endif</h4>
+            @endif
+        </h4>
         <div class="card-header-action">
           <div class="btn-group">
               <button wire:click.prevent="changeEtat('list')" class="btn btn-primary"><i class="fa fa-list"></i> Liste</button>

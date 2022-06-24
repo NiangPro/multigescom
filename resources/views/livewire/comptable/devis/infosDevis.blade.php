@@ -4,7 +4,7 @@
             <button class="btn btn-icon icon-right btn-warning" type="button" wire:click="changeEtat('list')"><i class="fas fa-arrow-left"></i> Retour</button>
             <button wire:click.prevent="store" onclick="printDiv('detailsDevis')" class="btn btn-icon icon-right btn-success ml-2"><i class="fas fa-file-invoice"></i> Imprimer</button>                
         </div>
-        <div class="float-right" id> <h3 class="mb-0">Devis</h3></div>
+        {{-- <div class="float-right" id> <h3 class="mb-0">Devis</h3></div> --}}
     </div><hr>
     <div class="card-body container mt-0" id="detailsDevis">
         <div class="row">
