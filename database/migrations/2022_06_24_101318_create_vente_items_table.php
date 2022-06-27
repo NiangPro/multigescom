@@ -20,8 +20,8 @@ return new class extends Migration
             $table->double("montant");
             $table->double("quantite");
             $table->double("taxe");
-            $table->unsignedBigInteger("ventes_id");
-            $table->foreign("ventes_id")->references("id")->on("ventes")->onDelete("cascade");
+            $table->unsignedBigInteger("vente_id");
+            $table->foreign("vente_id")->references("id")->on("ventes")->onDelete("cascade");
             $table->timestamps();
         });
     }

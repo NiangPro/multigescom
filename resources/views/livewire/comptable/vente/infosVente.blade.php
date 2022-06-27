@@ -2,14 +2,14 @@
     <div class="d-inline-block mr-4 ml-4 mt-5">
         <div class="float-left">
             <button class="btn btn-icon icon-right btn-warning" type="button" wire:click="changeEtat('list')"><i class="fas fa-arrow-left"></i> Retour</button>
-            <button wire:click.prevent="store" onclick="printDiv('detailsDevis')" class="btn btn-icon icon-right btn-success ml-2"><i class="fas fa-file-invoice"></i> Imprimer</button>                
+            <button wire:click.prevent="store" onclick="printDiv('detailsVente')" class="btn btn-icon icon-right btn-success ml-2"><i class="fas fa-file-invoice"></i> Imprimer</button>                
         </div>
-        <div class="float-right" id> <h3 class="mb-0">Devis</h3></div>
+        <div class="float-right" id> <h3 class="mb-0">Vente</h3></div>
     </div><hr>
-    <div class="card-body container mt-0" id="detailsDevis">
+    <div class="card-body container mt-0" id="detailsVente">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="text-center">Dévis fait le {{ date("d/m/Y", strtotime($this->current_vente->devis->date))}}</h4>
+                <h4 class="text-center">Facture fait le {{ date("d/m/Y", strtotime($this->current_vente->ventes->date))}}</h4>
             </div>
         </div>
         <div class="row mb-4 mt-3">
@@ -25,10 +25,10 @@
                 <span class="float-right">
                     <h5 class="mb-3 text-uppercase">à:</h5>
                     <img class="mr-2 mb-1" width="120" src="storage/images/client.png" alt="logo">
-                    <h3 class="mb-1 text-dark">{{$this->current_vente->devis->client->nom}}</h3>
-                    <div>Adresse: {{$this->current_vente->devis->client->adresse}}</div>
-                    <div>Tel: {{$this->current_vente->devis->client->tel}}</div>
-                    <div>Email: {{$this->current_vente->devis->client->email}}</div>
+                    <h3 class="mb-1 text-dark">{{$this->current_vente->ventes->client->nom}}</h3>
+                    <div>Adresse: {{$this->current_vente->ventes->client->adresse}}</div>
+                    <div>Tel: {{$this->current_vente->ventes->client->tel}}</div>
+                    <div>Email: {{$this->current_vente->ventes->client->email}}</div>
                 </span>
             </div>
         </div>
@@ -49,7 +49,7 @@
                         <td class="left">{{$this->current_vente->description}}</td>
                         <td class="right">{{$this->current_vente->montant}} CFA</td>
                         <td class="center">{{$this->current_vente->quantite}}</td>
-                        <td class="right">{{$this->current_vente->montant}} CFA</td>
+                        <td class="right">{{$this->mtHt}} CFA</td>
                     </tr>
                 </tbody>
             </table>
@@ -63,14 +63,14 @@
                             <td class="left" >
                                 <strong class="text-dark ml-n4">Remise</strong>
                             </td>
-                            <td class="right">{{$this->current_vente->devis->remise}}%</td>
+                            <td class="right">{{$this->current_vente->ventes->remise}}%</td>
                         </tr>
                         <tr style="border-bottom: 1px solid black;">
                             <td class="left">
                                 <strong class="text-dark ml-n4">Total</strong>
                             </td>
                             <td class="right">
-                                <strong class="text-dark">{{$this->current_vente->devis->montant}} CFA</strong>
+                                <strong class="text-dark">{{$this->current_vente->ventes->montant}} CFA</strong>
                             </td>
                         </tr>
                     </tbody>

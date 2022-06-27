@@ -13,6 +13,18 @@
 @section('js')
     <script>
 
+        function printDiv() {
+            var printContents = document.getElementById('detailsVente').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+            location.reload();
+        }
+
         window.addEventListener('addSuccessful', event =>{
             iziToast.success({
             title: 'Vente',
@@ -30,12 +42,28 @@
         });
 
         window.addEventListener('elementEmpty', event =>{
-        iziToast.error({
-        title: 'Vente',
-        message: 'Veuillez d\'abord remplir la derniere ligne',
-        position: 'topRight'
+            iziToast.error({
+            title: 'Vente',
+            message: 'Veuillez d\'abord remplir la derniere ligne',
+            position: 'topRight'
+            });
         });
-    });
+
+        window.addEventListener('produitEmpty', event =>{
+            iziToast.error({
+            title: 'vente',
+            message: 'Impossible de supprimer la derniere ligne',
+            position: 'topRight'
+            });
+        });
+
+        window.addEventListener('valueEmpty', event =>{
+            iziToast.error({
+            title: 'Vente',
+            message: 'Veuiller choisir un produit/service',
+            position: 'topRight'
+            });
+        });
 
         
     </script>

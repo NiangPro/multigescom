@@ -6,46 +6,32 @@
             <thead>
                 <tr>
                     <th>Produit / Service</th>
-                    <th>Montant</th>
+                    <th>Montant Total</th>
                     <th>Client</th>
                     <th>Date</th>
                     <th>Employé</th>
-                    <th>Statut</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($devis as $dev)
+                @foreach ($venteItem as $vente)
                     <tr>
-                        <td>{{$dev->statut}}</td>
-                        <td>
-                            <div class="text-small font-weight-600
-                                @if ($dev->statut==='Envoyé')
-                                    text-primary
-                                @elseif($dev->statut==='Validé')
-                                    text-success
-                                @elseif($dev->statut==='Brouillon')
-                                    text-dark
-                                @else
-                                    text-muted
-                                @endif">
-                                <i class="fas fa-circle"></i> {{$dev->statut}}
-                        
-                        </td>
-                        <td>{{ date("d/m/Y", strtotime($dev->date))}}</td>
-                        <td>{{$dev->description}}</td>
-                        <td>{{$dev->montant}}</td>
+                        <td class="text-dark strong">{{$vente->nom}}</td>
+                        <td>{{$vente->ventes->montant}}</td>
+                        <td>{{$vente->ventes->client->nom}}</td>
+                        <td>{{date("d/m/Y", strtotime($vente->ventes->date))}}</td>
+                        <td>{{$vente->ventes->employe->prenom}} {{$vente->ventes->employe->nom}}</td>
                         <td>
                             <div class="d-flex">
-                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getDepense({{$dev->id}})"><i class="far fa-eye"></i></button>
+                                <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getVentes({{$vente->id}})"><i class="far fa-eye"></i></button>
                                 @if (Auth()->user()->isAdmin())
                                 <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
-                                trigger--fire-modal-1" wire:click.prevent="delete({{$dev->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                trigger--fire-modal-1" wire:click.prevent="delete({{$vente->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
                                 @endif
                             </div>
                         </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
             </table>
         </div>

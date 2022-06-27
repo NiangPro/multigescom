@@ -4,9 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Client;
-use App\Models\DevisItem;
 use App\Models\Produit;
 use App\Models\User;
+use App\Models\Vente;
+use App\Models\VenteItem;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -18,10 +19,13 @@ class Ventes extends Component
     public $idDeleting;
     protected $listeners = ['remove'];
     public $currentStep = 1;
-    public $idProd = null;
+    public $idprod = null;
     public $staticData;
     public $tab_product = [];
-    public $total=0;
+    public $idItem = 0;
+    public $total = 0;
+    public $remise = 0;
+    public $mtHt = 0;
 
     public $form = [
         'date' => '',
@@ -38,14 +42,12 @@ class Ventes extends Component
         'form.date' => 'required|string',
         'form.client_id' => 'required',
         'form.employe_id' => 'required',
-        'form.statut' => 'required|string',
     ];
 
     protected  $messages = [
         'form.date.required' => 'La date est requis',
         'form.client_id.required' => 'Le client est requis',
         'form.employe_id.required' => 'L\'employe client est requis',
-        'form.statut.required' => 'le statut est requis',
     ];
 
     public function initForm(){
@@ -55,7 +57,6 @@ class Ventes extends Component
         $this->form['description']='';
         $this->form['montant']='';
         $this->form['remise']='';
-        $this->form['statut']='';
     }
 
     public function addItem()
@@ -93,29 +94,28 @@ class Ventes extends Component
         $this->validate();
 
         if($this->emptyDevisItem($this->tab_product)){
-            // $devis = Vente::create([
-            //     'client_id' => $this->form['client_id'],
-            //     'employe_id' => $this->form['employe_id'],
-            //     'description' => $this->form['description'],
-            //     'montant' => $this->total,
-            //     'remise' => $this->remise,
-            //     'date' => $this->form['date'],
-            //     'statut' => $this->form['statut'],
-            //     'entreprise_id' => Auth::user()->entreprise_id,
-            // ]);
+            $vente = Vente::create([
+                'client_id' => $this->form['client_id'],
+                'employe_id' => $this->form['employe_id'],
+                'description' => $this->form['description'],
+                'montant' => $this->total,
+                'remise' => $this->remise,
+                'date' => $this->form['date'],
+                'entreprise_id' => Auth::user()->entreprise_id,
+            ]);
 
             foreach ($this->tab_product as $key => $value) {
-                DevisItem::create([
+                VenteItem::create([
                     'nom' => $this->tab_product[$key]['nom'],
                     'description' => $this->description,
                     'montant' => $this->tab_product[$key]['montant'],
                     'taxe' => $this->tab_product[$key]['taxe'],
                     'quantite' => $this->tab_product[$key]['quantite'],
-                    'devis_id' => 1,
+                    'vente_id' => $vente->id,
                 ]);
             }
 
-            // $this->astuce->addHistorique("Ajout devis ".$devis->id, "add");
+            $this->astuce->addHistorique("Ajout devis ".$vente->id, "add");
 
             $this->dispatchBrowserEvent("addSuccessful");
             $this->initForm();
@@ -140,7 +140,9 @@ class Ventes extends Component
 
     public function firstStepSubmit()
     {
-        $this->currentStep = 2;
+        if($this->validate()){
+            $this->currentStep = 2;
+        }
     }
 
     public function back($step)
@@ -184,8 +186,10 @@ class Ventes extends Component
         ) ;
     }
 
-    public function getDevis($id){
-        $this->current_vente = DevisItem::where("id", $id)->first();
+    public function getVentes($id){
+        $this->current_vente = VenteItem::where("id", $id)->first();
+        $this->mtHt = $this->current_vente->montant * $this->current_vente->quantite ;
+
         $this->etat = "info";
     }
 
@@ -205,11 +209,10 @@ class Ventes extends Component
 
     // delete reunion
     public function remove(){
-        $tache = DevisItem::where("id", $this->idDeleting)->first();
+        $tache = VenteItem::where("id", $this->idDeleting)->first();
         $tache->delete();
 
         $this->astuce->addHistorique('Suppression d\'une vente', "delete");
-        /* Write Delete Logic */
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
@@ -235,6 +238,7 @@ class Ventes extends Component
         }
 
         return view('livewire.comptable.ventes',[ 
+            'venteItem' => VenteItem::OrderBy('id', 'DESC')->get(),
             'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'clients' => Client::orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
