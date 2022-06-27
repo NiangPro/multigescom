@@ -100,11 +100,11 @@
                             </div>
                             <textarea placeholder="Description" class="form-control @error('form.description') is-invalid
                             @enderror" wire:model="form.description"></textarea>
-                            @error('form.description')
+                            {{-- @error('form.description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                     </div>
                 </div>

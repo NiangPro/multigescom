@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <div class="input-group mb-2">
                               <div class="input-group-prepend">
-                                <div class="input-group-text">Description<span class="text-danger">*</span></div>
+                                <div class="input-group-text">Description</div>
                               </div>
                               <input type="text" class="form-control @error('form.description') is-invalid
                               @enderror" wire:model="form.description" placeholder="Description">
@@ -101,14 +101,5 @@
                     </div>
                 </div>
                 
-                {{-- <div class="mb-4">
-                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                    <button type="submit" class="btn btn-success">
-                        @if ($status ==="editProduct")
-                            Modifier
-                        @else
-                            Ajouter
-                        @endif
-                    </button>
-                </div> --}}
+            
             </form>
