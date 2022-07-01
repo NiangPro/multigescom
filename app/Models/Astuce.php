@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Astuce extends Model
 {
@@ -46,7 +47,13 @@ class Astuce extends Model
             }
 
         }
-        return json_encode($this->data);
+        return json_encode($data);
+    }
+
+    public function getDepenses()
+    {
+        $data = [];
+        return json_encode($data);
     }
 
     public function createFirstSuperAdmin()
