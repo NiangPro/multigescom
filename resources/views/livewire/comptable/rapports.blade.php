@@ -113,7 +113,11 @@
 
 @section('js')
 <script>
-    
+    // var depenses = `<?php echo $depenses; ?>`;
+    var depenseMonth = JSON.parse`<?php echo $depenseMonth; ?>`;
+    var venteMonth = JSON.parse`<?php echo $venteMonth; ?>`;
+    var revenus = venteMonth - depenseMonth;
+    alert(revenus);
     var ctx = document.getElementById('myChartLine').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -121,14 +125,14 @@
             labels: ['Jan', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Dec'],
             datasets: [{
                 label: 'Dépenses',
-                data: JSON.parse(@this.events),
+                data: JSON.parse(`<?php echo $depenses; ?>`),
                 backgroundColor:'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
             {
                 label: 'Ventes',
-                data: JSON.parse(@this.events),
+                data: JSON.parse(`<?php echo $ventes; ?>`),
                 backgroundColor:'lightgreen',
                 borderColor: 'green',
                 borderWidth: 1,
@@ -150,7 +154,7 @@
             labels: ['Ventes', 'Dépenses', 'Revenues'],
             datasets: [{
                 label: 'Comptabilité mensuelle',
-                data: [compta[1],compta[2], compta[0]],
+                data: [venteMonth ,depenseMonth, revenus],
                 backgroundColor: ['blue', 'red', 'green'],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,

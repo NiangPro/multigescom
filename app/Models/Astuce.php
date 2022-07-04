@@ -53,6 +53,86 @@ class Astuce extends Model
     public function getDepenses()
     {
         $data = [];
+        // $i=1;
+        $depenses = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
+            // dd(intval(date("m")));
+            for($i=1; $i<=intval(date("m")); $i++){
+                $som = 0;
+                foreach ($depenses as $r) {
+                    // dd("moi=".$r['month']."  i=".$i);
+                    if($i==$r['month']){
+                        $som= $r['amount'];
+                        break;
+                    }
+                }
+                $data[] = $som;
+            }
+
+        return json_encode($data);
+    }
+
+    public function getDepensesMonth()
+    {
+        $data = [];
+        // $i=1;
+        $depenses = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
+            
+                $som = 0;
+                
+                foreach ($depenses as $r) {
+                    if(intval(date("m")) == $r['month']){
+                        $data[] = $r['amount'];
+                        break;
+                }
+
+            }
+        return json_encode($data);
+    }
+
+    public function getVentes(){
+        $data = [];
+        $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
+
+            for($i=1; $i<=intval(date("m")); $i++){
+                $som = 0;
+                foreach ($ventes as $r) {
+                    if($i==$r['month']){
+                        $som= $r['amount'];
+                        break;
+                    }
+                }
+                $data[] = $som;
+            }
+
+        return json_encode($data);
+    }
+
+    public function getVentesMonth()
+    {
+        $data = [];
+        // $i=1;
+        $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
+            
+                $som = 0;
+                foreach ($ventes as $r) {
+                    if(intval(date("m")) == $r['month']){
+                        $data[] = $r['amount'];
+                    break;
+                }
+
+            }
         return json_encode($data);
     }
 
