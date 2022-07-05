@@ -51,38 +51,26 @@ class Rapports extends Component
             }
         }
     }
-
-    public function totaux($tab){
-        foreach ($tab as $value) {
-            return $value['amount'];
-        }
-    }
-
     
     public function render()
     {
         $this->astuce = new Astuce();
         $this->ventes = json_encode(Vente::get('montant')->pluck('montant'));
-        // dd($this->astuce->getDepenses());
+        
         $this->depenses = $this->astuce->getDepenses();
         $this->ventes = $this->astuce->getVentes();
         $this->depenseMonth = $this->astuce->getDepensesMonth();
         $this->venteMonth = $this->astuce->getVentesMonth();
 
-        $depense = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
-            DB::raw("SUM(montant) as amount")])->get();
-        $vente = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
-            DB::raw("SUM(montant) as amount")])->get();
+        $depense = json_decode($this->astuce->getDepensesMonth());
+        $vente = json_decode($this->astuce->getVentesMonth());
 
-        
-        $this->depenseTotal = $this->totaux($depense);
-        $this->venteTotal = $this->totaux($vente);
+        $this->depenseTotal = $depense[0];
+        $this->venteTotal = $vente[0];
         $this->revenusTotal = $this->venteTotal-$this->depenseTotal;
         
 
-        foreach ($depense as $value) {
-            $this->depenseTotal = $value['amount'];
-        }
+        
         
         return view('livewire.comptable.rapports')->layout('layouts.app', [
             'title' => "Les Rapports",
