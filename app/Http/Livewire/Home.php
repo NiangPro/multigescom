@@ -167,6 +167,6 @@ class Home extends Component
             $this->astuce->initCountries();
         }
 
-        dd($this->astuce->sumSale());
+        // dd($this->astuce->sumSale());
     }
 }

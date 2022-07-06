@@ -34,7 +34,7 @@ class Astuce extends Model
     {
 
 
-        $ventes = Vente::select(DB::raw('distinct Sum(total_amount) as somme, Month(date) as mois'))
+        $ventes = Vente::select(DB::raw('distinct Sum(montant) as somme, Month(date) as mois'))
             ->groupBy(DB::raw("Month(date)"))->orderBy(DB::raw("MONTH(date)"), "ASC")
             ->get();
 
@@ -174,9 +174,9 @@ class Astuce extends Model
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
-            
+
                 $som = 0;
-                
+
                 foreach ($depenses as $r) {
                     if(intval(date("m")) == $r['month']){
                         $data[] = $r['amount'];
@@ -216,7 +216,7 @@ class Astuce extends Model
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
-            
+
                 $som = 0;
                 foreach ($ventes as $r) {
                     if(intval(date("m")) == $r['month']){
