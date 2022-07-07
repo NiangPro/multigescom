@@ -115,7 +115,7 @@ class Ventes extends Component
                 ]);
             }
 
-            $this->astuce->addHistorique("Ajout devis ".$vente->id, "add");
+            $this->astuce->addHistorique("Ajout vente ".$vente->id, "add");
 
             $this->dispatchBrowserEvent("addSuccessful");
             $this->initForm();

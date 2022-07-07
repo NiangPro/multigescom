@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Country;
 use App\Models\Employe;
 use App\Models\Prospect;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -183,7 +184,7 @@ class Prospects extends Component
         return view('livewire.commercial.prospects',[
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
             "prospects" => Prospect::orderBy('id', 'DESC')->get(),
-            "employes" => $this->astuce->employes(),
+            "employes" => User::where('role', '!=', 'Super Admin')->get(),
         ])->layout('layouts.app', [
             'title' => "Prospects",
             "page" => "prospect",

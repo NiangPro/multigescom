@@ -30,6 +30,35 @@ class Astuce extends Model
         ]);
     }
 
+    public function searchByDate($type, $start, $end){
+        $val=0;
+        if($type == 'Depense'){
+            $tab = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->where('date', '>=', $start)->where('date', '<=', $end)
+                ->select([
+                    DB::raw("SUM(montant) as amount"), 
+                    DB::raw("DATE_FORMAT(date, '%m') as month"),
+                    DB::raw("DATE_FORMAT(date, '%Y') as year"),])
+                ->groupBy('month')->groupBy('year')->get();
+                if(!empty($tab)){
+                    foreach ($tab as $r) {
+                        $val= $r['amount'];
+                    }
+                }
+        }elseif($type ==='Vente'){
+            $tab = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->where('date', '>=', $start)->where('date', '<=', $end)
+                ->select([DB::raw("SUM(montant) as amount"), 
+                DB::raw("DATE_FORMAT(date, '%m') as month"),
+                DB::raw("DATE_FORMAT(date, '%Y') as year"),])->groupBy('month')->groupBy('year')->get();
+                if(!empty($tab)){
+                    foreach ($tab as $r) {
+                        $val= $r['amount'];
+                    }
+                }
+        }
+        return $val;
+        
+    }
+
     public function getReunions()
     {
         $data = [];

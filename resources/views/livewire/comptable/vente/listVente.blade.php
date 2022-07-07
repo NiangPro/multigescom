@@ -17,7 +17,7 @@
                 @foreach ($venteItem as $vente)
                     <tr>
                         <td class="text-dark strong">{{$vente->nom}}</td>
-                        <td>{{$vente->ventes->montant}}</td>
+                        <td>{{$vente->ventes->montant}} CFA</td>
                         <td>{{$vente->ventes->client->nom}}</td>
                         <td>{{date("d/m/Y", strtotime($vente->ventes->date))}}</td>
                         <td>{{$vente->ventes->employe->prenom}} {{$vente->ventes->employe->nom}}</td>

@@ -27,6 +27,11 @@ class Tache extends Model
         return $this->belongsTo(User::class, "assignation");
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, "user_id");
+    }
+
     public function entreprise()
     {
         return $this->belongsTo(Entreprise::class, "entreprise_id");

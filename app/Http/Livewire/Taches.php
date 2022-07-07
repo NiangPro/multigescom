@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Astuce;
 use App\Models\Employe;
 use App\Models\Tache;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -157,7 +158,7 @@ class Taches extends Component
         $this->staticData = $this->astuce->getStaticData("Priorité des tâches");
 
         return view('livewire.admin.taches',[
-            "employes" => $this->astuce->employes(),
+            "employes" => User::where('role', '!=', 'Super Admin')->get(),
             "taches" => Tache::orderBy('id', 'DESC')->get(),
         ])->layout('layouts.app', [
             'title' => "Taches",

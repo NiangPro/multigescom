@@ -19,7 +19,7 @@
                         <tr>
                             <td class="text-dark strong">{{$dev->devis->client->nom}}</td>
                             <td>{{$dev->nom}}</td>
-                            <td>{{$dev->montant}}</td>
+                            <td>{{$dev->montant}} CFA</td>
                             <td>{{$dev->devis->employe->prenom}} {{$dev->devis->employe->prenom}}</td>
                             <td>{{ date("d/m/Y", strtotime($dev->devis->date))}}</td>
                             <td>

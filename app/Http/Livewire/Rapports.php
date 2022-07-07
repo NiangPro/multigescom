@@ -22,6 +22,10 @@ class Rapports extends Component
     public $revenusTotal;
     public $venteTotal;
     public $depenseTotal;
+    public $searchDepense=0;
+    public $searchVente=0;
+    public $searchRevenus=0;
+    public $search = false;
 
     public $form = [
         'date_debut' => '',
@@ -38,16 +42,25 @@ class Rapports extends Component
         'form.date_fin.required' => 'La date fin est requise',
     ];
 
+    public function initForm(){
+        $this->form['date_debut']='';
+        $this->form['date_fin']='';
+    }
+
+    public function refresh(){
+        $this->search = false;
+        $this->initForm();
+    }
+
     public function search(){
         if($this->validate()){
+            $this->search = true;
             if($this->form['date_debut']>$this->form['date_debut']){
                 $this->dispatchBrowserEvent("errorDate");
             }else{
-                $depense = Depense::where('date', $this->form['date_debut'],'>=')->where('date', $this->form['date_fin'],'<=')
-                ->select([DB::raw("SUM(montant) as amount"), 
-                DB::raw("DATE_FORMAT(date, '%m') as month"),
-                DB::raw("DATE_FORMAT(date, '%Y') as year"),])->groupBy('month')->groupBy('year')->get();
-                dd($depense);
+                $this->searchDepense = $this->astuce->searchByDate('Depense', $this->form['date_debut'],$this->form['date_debut']);
+                $this->searchVente = $this->astuce->searchByDate('Vente', $this->form['date_debut'], $this->form['date_debut']);
+                $this->searchRevenus =  $this->searchVente - $this->searchDepense ;
             }
         }
     }

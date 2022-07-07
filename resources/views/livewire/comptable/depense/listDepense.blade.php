@@ -1,6 +1,6 @@
 <div class="card mt-2 card-primary">
     <div class="card-body">
-        <div class="section-title mt-0"><strong>Liste des Tâches</strong></div>
+        <div class="section-title mt-0"><strong>Liste des Dépenses</strong></div>
         <div class="table-responsive">
             <table class="table table-hover" id="table-2">
             <thead>
@@ -35,7 +35,7 @@
                         </td>
                         <td>{{ date("d/m/Y", strtotime($depense->date))}}</td>
                         <td>{{$depense->description}}</td>
-                        <td>{{$depense->montant}}</td>
+                        <td>{{$depense->montant}} CFA</td>
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getDepense({{$depense->id}})"><i class="far fa-eye"></i></button>

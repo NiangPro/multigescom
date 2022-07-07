@@ -17,7 +17,7 @@
                                 <h4>Ventes</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{$venteTotal}}
+                                    {{$venteTotal}} CFA
                                 </div>
                             </div>
                             </div>
@@ -29,10 +29,10 @@
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
-                                <h4>Dépenses</h4>
+                                    <h4>Dépenses</h4>
                                 </div>
                                 <div class="card-body">
-                                {{$this->depenseTotal}} CFA
+                                    {{$this->depenseTotal}} CFA
                                 </div>
                             </div>
                             </div>
@@ -58,12 +58,17 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="section-title mt-4 ml-4 mb-0">
                             <strong>Recherche du mois</strong>
+                            <div class="float-right"> 
+                                <button type="reset" wire:click.prevent="refresh" class="btn btn-sm bg-info mr-4 pl-3 pr-3">
+                                    <i class="fas fa-arrow-circle-left text-white" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>  
                         <div class="card-body">
                             <form wire:submit.prevent="search">
@@ -74,6 +79,11 @@
                                     </div>
                                     <input type="date" class="form-control @error('form.date_debut') is-invalid
                                         @enderror" wire:model="form.date_debut">
+                                        @error('form.date_debut')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div> 
                                     <div class="input-group mb-2 ml-3">
                                         <div class="input-group-prepend">
@@ -81,10 +91,70 @@
                                         </div>
                                         <input type="date" class="form-control @error('form.date_fin') is-invalid
                                         @enderror" wire:model="form.date_fin">
+                                        @error('form.date_fin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-success btn-sm ml-3" style="height:41px;" >Valider</button>
                                 </div>
                             </form>
+                            @if ($search)
+                                <div>
+                                    <h4 class="mt-3">Résultat de la recherche : Date du  
+                                        {{date("d/m/Y", strtotime($form['date_debut']))}} au 
+                                        {{date("d/m/Y", strtotime($form['date_fin']))}}
+                                    </h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                        <div class="media align-items-stretch mb-n4">
+                                            <div class="text-center bg-danger rounded p-2 mb-5 mt-3">
+                                                <i class="fas fa-credit-card text-white"></i>
+                                            </div>
+                                            <div class="p-2 media-body">
+                                            <h6>Dépenses</h6>
+                                                <h6 class="text-bold-400 mb-0">{{$searchDepense}} FCFA</h6>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                        <div class="media align-items-stretch mb-n4">
+                                            <div class="text-center bg-primary rounded p-2 mb-5 mt-3">
+                                                <i class="fas fa-cart-arrow-down text-white"></i>
+                                            </div>
+                                            <div class="p-2 media-body">
+                                                <h6>Ventes</h6>
+                                                <h6 class="text-bold-400 mb-0">{{$searchVente}} FCFA</h6>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                        <div class="media align-items-stretch mb-n4">
+                                            <div class="text-center bg-warning rounded p-2 mb-5 mt-3">
+                                                <i class="fas fa-wallet text-white"></i>
+                                            </div>
+                                            <div class="p-2 media-body">
+                                                <h6>Revenues</h6>
+                                                <h6 class="text-bold-400 mb-0 text-left">{{$searchRevenus}} FCFA</h6>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -100,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="card card-primary">
                 <div class="section-title mt-4 ml-4 mb-0">
                     <strong>Graphique du mois</strong>
