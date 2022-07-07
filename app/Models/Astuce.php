@@ -56,7 +56,98 @@ class Astuce extends Model
                 }
         }
         return $val;
+    }
         
+    public function sumSale()
+    {
+
+
+        $ventes = Vente::select(DB::raw('distinct Sum(montant) as somme, Month(date) as mois'))
+            ->groupBy(DB::raw("Month(date)"))->orderBy(DB::raw("MONTH(date)"), "ASC")
+            ->get();
+
+        $som = 0;
+
+        $moisActuel = intval(date('m'));
+
+        foreach ($ventes as $vente) {
+            if ($moisActuel === $vente->mois) {
+                $som = $vente->somme;
+                break;
+            }
+        }
+        return $som;
+    }
+
+    public function sumDepense()
+    {
+        $Depenses = Depense::select(DB::raw('distinct Sum(montant) as somme, Month(date) as mois'))
+            ->groupBy(DB::raw("Month(date)"))->orderBy(DB::raw("MONTH(date)"), "ASC")->get();
+
+        $som = 0;
+
+        $moisActuel = intval(date('m'));
+
+        foreach ($Depenses as $exp) {
+            if ($moisActuel === $exp->mois) {
+                $som = $exp->somme;
+                break;
+            }
+        }
+        return $som;
+    }
+
+    public function saleByMonth()
+    {
+        $ventes = Vente::select(DB::raw('distinct Sum(total_amount) as somme, Month(date) as mois'))
+        ->groupBy(DB::raw("Month(date)"))->orderBy(DB::raw("MONTH(date)"), "ASC")->get();
+
+
+        $data = [];
+
+
+        $moisActuel = intval(date('m'));
+
+        for ($i = 1; $i <= $moisActuel; $i++) {
+            $som = 0;
+            foreach ($ventes as $vente) {
+                if ($i === $vente->mois) {
+                    $som = $vente->somme;
+                    break;
+                }
+            }
+            $data[] = $som;
+        }
+
+        // for ($i = 12 - $moisActuel; $i <= 12; $i++) {
+        //     $data[] = 0;
+        // }
+
+        return json_encode($data);
+    }
+
+    public function DepenseByMonth()
+    {
+        $Depenses = Depense::select(DB::raw('distinct Sum(montant) as somme, Month(date) as mois'))
+        ->groupBy(DB::raw("Month(date)"))->orderBy(DB::raw("MONTH(date)"), "ASC")->get();
+
+        $data = [];
+
+
+        $moisActuel = intval(date('m'));
+
+        for ($i = 1; $i <= $moisActuel; $i++) {
+            $som = 0;
+            foreach ($Depenses as $exp) {
+                if ($i === $exp->mois) {
+                    $som = $exp->somme;
+                    break;
+                }
+            }
+            $data[] = $som;
+        }
+
+        return json_encode($data);
     }
 
     public function getReunions()
@@ -111,9 +202,9 @@ class Astuce extends Model
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
-            
+
                 $som = 0;
-                
+
                 foreach ($depenses as $r) {
                     if(intval(date("m")) == $r['month']){
                         $data[] = $r['amount'];
@@ -153,7 +244,7 @@ class Astuce extends Model
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
-            
+
                 $som = 0;
                 foreach ($ventes as $r) {
                     if(intval(date("m")) == $r['month']){

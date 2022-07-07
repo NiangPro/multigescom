@@ -92,14 +92,14 @@ class Home extends Component
                 'statut' => $this->todoForm['statut'],
                 'user_id'=> Auth()->user()->id,
             ]);
-    
+
             $this->astuce->addHistorique("Ajout à faire ->".$this->todoForm['titre'], "add");
-    
+
             $this->dispatchBrowserEvent("addSuccessful");
             $this->todoFormInit();
-    
+
             $this->todo = "list";
-        }  
+        }
     }
 
     public function delete($id)
@@ -166,5 +166,7 @@ class Home extends Component
         if (Auth::user()->role === "Super Admin") {
             $this->astuce->initCountries();
         }
+
+        // dd($this->astuce->sumSale());
     }
 }
