@@ -196,23 +196,21 @@ class Astuce extends Model
 
     public function getDepensesMonth()
     {
-        $data = [];
+        $data = 0;
         // $i=1;
         $depenses = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
 
-                $som = 0;
-
                 foreach ($depenses as $r) {
                     if(intval(date("m")) == $r['month']){
-                        $data[] = $r['amount'];
+                        $data = $r['amount'];
                         break;
+                    }
                 }
 
-            }
-        return json_encode($data);
+            return json_encode($data);
     }
 
     public function getVentes(){
@@ -238,17 +236,16 @@ class Astuce extends Model
 
     public function getVentesMonth()
     {
-        $data = [];
+        $data = 0;
         // $i=1;
         $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
             DB::raw("DATE_FORMAT(date, '%m') as month"),
             DB::raw("DATE_FORMAT(date, '%Y') as year"),
             DB::raw("SUM(montant) as amount")])->groupBy('month')->groupBy('year')->get();
 
-                $som = 0;
                 foreach ($ventes as $r) {
                     if(intval(date("m")) == $r['month']){
-                        $data[] = $r['amount'];
+                        $data = $r['amount'];
                     break;
                 }
 
