@@ -65,6 +65,7 @@
             <li class="@if ($page == "tache") active @endif"><a class="nav-link" href="{{route('tache')}}"><i class="fas fa-edit" aria-hidden="true"></i> <span>Tâches</span></a></li>
             @endif
             <li class="@if ($page == "history") active @endif"><a class="nav-link" href="{{route('history')}}"><i class="fa fa-history" aria-hidden="true"></i> <span>Historiques</span></a></li>
+            <li class="@if ($page == "message") active @endif"><a class="nav-link" href="{{route('message')}}"><i class="fa fa-envelope-open" aria-hidden="true"></i> <span>Messages</span></a></li>
 
           <li class="menu-header">Configurations </li>
           <li class="nav-item dropdown @if ($page == "profil" || $page == "password"  || $page == "general") active @endif">
