@@ -52,6 +52,11 @@ class User extends Authenticatable
     ];
 
 
+    public function messages()
+    {
+        return $this->hasMany(Messenger::class);
+    }
+
     public function todolists()
     {
         return $this->hasMany(Todolist::class);
