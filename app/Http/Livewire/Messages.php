@@ -2,21 +2,59 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Messages extends Component
 {
+    public $idUser=null;
     public $current_user;
+    public $astuce;
 
-    public function changeEvent($user_id){
-        $this->current_user = User::where('id', $user_id)->first();
-        dd($this->current_user);
+    public $form =[
+        'emetteur_id' => '',
+        'recepteur_id' => '',
+        'text' => '',
+        'seen' => '',
+        'statut' => ''
+    ];
+
+    protected $rules = [
+        'form.text' => 'required|string',
+    ];
+
+    protected $messages = [
+        'form.text.required' => 'Le text est requis'
+    ];
+
+    public function initForm(){
+        $this->form['text']='';
+    }
+
+    public function store(){
+        $this->validate();
+        if(isset($this->current_user->id) && $this->current_user->id !== null){
+            Messenger::create([
+                'emetteur_id' => Auth::user()->id,
+                'recepteur_id' => $this->current_user->id,
+                'text'=> $this->form['text']
+            ]);
+
+            $this->astuce->addHistorique("Ajout Message", "add");
+            $this->initForm();
+        }
+    }
+
+    public function changeEvent(){
+        $this->current_user = User::where('id', $this->idUser)->first();
     }
 
     public function render()
     {
+        $this->astuce = new Astuce();
         return view('livewire.messages',[
             'users' => User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
             ])->layout('layouts.app', [

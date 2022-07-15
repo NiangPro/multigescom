@@ -4,22 +4,25 @@
           <div class="card">
             <div class="card-header">
                 {{-- <h4>Who's Online?</h4> --}}
-                <select class="form-control">
-                    <option value="">Recherche personne</option>
+                <select class="form-control" wire:model="idUser" wire:change="changeEvent">
+                    <option value="0">Recherche personne</option>
                     @foreach ($users as $user)
-                      <option default value="{{ $user->id }}">{{ $user->prenom }} {{ $user->nom }}</option>
+                      <option value="{{ $user->id }}">{{ $user->prenom }} {{ $user->nom }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="card-body">
               <ul class="list-unstyled list-unstyled-border">
-                {{-- <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-1.png">
-                  <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">{{ $current_user->prenom }} {{ $current_user->nom }}</div>
-                    <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i> Online</div>
-                  </div>
-                </li> --}}
+                @if ($idUser!==null)
+                    <li class="media">
+                        <img alt="image" class="mr-3 rounded-circle" width="52" height="52" src="{{asset('storage/images/'.$current_user->profil)}}">
+                        <div class="media-body">
+                            <div class="mt-0 mb-1 font-weight-bold">{{ $current_user->prenom }} {{ $current_user->nom }}</div>
+                            <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i> Online</div>
+                        </div>
+                    </li>
+                @endif
+                
                 <li class="media">
                   <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-2.png">
                   <div class="media-body">
@@ -76,9 +79,14 @@
                 </div>
             </div>
             <div class="card-footer chat-form">
-              <form id="chat-form">
-                <input type="text" class="form-control" placeholder="Type a message">
-                <button class="btn btn-primary">
+              <form wire:submit.prevent="store" id="chat-form">
+                <input type="text" wire:model="form.text" class="form-control @error('form.text') is-invalid @enderror" placeholder="Type a message">
+                @error('form.text')
+                    <span class="invalid-feedback ml-3 mt-n2 mb-2" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <button type="submit" class="btn btn-primary">
                   <i class="far fa-paper-plane"></i>
                 </button>
               </form>
