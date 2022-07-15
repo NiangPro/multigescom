@@ -13,11 +13,13 @@ use Livewire\WithPagination;
 
 class Home extends Component
 {
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $astuce;
     public $todo = "list";
     public $current_todo;
-    use WithFileUploads, WithPagination;
-    protected $paginationTheme = 'bootstrap';
+    public $pageName;
 
     public $dataSuperAdmin = [
         'nbreEntreprise',
@@ -148,7 +150,7 @@ class Home extends Component
         $this->dataSuperAdmin['nbreSuperAdmin'] = count($this->astuce->superAdmins());
         $this->dataSuperAdmin['nbreAdmin'] = count($this->astuce->admins());
 
-        return view('livewire.home', [
+        return view('livewire.home.home', [
             'todolists' => Todolist::orderBy('id', 'DESC')->paginate(5),
         ])->layout('layouts.app', [
             'title' => "Tableau de bord",
@@ -166,7 +168,5 @@ class Home extends Component
         if (Auth::user()->role === "Super Admin") {
             $this->astuce->initCountries();
         }
-
-        // dd($this->astuce->sumSale());
     }
 }
