@@ -22,7 +22,7 @@
                         </div>
                     </li>
                 @endif
-                
+
                 @foreach ($recent_message as $item)
                   <li class="media media-btn">
                     <a type="button" class="media" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
@@ -34,7 +34,7 @@
                     </a>
                   </li>
                 @endforeach
-                
+
                 {{-- <li class="media">
                   <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-3.png">
                   <div class="media-body">
@@ -58,30 +58,32 @@
             <div class="card-header">
               <h4>Discussion</h4>
             </div>
-            <div class="card-body chat-content" style="background-image:url('../../storage/images/chat-box.png'); 
-            background-repeat: ROUND; height: 100%; width:100%; position: relative; ">
+            <div class="card-body chat-content" style="background-image:url('../../storage/images/chat-box.png');
+            background-repeat: ROUND; height: 100%; width:100%; ">
                 @if ($current_message!== null)
                     @foreach ($current_message as $item)
-                      <div class="chat-item 
-                        @if ($item->emetteur_id == Auth()->user()->id) 
-                          chat-right 
-                        @elseif ($item->recepteur_id == $current_user->id) 
-                          chat-left 
-                        @endif">
-                        <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
-                        <div class="chat-details">
-                            <div class="chat-text" style="vertical-align: inherit;">
-                                {{$item->text}}
+                        @if ( isset($item->emetteur_id) && isset($item->recepteur_id))
+                            <div class="chat-item
+                                @if ($item->emetteur_id == Auth()->user()->id)
+                                chat-right
+                                @elseif ($item->recepteur_id == $current_user->id)
+                                chat-left
+                                @endif">
+                                <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
+                                <div class="chat-details">
+                                    <div class="chat-text">
+                                        {{$item->text}}
+                                    </div>
+                                    <div class="chat-time" >
+                                        {{$item->created_at}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="chat-time" style="vertical-align: inherit;">
-                                {{$item->created_at}}
-                            </div>
-                        </div>
-                      </div>
+                        @endif
                     @endforeach
                 @endif
-               
-                
+
+
                 {{-- <div class="chat-item chat-right" style="">
                     <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
                     <div class="chat-details">

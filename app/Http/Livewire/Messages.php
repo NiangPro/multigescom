@@ -13,7 +13,7 @@ class Messages extends Component
     public $idUser=null;
     public $current_user;
     public $astuce;
-    public $current_message;
+    public $current_message = null;
 
     public $form =[
         'emetteur_id' => '',
@@ -50,17 +50,29 @@ class Messages extends Component
     }
 
     public function selectedMessages($idReceved){
-        $messages = Messenger::where('recepteur_id', $idReceved)->orWhere('emetteur_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
-        return $messages;
+        $sending = Messenger::where('recepteur_id', $idReceved)->Where('emetteur_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
+        $receiving = Messenger::where('emetteur_id', $idReceved)->Where('recepteur_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
+        foreach ($sending as $msg) {
+            $this->current_message[] = $msg;
+        }
+
+        foreach ($receiving as $msg) {
+            $this->current_message[] = $msg;
+        }
     }
 
     public function changeEvent(){
         $this->current_user = User::where('id', $this->idUser)->first();
-        $this->current_message = $this->selectedMessages($this->idUser);
+        $this->selectedMessages($this->idUser);
+
+        if($this->current_message == null){
+            $this->current_message = null;
+            // $this->idUser = null;
+        }
     }
 
     public function selectEvent($idReceved){
-        $this->current_message = $this->selectedMessages($idReceved);
+        $this->selectedMessages($idReceved);
     }
 
     public function render()

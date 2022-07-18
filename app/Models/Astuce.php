@@ -12,6 +12,13 @@ class Astuce extends Model
 {
     use HasFactory;
 
+    public function getLastedUsersDiscussions()
+    {
+        $messages = Auth::user()->messages();
+
+        dd($messages);
+    }
+
     public function getStaticData($type)
     {
         return StaticData::where("type", $type)
@@ -35,7 +42,7 @@ class Astuce extends Model
         if($type == 'Depense'){
             $tab = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->where('date', '>=', $start)->where('date', '<=', $end)
                 ->select([
-                    DB::raw("SUM(montant) as amount"), 
+                    DB::raw("SUM(montant) as amount"),
                     DB::raw("DATE_FORMAT(date, '%m') as month"),
                     DB::raw("DATE_FORMAT(date, '%Y') as year"),])
                 ->groupBy('month')->groupBy('year')->get();
@@ -46,7 +53,7 @@ class Astuce extends Model
                 }
         }elseif($type ==='Vente'){
             $tab = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->where('date', '>=', $start)->where('date', '<=', $end)
-                ->select([DB::raw("SUM(montant) as amount"), 
+                ->select([DB::raw("SUM(montant) as amount"),
                 DB::raw("DATE_FORMAT(date, '%m') as month"),
                 DB::raw("DATE_FORMAT(date, '%Y') as year"),])->groupBy('month')->groupBy('year')->get();
                 if(!empty($tab)){
@@ -57,7 +64,7 @@ class Astuce extends Model
         }
         return $val;
     }
-        
+
     public function sumSale()
     {
 
