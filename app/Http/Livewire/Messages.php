@@ -13,6 +13,7 @@ class Messages extends Component
     public $idUser=null;
     public $current_user;
     public $astuce;
+    public $current_message;
 
     public $form =[
         'emetteur_id' => '',
@@ -48,8 +49,18 @@ class Messages extends Component
         }
     }
 
+    public function selectedMessages($idReceved){
+        $messages = Messenger::where('recepteur_id', $idReceved)->orWhere('emetteur_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+        return $messages;
+    }
+
     public function changeEvent(){
         $this->current_user = User::where('id', $this->idUser)->first();
+        $this->current_message = $this->selectedMessages($this->idUser);
+    }
+
+    public function selectEvent($idReceved){
+        $this->current_message = $this->selectedMessages($idReceved);
     }
 
     public function render()
@@ -57,11 +68,13 @@ class Messages extends Component
         $this->astuce = new Astuce();
         return view('livewire.messages',[
             'users' => User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
+            'recent_message' => Messenger::where('emetteur_id', Auth::user()->id)->orWhere('recepteur_id', Auth::user()->id)->orderBy('created_at', 'DESC')->limit(3)->get(),
             ])->layout('layouts.app', [
             'title' => "Les Messages",
             "page" => "message",
             "icon" => "fa fa-envelope-open"
         ]);
+
     }
 
     public function mount(){

@@ -23,14 +23,19 @@
                     </li>
                 @endif
                 
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-2.png">
-                  <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">Bagus Dwi Cahya</div>
-                    <div class="text-small font-weight-600 text-muted"><i class="fas fa-circle"></i> Offline</div>
-                  </div>
-                </li>
-                <li class="media">
+                @foreach ($recent_message as $item)
+                  <li class="media media-btn">
+                    <a type="button" class="media" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
+                      <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-2.png">
+                      <div class="media-body">
+                        <div class="mt-0 mb-1 font-weight-bold">{{$item->text}}</div>
+                        <div class="text-small font-weight-600 text-muted"><i class="fas fa-circle"></i> en ligne</div>
+                      </div>
+                    </a>
+                  </li>
+                @endforeach
+                
+                {{-- <li class="media">
                   <img alt="image" class="mr-3 rounded-circle" width="50" src="../../storage/images/avatar/avatar-3.png">
                   <div class="media-body">
                     <div class="mt-0 mb-1 font-weight-bold">Wildan Ahdian</div>
@@ -43,7 +48,7 @@
                     <div class="mt-0 mb-1 font-weight-bold">Rizal Fakhri</div>
                     <div class="text-small font-weight-600 text-success"><i class="fas fa-circle"></i> Online</div>
                   </div>
-                </li>
+                </li> --}}
               </ul>
             </div>
           </div>
@@ -55,18 +60,29 @@
             </div>
             <div class="card-body chat-content" style="background-image:url('../../storage/images/chat-box.png'); 
             background-repeat: ROUND; height: 100%; width:100%; position: relative; ">
-                <div class="chat-item chat-left" >
-                    <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
-                    <div class="chat-details">
-                        <div class="chat-text" style="vertical-align: inherit;">
-                            Salut mec!
+                @if ($current_message!== null)
+                    @foreach ($current_message as $item)
+                      <div class="chat-item 
+                        @if ($item->emetteur_id == Auth()->user()->id) 
+                          chat-right 
+                        @elseif ($item->recepteur_id == $current_user->id) 
+                          chat-left 
+                        @endif">
+                        <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
+                        <div class="chat-details">
+                            <div class="chat-text" style="vertical-align: inherit;">
+                                {{$item->text}}
+                            </div>
+                            <div class="chat-time" style="vertical-align: inherit;">
+                                {{$item->created_at}}
+                            </div>
                         </div>
-                        <div class="chat-time" style="vertical-align: inherit;">
-                           04:01
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-item chat-right" style="">
+                      </div>
+                    @endforeach
+                @endif
+               
+                
+                {{-- <div class="chat-item chat-right" style="">
                     <img src="{{asset('storage/images/'.Auth()->user()->profil)}}">
                     <div class="chat-details">
                         <div class="chat-text" style="vertical-align: inherit;">
@@ -76,7 +92,7 @@
                             04:01
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="card-footer chat-form">
               <form wire:submit.prevent="store" id="chat-form">
