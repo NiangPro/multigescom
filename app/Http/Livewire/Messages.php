@@ -13,6 +13,7 @@ class Messages extends Component
     public $idUser=null;
     public $current_user;
     public $astuce;
+    public $recent_message;
     public $current_message = null;
 
     public $form =[
@@ -78,10 +79,9 @@ class Messages extends Component
     public function render()
     {
         $this->astuce = new Astuce();
-        // $this->astuce->getLastedUsersDiscussions();
+        $this->recent_message = $this->astuce->getLastedUsersDiscussions();
         return view('livewire.messages',[
             'users' => User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
-            'recent_message' => Messenger::where('emetteur_id', Auth::user()->id)->orWhere('recepteur_id', Auth::user()->id)->orderBy('created_at', 'DESC')->limit(3)->get(),
             ])->layout('layouts.app', [
             'title' => "Les Messages",
             "page" => "message",

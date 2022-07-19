@@ -31,7 +31,7 @@ class Astuce extends Model
             }
         }
 
-        dd($data);
+        return ($data);
     }
 
     public function getStaticData($type)
