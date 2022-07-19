@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasMany(Messenger::class);
+        return $this->hasMany(Messenger::class, "recepteur_id" || "emetteur_id");
     }
 
     public function todolists()

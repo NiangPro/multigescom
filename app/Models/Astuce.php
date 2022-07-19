@@ -14,9 +14,24 @@ class Astuce extends Model
 
     public function getLastedUsersDiscussions()
     {
-        $messages = Auth::user()->messages();
+        $data = [];
+        $messages = Messenger::where("emetteur_id", Auth::user()->id)->orWhere("recepteur_id", Auth::user()->id)->orderBy("created_at", "DESC")->get();
 
-        dd($messages);
+        foreach($messages as $m){
+            $trouve = false;
+            foreach($data as $d){
+                if(($d['recepteur_id'] === $m->recepteur_id && $d['emetteur_id'] === $m->emetteur_id)  || ($d['emetteur_id'] === $m->recepteur_id && $d['recepteur_id'] === $m->emetteur_id)){
+                    $trouve = true;
+                    break;
+                }
+            }
+
+            if($trouve === false){
+                $data[] = $m;
+            }
+        }
+
+        dd($data);
     }
 
     public function getStaticData($type)
