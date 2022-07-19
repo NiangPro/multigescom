@@ -1477,6 +1477,18 @@ h6 .badge {
   pointer-events: none; }
 
 /* 3.13 Media */
+.scrollbar-auto {
+  scrollbar-width: auto;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.scrollbar-content {
+  scrollbar-width: auto;
+  height: 348px;
+  overflow-y: scroll;
+}
+
 .media .media-right {
   float: right;
   color: #6777ef;
