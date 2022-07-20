@@ -13,7 +13,8 @@
             </div>
             <div class="card-body scrollbar-content chat-content" >
               <ul class="list-unstyled list-unstyled-border">
-                @if ($idUser!==null)
+
+                @if ($idUser!==null && $trouve===false)
                     <li class="media">
                       <a type="button" class="media" wire:click.prevent="selectEvent({{$current_user->id}})">
                         <img alt="image" class="mr-3 rounded-circle" width="52" height="52" src="{{asset('storage/images/'.$current_user->profil)}}">
@@ -27,7 +28,7 @@
 
                 @foreach ($recent_message as $item)
                   <li class="media media-btn">
-                    <a href="#" class="media" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
+                    <a href="#" class="media media-link" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
                       <img alt="image" class="mr-3 rounded-circle" width="52" height="52"
                         src="@if($item->emetteur_id === Auth()->user()->id)
                               {{asset('storage/images/'.$item->recepteur->profil)}}

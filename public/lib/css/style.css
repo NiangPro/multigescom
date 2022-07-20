@@ -1489,6 +1489,11 @@ h6 .badge {
   overflow-y: scroll;
 }
 
+.media-link{
+  text-decoration: none!important;
+  color: black;
+}
+
 .media .media-right {
   float: right;
   color: #6777ef;

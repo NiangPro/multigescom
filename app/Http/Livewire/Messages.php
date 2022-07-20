@@ -15,6 +15,7 @@ class Messages extends Component
     public $astuce;
     public $recent_message;
     public $current_message = null;
+    public $trouve = false;
 
     public $form =[
         'emetteur_id' => '',
@@ -64,11 +65,27 @@ class Messages extends Component
             $this->current_message = null;
             // $this->idUser = null;
         }
+            foreach ($this->recent_message as $message) {
+                // dd($message);
+                if($message["recepteur_id"] === $this->current_user->id){
+                    $this->trouve = true;
+                }else{
+                    $this->trouve = false;
+                }
+            }
     }
 
     public function selectEvent($idReceved){
         $this->current_user = User::where('id', $idReceved)->first();
         $this->selectedMessages($idReceved);
+        foreach ($this->recent_message as $key => $message) {
+            if($message["recepteur_id"] === $idReceved || 
+                $message["emetteur_id"] == $idReceved){
+                $this->trouve = true;
+            }else{
+                $this->trouve = false;
+            }
+        }
     }
 
     public function render()
