@@ -51,15 +51,9 @@ class Messages extends Component
     }
 
     public function selectedMessages($idReceved){
-        $sending = Messenger::where('recepteur_id', $idReceved)->Where('emetteur_id', Auth::user()->id)
+        $this->current_message = Messenger::where('recepteur_id', $idReceved)->Where('emetteur_id', Auth::user()->id)
             ->orWhere('emetteur_id', $idReceved)->Where('recepteur_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
-        foreach ($sending as $msg) {
-            $this->current_message[] = $msg;
-        }
-
-        // foreach ($receiving as $msg) {
-        //     $this->current_message[] = $msg;
-        // }
+        // dd($this->current_message);
     }
 
     public function changeEvent(){
@@ -73,6 +67,7 @@ class Messages extends Component
     }
 
     public function selectEvent($idReceved){
+        $this->current_user = User::where('id', $idReceved)->first();
         $this->selectedMessages($idReceved);
     }
 

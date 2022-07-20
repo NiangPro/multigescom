@@ -27,9 +27,9 @@
 
                 @foreach ($recent_message as $item)
                   <li class="media media-btn">
-                    <a type="button" class="media" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
-                      <img alt="image" class="mr-3 rounded-circle" width="52" height="52" 
-                        src="@if($item->emetteur_id === Auth()->user()->id) 
+                    <a href="#" class="media" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
+                      <img alt="image" class="mr-3 rounded-circle" width="52" height="52"
+                        src="@if($item->emetteur_id === Auth()->user()->id)
                               {{asset('storage/images/'.$item->recepteur->profil)}}
                             @else
                               {{asset('storage/images/'.Auth()->user()->profil)}}
@@ -38,7 +38,7 @@
                       <div class="media-body">
                         <div class="mt-0 mb-1 font-weight-bold">
                           @if ($item->emetteur_id === Auth()->user()->id)
-                            {{$item->recepteur->prenom}} {{$item->recepteur->nom}} 
+                            {{$item->recepteur->prenom}} {{$item->recepteur->nom}}
                           @else
                             {{$item->emetteur->prenom}} {{$item->emetteur->nom}}
                           @endif
@@ -67,9 +67,9 @@
                 @if (isset($current_message) && $current_message!== null)
                     @foreach ($current_message as $item)
                         @if ( isset($item->emetteur_id) && isset($item->recepteur_id))
-                            @if ($item->emetteur_id !== Auth()->user()->id)
+                            @if ($item["emetteur_id"] !== Auth()->user()->id)
                               <div class="chat-item chat-left">
-                                <img class="mr-3 rounded-circle" width="52" height="52" 
+                                <img class="mr-3 rounded-circle" width="52" height="52"
                                     src="{{asset('storage/images/'.Auth()->user()->profil)}}">
                                     <div class="chat-details">
                                         <div class="chat-text">
@@ -82,7 +82,7 @@
                               </div>
                             @elseif($item->recepteur_id == $current_user->id)
                                 <div class="chat-item chat-right">
-                                  <img class="mr-3 rounded-circle" width="52" height="52" 
+                                  <img class="mr-3 rounded-circle" width="52" height="52"
                                       src="{{asset('storage/images/'.$item->recepteur->profil)}}">
                                       <div class="chat-details">
                                           <div class="chat-text">
