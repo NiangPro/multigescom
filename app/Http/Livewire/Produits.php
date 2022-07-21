@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\Produit;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -184,7 +185,9 @@ class Produits extends Component
         ])->layout('layouts.app',[
             'title' => 'Produits & Services',
             "page" => "produit",
-            "icon" => "fab fa-product-hunt"
+            "icon" => "fab fa-product-hunt",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+
         ]);
     }
 

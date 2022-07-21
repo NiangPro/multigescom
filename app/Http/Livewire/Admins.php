@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Entreprise;
+use App\Models\Messenger;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -280,7 +281,8 @@ class Admins extends Component
         )->layout('layouts.app', [
             'title' => "Administrateurs",
             "page" => "admin",
-            "icon" => "fa fa-user-secret"
+            "icon" => "fa fa-user-secret",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

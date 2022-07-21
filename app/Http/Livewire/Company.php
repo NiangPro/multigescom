@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Entreprise;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -218,7 +219,8 @@ class Company extends Component
         ])->layout('layouts.app', [
             'title' => "Les Entreprises",
             "page" => "entreprise",
-            "icon" => "fas fa-th-large"
+            "icon" => "fas fa-th-large",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

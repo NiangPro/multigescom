@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Entreprise;
+use App\Models\Messenger;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -119,7 +120,9 @@ class Profil extends Component
         ])->layout('layouts.app', [
             'title' => "Mon Profil",
             "page" => "profil",
-            "icon" => "fa fa-user-circle"
+            "icon" => "fa fa-user-circle",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+
         ]);
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Country;
 use App\Models\Employe;
+use App\Models\Messenger;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -305,7 +306,9 @@ class Employes extends Component
             ])->layout('layouts.app', [
                 'title' => "Employés",
                 "page" => "employe",
-                "icon" => "fas fa-user-friends"
+                "icon" => "fas fa-user-friends",
+                "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+
             ]);
     }
 

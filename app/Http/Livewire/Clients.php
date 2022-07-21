@@ -7,6 +7,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Astuce;
+use App\Models\Messenger;
 
 class Clients extends Component
 {
@@ -144,7 +145,8 @@ class Clients extends Component
         ])->layout('layouts.app', [
             'title' => "Clients",
             "page" => "client",
-            "icon" => "fa fa-users"
+            "icon" => "fa fa-users",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

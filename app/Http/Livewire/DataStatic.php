@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\StaticData;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -167,7 +168,8 @@ class DataStatic extends Component
         ])->layout('layouts.app', [
             'title' => "Données statiques",
             "page" => "staticData",
-            "icon" => "fa fa-database"
+            "icon" => "fa fa-database",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Depense;
+use App\Models\Messenger;
 use App\Models\Vente;
 use App\Models\VenteItem;
 use Illuminate\Support\Facades\Auth;
@@ -88,7 +89,8 @@ class Rapports extends Component
         return view('livewire.comptable.rapports')->layout('layouts.app', [
             'title' => "Les Rapports",
             "page" => "rapport",
-            "icon" => "fas fa-chart-bar"
+            "icon" => "fas fa-chart-bar",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

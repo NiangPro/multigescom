@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Depense;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -145,7 +146,9 @@ class Depenses extends Component
         )->layout('layouts.app', [
             'title' => "Les Dépenses",
             "page" => "depense",
-            "icon" => "fas fa-balance-scale"
+            "icon" => "fas fa-balance-scale",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+            
         ]);
     }
 

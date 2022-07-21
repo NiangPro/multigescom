@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -57,7 +58,8 @@ class Password extends Component
         return view('livewire.password')->layout('layouts.app', [
             'title' => "Mot de passe",
             "page" => "password",
-            "icon" => "fa fa-lock"
+            "icon" => "fa fa-lock",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Employe;
+use App\Models\Messenger;
 use App\Models\Tache;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -163,7 +164,8 @@ class Taches extends Component
         ])->layout('layouts.app', [
             'title' => "Taches",
             "page" => "tache",
-            "icon" => "fas fa-edit"
+            "icon" => "fas fa-edit",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

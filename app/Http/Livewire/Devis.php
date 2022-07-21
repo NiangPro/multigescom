@@ -6,6 +6,7 @@ use App\Models\Astuce;
 use App\Models\Client;
 use App\Models\DevisItem;
 use App\Models\Devis as ModelsDevis;
+use App\Models\Messenger;
 use App\Models\Produit;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -253,7 +254,8 @@ class Devis extends Component
         ])->layout('layouts.app', [
             'title' => "Les Devis",
             "page" => "devis",
-            "icon" => "fas fa-file-invoice"
+            "icon" => "fas fa-file-invoice",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),        
         ]);
     }
 

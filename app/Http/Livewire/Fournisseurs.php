@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Astuce;
 use App\Models\Country;
 use App\Models\Fournisseur;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -145,7 +146,9 @@ class Fournisseurs extends Component
         ])->layout('layouts.app', [
             'title' => "Fournisseurs",
             "page" => "fournisseur",
-            "icon" => "fas fa-street-view"
+            "icon" => "fas fa-street-view",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+
         ]);
     }
 

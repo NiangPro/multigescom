@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 
 
 use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\Todolist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -155,7 +156,8 @@ class Home extends Component
         ])->layout('layouts.app', [
             'title' => "Tableau de bord",
             "page" => "home",
-            "icon" => "fas fa-fire"
+            "icon" => "fas fa-fire",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

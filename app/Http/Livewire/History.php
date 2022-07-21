@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Astuce;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -28,7 +29,9 @@ class History extends Component
             ])->layout('layouts.app', [
                 'title' => "Historiques",
                 "page" => "history",
-                "icon" => "fa fa-history"
+                "icon" => "fa fa-history",
+                "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
+
             ]);
         }
 

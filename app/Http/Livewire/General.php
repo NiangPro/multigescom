@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Entreprise;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -142,7 +143,8 @@ class General extends Component
         return view('livewire.general')->layout('layouts.app', [
             'title' => "Configuration Générale",
             "page" => "general",
-            "icon" => "fa fa-wrench"
+            "icon" => "fa fa-wrench",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

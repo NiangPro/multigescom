@@ -6,6 +6,7 @@ use App\Models\Astuce;
 use App\Models\Client;
 use App\Models\Country;
 use App\Models\Employe;
+use App\Models\Messenger;
 use App\Models\Prospect;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -188,7 +189,8 @@ class Prospects extends Component
         ])->layout('layouts.app', [
             'title' => "Prospects",
             "page" => "prospect",
-            "icon" => "fa fa-tty"
+            "icon" => "fa fa-tty",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

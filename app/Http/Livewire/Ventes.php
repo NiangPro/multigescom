@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Client;
+use App\Models\Messenger;
 use App\Models\Produit;
 use App\Models\User;
 use App\Models\Vente;
@@ -248,7 +249,8 @@ class Ventes extends Component
         )->layout('layouts.app', [
             'title' => "Les Ventes",
             "page" => "vente",
-            "icon" => "fa fa-shopping-cart"
+            "icon" => "fa fa-shopping-cart",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 
