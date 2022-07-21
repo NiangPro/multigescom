@@ -48,7 +48,19 @@ class Messages extends Component
 
             $this->astuce->addHistorique("Ajout Message", "add");
             $this->initForm();
+            $this->trouve = false;
         }
+    }
+
+    public function seenMessage(){
+        $messages = Messenger::where('recepteur_id', Auth::user()->id)->where('seen', 1)->get();
+        if($messages != null){
+            foreach ($messages as $message) {
+                $message->seen = 0;
+                $message->save();
+            }
+        }
+        
     }
 
     public function selectedMessages($idReceved){
@@ -80,7 +92,7 @@ class Messages extends Component
         $this->selectedMessages($idReceved);
         foreach ($this->recent_message as $key => $message) {
             if($message["recepteur_id"] === $idReceved || 
-                $message["emetteur_id"] == $idReceved){
+                $message["emetteur_id"] === $idReceved){
                 $this->trouve = true;
             }else{
                 $this->trouve = false;
@@ -92,12 +104,14 @@ class Messages extends Component
     {
         $this->astuce = new Astuce();
         $this->recent_message = $this->astuce->getLastedUsersDiscussions();
+        $this->seenMessage();
         return view('livewire.messages',[
             'users' => User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
             ])->layout('layouts.app', [
             'title' => "Les Messages",
             "page" => "message",
-            "icon" => "fa fa-envelope-open"
+            "icon" => "fa fa-envelope-open",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
 
     }

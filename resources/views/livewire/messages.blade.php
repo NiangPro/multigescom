@@ -2,8 +2,7 @@
     <div class="row align-items-center justify-content-center" >
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card">
-            <div class="card-header">
-                {{-- <h4>Who's Online?</h4> --}}
+            <div class="card-header mb-2">
                 <select class="form-control" wire:model="idUser" wire:change="changeEvent">
                     <option value="0">Recherche personne</option>
                     @foreach ($users as $user)
@@ -44,7 +43,7 @@
                             {{$item->emetteur->prenom}} {{$item->emetteur->nom}}
                           @endif
                         </div>
-                        <div class="text-small font-weight-600 text-muted">
+                        <div class="text-small sms font-weight-600 text-muted">
                           {{Str::substr($item->text, 0, 11) }} @if (strlen($item->text)> 16)
                                 ...
                             @endif
@@ -71,7 +70,7 @@
                             @if ($item["emetteur_id"] !== Auth()->user()->id)
                               <div class="chat-item chat-left">
                                 <img class="mr-3 rounded-circle" width="52" height="52"
-                                    src="{{asset('storage/images/'.Auth()->user()->profil)}}">
+                                    src="{{asset('storage/images/'.$item->recepteur->profil)}}">
                                     <div class="chat-details">
                                         <div class="chat-text">
                                             {{$item->text}}
@@ -84,7 +83,7 @@
                             @elseif($item->recepteur_id == $current_user->id)
                                 <div class="chat-item chat-right">
                                   <img class="mr-3 rounded-circle" width="52" height="52"
-                                      src="{{asset('storage/images/'.$item->recepteur->profil)}}">
+                                      src="{{asset('storage/images/'.Auth()->user()->profil)}}">
                                       <div class="chat-details">
                                           <div class="chat-text">
                                               {{$item->text}}

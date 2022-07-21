@@ -276,7 +276,7 @@ class Comptable extends Component
         ])->layout('layouts.app', [
             'title' => "Comptables",
             "page" => "comptable",
-            "icon" => "fa fa-user-secret"
+            "icon" => "fa fa-user-secret",
         ]);
     }
 

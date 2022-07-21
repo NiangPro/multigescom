@@ -1500,15 +1500,31 @@ h6 .badge {
   font-weight: 600;
   font-size: 16px; }
 
+  .media-btn{
+    padding: 6px;
+  }
+
 .media-btn:hover{
-  background-color: #6777ef;
+  background-color: #d9e8f3;
   color: black;
+}
+.sms{
+  color: #5a5d5e;
+}
+.list-unstyled{
+  margin-top:-14px;
 }
 
-.media-btn:active{
-  background-color: #3bb557;
-  color: black;
-}
+.badge {
+  position: relative;
+    top: -17px;
+    left: -4px;
+    /* border: 1px solid black; */
+    border-radius: 12%;
+    padding: 4px;
+    background-color: orange;
+    color: black;
+ }
 
 .media .media-icon {
   font-size: 20px;

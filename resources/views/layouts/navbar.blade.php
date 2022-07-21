@@ -3,8 +3,8 @@
       <ul class="navbar-nav mr-3">
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
 
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+        <li><a href="{{route('message')}}" class="nav-link nav-link-lg"><i class="far fa-bell"></i><span class="badge">{{$notification}}</span></a>
+          {{-- <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Notifications
                 <div class="float-right">
                   <a href="#">Mark All As Read</a>
@@ -60,8 +60,8 @@
               <div class="dropdown-footer text-center">
                 <a href="#">View All <i class="fas fa-chevron-right"></i></a>
               </div>
-            </div>
-          </li>
+            </div> --}}
+        </li>
     </ul>
 
     </form>
