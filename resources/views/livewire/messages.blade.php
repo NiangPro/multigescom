@@ -14,7 +14,7 @@
               <ul class="list-unstyled list-unstyled-border">
 
                 @if ($idUser!==null && $trouve===false)
-                    <li class="media">
+                    <li class="media ">
                       <a type="button" class="media" wire:click.prevent="selectEvent({{$current_user->id}})">
                         <img alt="image" class="mr-3 rounded-circle" width="52" height="52" src="{{asset('storage/images/'.$current_user->profil)}}">
                         <div class="media-body">
@@ -26,7 +26,9 @@
                 @endif
 
                 @foreach ($recent_message as $item)
-                  <li class="media media-btn">
+                  <li class="media media-btn @if (isset($current_user->id) && $item->recepteur_id=== $current_user->id)
+                    active-btn
+                  @endif">
                     <a href="#" class="media media-link" wire:click.prevent="selectEvent({{$item->recepteur_id}})">
                       <img alt="image" class="mr-3 rounded-circle" width="52" height="52"
                         src="@if($item->emetteur_id === Auth()->user()->id)
@@ -60,7 +62,14 @@
         <div class="col-12 col-sm-6 col-lg-8 mt-0">
           <div class="card chat-box" id="mychatbox">
             <div class="card-header">
-              <h4>Discussion</h4>
+              <h4>Discussion
+                @if (isset($current_user) && $current_user !==null)
+                  avec 
+                  <strong style="color:black;">
+                    {{$current_user->prenom}} {{$current_user->nom}}
+                  </strong>
+                @endif
+              </h4>
             </div>
             <div class="card-body scrollbar-auto chat-content" style="background-image:url('../../storage/images/chat-box.png');
             background-repeat: ROUND; height: 300px; width:100%; ">
@@ -100,7 +109,7 @@
             </div>
             <div class="card-footer chat-form">
               <form wire:submit.prevent="store" id="chat-form">
-                <input type="text" wire:model="form.text" class="form-control @error('form.text') is-invalid @enderror" placeholder="Type a message">
+                <input type="text" wire:model="form.text" class="form-control @error('form.text') is-invalid @enderror" placeholder="Ecrire un message">
                 @error('form.text')
                     <span class="invalid-feedback ml-3 mt-n2 mb-2" role="alert">
                         <strong>{{ $message }}</strong>

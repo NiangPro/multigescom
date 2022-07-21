@@ -1508,6 +1508,12 @@ h6 .badge {
   background-color: #d9e8f3;
   color: black;
 }
+
+.active-btn {
+  background-color: #d9e8f3!important;
+  color: black!important;
+}
+
 .sms{
   color: #5a5d5e;
 }

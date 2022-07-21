@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Astuce;
 use App\Models\Entreprise;
+use App\Models\Messenger;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -292,7 +293,8 @@ class Users extends Component
             ])->layout('layouts.app',[
                 'title' => 'Les Utilisateurs',
                 "page" => "users",
-                "icon" => "fa fa-users-cog"
+                "icon" => "fa fa-users-cog",
+                "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
             ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Astuce;
+use App\Models\Messenger;
 use App\Models\Reunion;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -139,7 +140,8 @@ class Reunions extends Component
         )->layout('layouts.app', [
             'title' => "Réunions",
             "page" => "reunion",
-            "icon" => "fa fa-handshake"
+            "icon" => "fa fa-handshake",
+            "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
         ]);
     }
 

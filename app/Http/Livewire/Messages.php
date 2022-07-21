@@ -79,7 +79,7 @@ class Messages extends Component
         }
             foreach ($this->recent_message as $message) {
                 // dd($message);
-                if($message["recepteur_id"] === $this->current_user->id){
+                if($message["recepteur_id"] == $this->current_user->id){
                     $this->trouve = true;
                 }else{
                     $this->trouve = false;
@@ -92,7 +92,7 @@ class Messages extends Component
         $this->selectedMessages($idReceved);
         foreach ($this->recent_message as $key => $message) {
             if($message["recepteur_id"] === $idReceved || 
-                $message["emetteur_id"] === $idReceved){
+                $message["emetteur_id"] == $idReceved){
                 $this->trouve = true;
             }else{
                 $this->trouve = false;
