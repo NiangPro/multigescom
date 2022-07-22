@@ -15,8 +15,12 @@
             </div>
             <div class="author-box-details">
               <div class="author-box-name">
-                <a href="#">{{$cm->prenom}} {{$cm->nom}}</a>
-            </div>
+                <a href="#">{{Str::substr($cm->prenom.' '.$cm->nom, 0, 10) }}
+                  @if (strlen($cm->prenom.$cm->nom)> 8)
+                                ...
+                            @endif</a>
+                
+              </div>
             <div class="author-box-job">{{$cm->role}}</div>
             <div class="author-box-description">
                 <p>

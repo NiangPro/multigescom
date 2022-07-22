@@ -77,12 +77,11 @@ class Messages extends Component
             $this->current_message = null;
             // $this->idUser = null;
         }
+        $this->trouve = false;
             foreach ($this->recent_message as $message) {
                 // dd($message);
-                if($message["recepteur_id"] == $this->current_user->id){
+                if($message["recepteur_id"] == $this->current_user->id || $message["emetteur_id"] == $this->current_user->id){
                     $this->trouve = true;
-                }else{
-                    $this->trouve = false;
                 }
             }
     }
@@ -90,9 +89,9 @@ class Messages extends Component
     public function selectEvent($idReceved){
         $this->current_user = User::where('id', $idReceved)->first();
         $this->selectedMessages($idReceved);
-        foreach ($this->recent_message as $key => $message) {
+        foreach ($this->recent_message as $message) {
             if($message["recepteur_id"] === $idReceved || 
-                $message["emetteur_id"] == $idReceved){
+                $message["emetteur_id"] === $idReceved){
                 $this->trouve = true;
             }else{
                 $this->trouve = false;
