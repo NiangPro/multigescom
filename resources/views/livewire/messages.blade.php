@@ -26,7 +26,7 @@
                 @endif
 
                 @foreach ($recent_message as $item)
-                  <li class="media media-btn @if (isset($current_user->id) && $item->recepteur_id=== $current_user->id)
+                  <li class="media media-btn @if (isset($current_user->id) && ($item->recepteur_id === $current_user->id || $item->emetteur_id === $current_user->id) )
                     active-btn
                   @endif">
                     <a href="#" class="media media-link" wire:click.prevent="selectEvent({{$item->recepteur_id == Auth()->user()->id ? $item->emetteur_id : $item->recepteur_id }})">
