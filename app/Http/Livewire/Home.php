@@ -151,7 +151,9 @@ class Home extends Component
         $this->dataSuperAdmin['nbreSuperAdmin'] = count($this->astuce->superAdmins());
         $this->dataSuperAdmin['nbreAdmin'] = count($this->astuce->admins());
 
-        return view('livewire.home.home', [
+
+
+        return view('livewire.home.'.$this->pageName, [
             'todolists' => Todolist::orderBy('id', 'DESC')->paginate(5),
         ])->layout('layouts.app', [
             'title' => "Tableau de bord",
@@ -169,6 +171,19 @@ class Home extends Component
         $this->astuce = new Astuce();
         if (Auth::user()->role === "Super Admin") {
             $this->astuce->initCountries();
+            $this->pageName = "home";
+        }elseif(Auth::user()->role === "Commercial"){
+            $this->pageName = "home-commercial";
+
+        }elseif(Auth::user()->role === "Admin"){
+            $this->pageName = "home-admin";
+
+        }elseif(Auth::user()->role === "Comptable"){
+            $this->pageName = "home-comptable";
+
+        }else{
+            $this->pageName = "home-employe";
+
         }
     }
 }
