@@ -1,4 +1,3 @@
-<div class="col-lg-4 col-md-12 col-12 col-sm-12">
     <div class="card">
       <div class="card-header">
         @if ($todo === 'add')
@@ -51,32 +50,36 @@
                 <button type="reset" class="btn btn-sm btn-icon icon-left btn-warning"><i class="far fa-edit"></i> Annuler</b>
             </form>
             @else
-                <ul class="list-group mb-1">
-                    @foreach ( $todolists as $list)
-                        <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                            <div class="d-flex align-items-center">
-                            {{-- <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." /> --}}
-                                <div class="text-small font-weight-600
-                                    @if ($list->statut==='Terminé')
-                                        text-success
-                                    @elseif($list->statut==='En cours')
-                                        text-info
-                                    @else
-                                        text-danger
-                                    @endif">
-                                    <i class="fas fa-circle"></i> {{$list->titre}} 
+                <ul class="list-group mb-1 scrollbar-todo">
+                    @if($todolists['items'] !== null)
+                        @foreach ($todolists as $list)
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                                <div class="d-flex align-items-center">
+                                {{-- <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." /> --}}
+                                    <div class="text-small font-weight-600
+                                        @if ($list->statut==='Terminé')
+                                            text-success
+                                        @elseif($list->statut==='En cours')
+                                            text-info
+                                        @else
+                                            text-danger
+                                        @endif">
+                                        <i class="fas fa-circle"></i> {{$list->titre}} 
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <span style="display: flex;">
-                                <button wire:click.prevent="getTodo({{$list->id}})" class="btn rounded-circle mb-1 btn-icon btn-outline-success btn-sm btn_widht" title="Ouvrir"><i class="fa fa-eye left-eye" style="left: 0!important"></i></button>
-                                &nbsp;&nbsp;
-                                <button wire:click.prevent="delete({{$list->id}})"
-                                data-confirm-yes="remove()"
-                                class="btn rounded-circle btn-icon btn-outline-danger btn-sm btn_widht" title="Supprimer"><i class="fa fa-trash left-i" style="left: 0!important"></i></button>
-                            </span>
-                        </li>
-                    @endforeach
+                                
+                                <span style="display: flex;">
+                                    <button wire:click.prevent="getTodo({{$list->id}})" class="btn rounded-circle mb-1 btn-icon btn-outline-success btn-sm btn_widht" title="Ouvrir"><i class="fa fa-eye left-eye" style="left: 0!important"></i></button>
+                                    &nbsp;&nbsp;
+                                    <button wire:click.prevent="delete({{$list->id}})"
+                                    data-confirm-yes="remove()"
+                                    class="btn rounded-circle btn-icon btn-outline-danger btn-sm btn_widht" title="Supprimer"><i class="fa fa-trash left-i" style="left: 0!important"></i></button>
+                                </span>
+                            </li>
+                        @endforeach
+                    @else
+                        <p>Aucune tâche à faire pour le moment</p>
+                    @endif
                 </ul>
                 <div class="text-center pt-1 pb-1">
                     {{ $todolists->links() }}
@@ -85,26 +88,5 @@
             @endif
       </div>
     </div>
-</div>
-@section('js')
-<script>
 
-    window.addEventListener('addSuccessful', event =>{
-        iziToast.success({
-        title: 'A faire',
-        message: 'Ajout avec succes',
-        position: 'topRight'
-        });
-    });
 
-    window.addEventListener('updateSuccessful', event =>{
-        iziToast.success({
-        title: 'A faire',
-        message: 'Mis à jour avec succes',
-        position: 'topRight'
-        });
-    });
-
-</script>
-
-@endsection

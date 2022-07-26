@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Employe;
 use App\Models\Messenger;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -277,7 +278,7 @@ class Employes extends Component
                 'adresse' => $this->form['adresse'],
                 'role' => "Employe",
                 'pays' => $this->form['pays'],
-                'password' => "admin@1",
+                'password' => Hash::make("admin@1"),
                 'fonction' => $this->form['fonction'],
                 'entreprise_id' => Auth::user()->entreprise_id,
                 'sexe' => $this->form['sexe'],

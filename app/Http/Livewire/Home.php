@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 
 
 use App\Models\Astuce;
+use App\Models\Historique;
 use App\Models\Messenger;
 use App\Models\Todolist;
+use App\Models\Vente;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -21,12 +23,44 @@ class Home extends Component
     public $todo = "list";
     public $current_todo;
     public $pageName;
+    public $etat = "ventes";
+    public $allVentes;
+    public $allDepenses;
+    public $allPropsects;
+    public $allFournisseurs;
+    public $depenses;
+    public $ventes;
 
     public $dataSuperAdmin = [
         'nbreEntreprise',
         'nbreSuperAdmin',
         'nbreAdmin',
     ];
+
+    public $dataAdmin = [
+        'nbreVente',
+        'nbreDevis',
+        'nbreClient',
+        'nbreProduit',
+    ];
+
+    public $dataCommercial = [
+        'nbreProspect',
+        'nbreFournisseur',
+    ];
+
+    public $dataComptable = [
+        'venteMonth',
+        'depenseMonth',
+        'totalVente',
+    ];
+
+    public $dataEmploye = [
+        'nbreTache',
+        'nbreReunion',
+        'nbreHistorique',
+    ];
+
 
     public $todoForm = [
         'id'=>null,
@@ -50,6 +84,9 @@ class Home extends Component
 
     protected $listeners = ['remove'];
 
+    public function changeEtat($etat){
+        $this->etat =  $etat;
+    }
 
     public function formadd()
     {
@@ -146,15 +183,43 @@ class Home extends Component
 
     public function render()
     {
+        $this->astuce = new Astuce();
 
         $this->dataSuperAdmin['nbreEntreprise'] = count($this->astuce->entreprises());
         $this->dataSuperAdmin['nbreSuperAdmin'] = count($this->astuce->superAdmins());
         $this->dataSuperAdmin['nbreAdmin'] = count($this->astuce->admins());
 
+        // dataCountAdmin
+        $this->dataAdmin['nbreVente'] = count($this->astuce->ventes());
+        $this->dataAdmin['nbreDevis'] = count($this->astuce->devis());
+        $this->dataAdmin['nbreClient'] = count($this->astuce->clients());
+        $this->dataAdmin['nbreProduit'] = count($this->astuce->produits());
+        $this->allVentes = $this->astuce->getVentes();
+        $this->allDepenses = $this->astuce->getDepenses();
+        
+        // data Dashboard commercial
+        $this->dataCommercial['nbreProspect'] = count($this->astuce->prospects());
+        $this->dataCommercial['nbreFournisseur'] = count($this->astuce->fournisseurs());
+        $this->allClients = $this->astuce->getClient();
+        $this->allFournisseurs = $this->astuce->getFournisseur();
+
+        // data Dashboard comptable
+        $this->dataComptable['venteMonth'] = $this->astuce->getVenteByCurrentMonth();
+        $this->dataComptable['depenseMonth'] = $this->astuce->getDepenseByCurrentMonth();
+        $this->dataComptable['totalVente'] = $this->astuce->getTotalVente();
+        $this->depenses = $this->astuce->getDepenses();
+        $this->ventes = $this->astuce->getVentes();
+        
+        // data Dashboard employe
+        $this->dataEmploye['nbreTache'] = count($this->astuce->taches());
+        $this->dataEmploye['nbreReunion'] = count($this->astuce->reunions());
+        $this->dataEmploye['nbreHistorique'] = count($this->astuce->historiques());
+
 
 
         return view('livewire.home.'.$this->pageName, [
-            'todolists' => Todolist::orderBy('id', 'DESC')->paginate(5),
+            'todolists' => Todolist::orderBy('id', 'DESC')->where('user_id', Auth()->user()->id)->paginate(5),
+            'historiques' => Historique::orderby('id', 'DESC')->where('id', Auth()->user()->id)->limit(3)->get()
         ])->layout('layouts.app', [
             'title' => "Tableau de bord",
             "page" => "home",
@@ -183,7 +248,6 @@ class Home extends Component
 
         }else{
             $this->pageName = "home-employe";
-
         }
     }
 }

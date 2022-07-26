@@ -279,7 +279,6 @@ class Comptable extends Component
             "page" => "comptable",
             "icon" => "fa fa-user-secret",
             "notification" => Messenger::where('recepteur_id', Auth()->user()->id)->where("seen", 1)->count(),
-            
         ]);
     }
 

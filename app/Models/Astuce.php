@@ -12,6 +12,131 @@ class Astuce extends Model
 {
     use HasFactory;
 
+    public function taches(){
+        return Tache::orderBy('id', 'DESC')->get();
+    }
+
+    public function historiques(){
+        return Historique::orderBy('id', 'DESC')->get();
+    }
+
+    public function reunions(){
+        return Reunion::orderBy('id', 'DESC')->get();
+    }
+
+    // vente du mois actuel 
+    public function getTotalVente(){
+        $som = 0;
+        $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("count('*') as nombre")])->groupBy('year')->get();
+
+            foreach ($ventes as $vente) {
+                if (intval(date("Y")) === intval($vente->year)) {
+                    $som = $vente['nombre'];
+                }
+            }
+            return $som ;
+    }
+
+    // vente du mois actuel 
+    public function getVenteByCurrentMonth(){
+        $som = 0;
+        $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
+
+            foreach ($ventes as $vente) {
+                if (intval(date("m")) === intval($vente->month)) {
+                    $som = $vente['nombre'];
+                }
+            }
+            return $som ;
+    }
+
+    // depense du mois actuel 
+    public function getDepenseByCurrentMonth(){
+        $som = 0;
+        $depenses = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(date, '%m') as month"),
+            DB::raw("DATE_FORMAT(date, '%Y') as year"),
+            DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
+
+            foreach ($depenses as $vente) {
+                if (intval(date("m")) === intval($vente->month)) {
+                    $som = $vente['nombre'];
+                }
+            }
+            return $som ;
+    }
+
+    // les fournisseurs de l'année par mois 
+    public function getFournisseur(){
+        $data = [];
+        $fournisseurs = Fournisseur::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(created_at, '%m') as month"),
+            DB::raw("DATE_FORMAT(created_at, '%Y') as year"), 
+            DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
+
+            for($i=1; $i<=intval(date("m")); $i++){
+                $som = 0;
+                foreach ($fournisseurs as $r) {
+                    if($i==$r['month']){
+                        $som= $r['nombre'];
+                        break;
+                    }
+                }
+                $data[] = $som;
+            }
+        return json_encode($data);
+    }
+
+    // les clients de l'année par mois 
+    public function getClient(){
+        $data = [];
+        $clients = Client::where('entreprise_id', Auth()->user()->entreprise_id)->select([
+            DB::raw("DATE_FORMAT(created_at, '%m') as month"),
+            DB::raw("DATE_FORMAT(created_at, '%Y') as year"), 
+            DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
+
+            for($i=1; $i<=intval(date("m")); $i++){
+                $som = 0;
+                foreach ($clients as $r) {
+                    if($i==$r['month']){
+                        $som= $r['nombre'];
+                        break;
+                    }
+                }
+                $data[] = $som;
+            }
+        return json_encode($data);
+    }
+
+    public function fournisseurs(){
+        return Fournisseur::orderBy('id', 'DESC')->get();
+    }
+    
+    public function prospects(){
+        return Prospect::orderBy('id', 'DESC')->get();
+    }
+
+    public function ventes(){
+        return Vente::orderBy('id', 'DESC')->get();
+    }
+
+    public function clients(){
+        return Client::orderBy('id', 'DESC')->get();
+    }
+
+    public function devis(){
+        return Devis::orderBy('id', 'DESC')->get();
+    }
+
+    public function produits(){
+        return Produit::orderBy('id', 'DESC')->get();
+    }
+
     public function getLastedUsersDiscussions()
     {
         $data = [];
@@ -252,7 +377,6 @@ class Astuce extends Model
                 }
                 $data[] = $som;
             }
-
         return json_encode($data);
     }
 
