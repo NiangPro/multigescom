@@ -105,10 +105,10 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     {{-- calendar --}}
-    <div class="row">
+    <div class="card row">
         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
             <div id='calendar'></div>
         </div>
