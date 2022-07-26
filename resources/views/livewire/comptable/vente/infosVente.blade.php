@@ -22,10 +22,12 @@
                 <div>Responsable: {{Auth()->user()->prenom}} {{Auth()->user()->nom}}</div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <span class="float-right">
-                    <h5 class="mb-3 text-uppercase">à:</h5>
-                    <img class="mr-2 mb-1" width="120" src="storage/images/client.png" alt="logo">
-                    <h3 class="mb-1 text-dark">{{$this->current_vente->ventes->client->nom}}</h3>
+                <span class="float-right mr-3">
+                    <span class="d-flex">
+                        <h5 class="mb-3 text-uppercase">
+                            <h3 class="mb-1 text-dark">à: {{$this->current_vente->ventes->client->nom}}</h3>
+                        </h5>
+                    </span>
                     <div>Adresse: {{$this->current_vente->ventes->client->adresse}}</div>
                     <div>Tel: {{$this->current_vente->ventes->client->tel}}</div>
                     <div>Email: {{$this->current_vente->ventes->client->email}}</div>

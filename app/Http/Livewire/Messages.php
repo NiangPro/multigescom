@@ -105,7 +105,7 @@ class Messages extends Component
         $this->recent_message = $this->astuce->getLastedUsersDiscussions();
         $this->seenMessage();
         return view('livewire.messages',[
-            'users' => User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
+            'users' => (Auth()->user()->role == "Super Admin") ? User::where('role', 'Super Admin')->orWhere('role', 'Admin')->where('id', '!=' ,Auth::user()->id)->get() : User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
             ])->layout('layouts.app', [
             'title' => "Les Messages",
             "page" => "message",
