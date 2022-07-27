@@ -1,3 +1,4 @@
+
     <div class="card">
       <div class="card-header">
         @if ($todo === 'add')
@@ -12,7 +13,7 @@
 
       </div>
       <div class="card-body">
-          @if ($todo === 'add' || $todo === 'edit')
+            @if ($todo === 'add' || $todo === 'edit')
             <form wire:submit.prevent="addTodo">
                 <div class="form-group">
                     <label for="">Titre</label>

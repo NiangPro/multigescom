@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-12 col-sm-12">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -78,13 +78,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-12 col-12 col-sm-12">
             <div class="row">
                 <div class="col-md-12">
                   @include('livewire.superAdmin.users.todolist')
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
     {{-- calendar --}}
@@ -97,7 +97,7 @@
                             <h4>Dernières activitées</h4>
                         </div>
                       <div class="card-body">
-                            <ul class="timeline">
+                            <ul class="timeline scrollbar-todo">
                                 @foreach ($historiques as $item)
                                     <li>
                                         <a href="#">{{$item->description}}</a>
@@ -164,14 +164,6 @@
             });
             calendar.render();
         });
-
-    window.addEventListener('errorDate', event =>{
-            toastr.error('La date du debut doit être inférieur à la date de Fin', 'Date', {positionClass: 'toast-top-right'});
-        });
-    window.addEventListener('refresh', event =>{
-            location.reload();
-    });
-
     window.addEventListener('addSuccessful', event =>{
         iziToast.success({
         title: 'A faire',
