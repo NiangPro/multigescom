@@ -88,15 +88,10 @@ class Home extends Component
         $this->etat =  $etat;
     }
 
-    public function formadd()
-    {
-        $this->todo = "add";
-        $this->dispatchBrowserEvent('swal:add');
-    }
-
     public function backTodo()
     {
-        $this->todo = "list";
+        $this->todo = $this->etat == "add"? "list":"add";
+        
     }
 
     public function getTodo($id){

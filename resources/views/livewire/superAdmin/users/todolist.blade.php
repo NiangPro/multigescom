@@ -6,7 +6,7 @@
         <button type="button" wire:click.prevent="backTodo" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
         @else
         <h4>A Faire</h4>
-        <button type="button" wire:click.prevent="formadd" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" wire:click.prevent="backTodo" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
 
         @endif
 
@@ -51,11 +51,9 @@
             </form>
             @else
                 <ul class="list-group mb-1 scrollbar-todo">
-                    @if($todolists['items'] !== null)
                         @foreach ($todolists as $list)
                             <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                                 <div class="d-flex align-items-center">
-                                {{-- <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." /> --}}
                                     <div class="text-small font-weight-600
                                         @if ($list->statut==='Terminé')
                                             text-success
@@ -77,9 +75,6 @@
                                 </span>
                             </li>
                         @endforeach
-                    @else
-                        <p>Aucune tâche à faire pour le moment</p>
-                    @endif
                 </ul>
                 <div class="text-center pt-1 pb-1">
                     {{ $todolists->links() }}
