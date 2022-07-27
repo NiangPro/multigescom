@@ -93,6 +93,12 @@ class Home extends Component
         $this->todo = "add";
     }
 
+    function backTodoAdmin()
+    {
+        dd("bien");
+        $this->todo = $this->etat == "add"? "list":"add";
+    }
+
     public function backTodo()
     {
         $this->todo = $this->etat == "add"? "list":"add";
