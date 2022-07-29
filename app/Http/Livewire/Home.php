@@ -88,10 +88,21 @@ class Home extends Component
         $this->etat =  $etat;
     }
 
+    public function formadd()
+    {
+        $this->todo = "add";
+    }
+
+    function backTodoAdmin()
+    {
+        dd("bien");
+        $this->todo = $this->etat == "add"? "list":"add";
+    }
+
     public function backTodo()
     {
         $this->todo = $this->etat == "add"? "list":"add";
-        
+
     }
 
     public function getTodo($id){
@@ -191,7 +202,7 @@ class Home extends Component
         $this->dataAdmin['nbreProduit'] = count($this->astuce->produits());
         $this->allVentes = $this->astuce->getVentes();
         $this->allDepenses = $this->astuce->getDepenses();
-        
+
         // data Dashboard commercial
         $this->dataCommercial['nbreProspect'] = count($this->astuce->prospects());
         $this->dataCommercial['nbreFournisseur'] = count($this->astuce->fournisseurs());
@@ -204,7 +215,7 @@ class Home extends Component
         $this->dataComptable['totalVente'] = $this->astuce->getTotalVente();
         $this->depenses = $this->astuce->getDepenses();
         $this->ventes = $this->astuce->getVentes();
-        
+
         // data Dashboard employe
         $this->dataEmploye['nbreTache'] = count($this->astuce->taches());
         $this->dataEmploye['nbreReunion'] = count($this->astuce->reunions());
