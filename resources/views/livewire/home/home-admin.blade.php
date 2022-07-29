@@ -1,4 +1,16 @@
 <div>
+    @if ($today >= (Auth()->user()->entreprise->fermeture))
+
+    <div class="container col-md-10 ">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h6><marquee>Votre abonnement prendra fin le {{date("d/m/Y", strtotime(Auth()->user()->entreprise->fermeture))}}, Veuillez renouveller votre abonnement.</marquee>
+        <button type="button" class="close text-dark" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></h6>
+      </div>
+    </div>
+
+    @endif
     <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
