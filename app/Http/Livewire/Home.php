@@ -30,6 +30,7 @@ class Home extends Component
     public $allFournisseurs;
     public $depenses;
     public $ventes;
+    public $today;
 
     public $dataSuperAdmin = [
         'nbreEntreprise',
@@ -190,6 +191,10 @@ class Home extends Component
     public function render()
     {
         $this->astuce = new Astuce();
+        $this->today = date("Y-m-d");
+
+        $this->today = strtotime($this->today) - 86400*5;
+        $this->today = date("d-m-Y",$this->today);
 
         $this->dataSuperAdmin['nbreEntreprise'] = count($this->astuce->entreprises());
         $this->dataSuperAdmin['nbreSuperAdmin'] = count($this->astuce->superAdmins());
