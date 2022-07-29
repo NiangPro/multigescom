@@ -103,7 +103,7 @@ class Devis extends Component
                 ]);
             }
 
-            $this->astuce->addHistorique("Ajout devis ".$devis->id, "add");
+            $this->astuce->addHistorique("Ajout d'un devis ".$devis->id, "add");
 
             $this->dispatchBrowserEvent("addSuccessful");
             $this->initForm();

@@ -219,7 +219,7 @@ class Comptable extends Component
                     'password'=>Hash::make($this->form['password']),
                 ]);
 
-                $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
+                $this->astuce->addHistorique("Ajout d'un ".$this->form['role'], "add");
 
                 $this->dispatchBrowserEvent("addSuccessful");
                 $this->formInit();

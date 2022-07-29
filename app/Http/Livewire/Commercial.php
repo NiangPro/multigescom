@@ -219,7 +219,7 @@ class Commercial extends Component
                     'password'=>Hash::make($this->form['password']),
                 ]);
 
-                $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
+                $this->astuce->addHistorique("Ajout d'un commercial".$this->form['role'], "add");
 
                 $this->dispatchBrowserEvent("addSuccessful");
                 $this->formInit();

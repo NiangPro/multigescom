@@ -91,7 +91,7 @@ class Depenses extends Component
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
 
-            $this->astuce->addHistorique("Ajout depense", "add");
+            $this->astuce->addHistorique("Ajout d'une depense", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->etat="list";
         }

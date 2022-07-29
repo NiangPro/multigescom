@@ -98,7 +98,7 @@ class Clients extends Component
                 'entreprise_id' => Auth::user()->entreprise_id,
             ]);
 
-            $this->astuce->addHistorique("Ajout client", "add");
+            $this->astuce->addHistorique("Ajout d'un client", "add");
             $this->dispatchBrowserEvent("addSuccessful");
             $this->status="listClients";
 
