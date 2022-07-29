@@ -210,11 +210,12 @@ class Home extends Component
         $this->dataEmploye['nbreReunion'] = count($this->astuce->reunions());
         $this->dataEmploye['nbreHistorique'] = count($this->astuce->historiques());
 
-
+        // $hitory = Historique::orderBy('id', 'DESC')->where('user_id', Auth()->user()->id)->get();
+        // dd($hitory);
 
         return view('livewire.home.'.$this->pageName, [
             'todolists' => Todolist::orderBy('id', 'DESC')->where('user_id', Auth()->user()->id)->paginate(5),
-            'historiques' => Historique::orderby('id', 'DESC')->where('id', Auth()->user()->id)->limit(3)->get()
+            'historiques' => Historique::orderBy('id', 'DESC')->where('user_id', Auth()->user()->id)->limit(3)->get()
         ])->layout('layouts.app', [
             'title' => "Tableau de bord",
             "page" => "home",
