@@ -1,5 +1,5 @@
 <div>
-    @if ($today >= (Auth()->user()->entreprise->fermeture))
+    @if (date("Y-m-d") >= $today)
 
     <div class="container col-md-10 ">
       <div class="alert alert-warning alert-dismissible fade show" role="alert">

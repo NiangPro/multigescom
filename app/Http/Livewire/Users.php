@@ -59,9 +59,6 @@ class Users extends Component
         'form.entreprise_id' => 'nullable|string',
         'form.email' => ['required', 'email', 'unique:users,email'],
         'form.password' => 'required|string|min:6|confirmed',
-        'todoForm.titre' => 'required|string',
-        'todoForm.date' => 'required|string',
-        'todoForm.statut' => 'required|string',
     ];
 
     protected $messages = [
@@ -221,6 +218,7 @@ class Users extends Component
     }
     public function store()
     {
+
         if(isset($this->user->id) && $this->user->id !== null){
             $user = User::where('id', $this->user->id)->first();
             $this->validate([
@@ -246,7 +244,6 @@ class Users extends Component
         }else{
             // Traitement ajout utilisateur
             $this->validate();
-
 
             if(empty($this->form['sexe'])){
                 $this->dispatchBrowserEvent("sexEmpty");

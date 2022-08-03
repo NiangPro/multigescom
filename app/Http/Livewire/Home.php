@@ -191,10 +191,14 @@ class Home extends Component
     public function render()
     {
         $this->astuce = new Astuce();
-        $this->today = date("Y-m-d");
 
-        $this->today = strtotime($this->today) - 86400*5;
-        $this->today = date("d-m-Y",$this->today);
+        if(Auth::user()->role === "Admin"){
+            $this->today = Auth::user()->entreprise->fermeture;
+
+            $this->today = strtotime($this->today) - 86400*5;
+            $this->today = date("d-m-Y",$this->today);
+        }
+
 
         $this->dataSuperAdmin['nbreEntreprise'] = count($this->astuce->entreprises());
         $this->dataSuperAdmin['nbreSuperAdmin'] = count($this->astuce->superAdmins());
