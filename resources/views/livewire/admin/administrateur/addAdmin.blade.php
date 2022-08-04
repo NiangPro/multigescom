@@ -163,9 +163,11 @@
               </div>
           </div>
           @endif
-          <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>@if ($etat === "add") Ajouter @else Modifier @endif</b>
-          <button type="reset" class="btn btn-warning ml-2"> Annuler</button>
-      </form>
+          @if (Auth()->user()->entreprise->nom !== "Demo")
+            <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>@if ($etat === "add") Ajouter @else Modifier @endif</b>
+            <button type="reset" class="btn btn-warning ml-2"> Annuler</button>
+          @endif
+        </form>
     @endif
     @if($etat === "exist")
       <form wire:submit.prevent="exist">

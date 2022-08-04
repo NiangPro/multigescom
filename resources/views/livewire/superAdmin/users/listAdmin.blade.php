@@ -30,7 +30,7 @@
         </td>
 
         <td>
-            <img alt="image" src="{{asset('storage/images/'.$sa->profil)}}" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
+            <img alt="image" src="{{asset('storage/images/'.$sa->profil)}}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" title="Wildan Ahdian">
         </td>
         <td>{{$sa->prenom}}</td>
         <td>

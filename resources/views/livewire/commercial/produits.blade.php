@@ -1,7 +1,9 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
-  <button wire:click.prevent="changeEtat('addProduct')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
-    @if ($status ==="addProduct")
+    @if (Auth()->user()->entreprise->nom !== "Demo")
+        <button wire:click.prevent="changeEtat('addProduct')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+    @endif
+        @if ($status ==="addProduct")
         @include('livewire.commercial.produit.add')
     @elseif($status ==="listProduct")
         @include('livewire.commercial.produit.listProduits')

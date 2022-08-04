@@ -1,7 +1,9 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
-    @if (Auth()->user()->isAdmin())
-        <button wire:click.prevent="changeEtat('addTache')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+    @if (Auth()->user()->entreprise->nom !== "Demo")
+        @if (Auth()->user()->isAdmin())
+            <button wire:click.prevent="changeEtat('addTache')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
+        @endif
     @endif
     @if ($status ==="addTache"  || $status ==="editTache")
         @include('livewire.admin.tache.addTache')

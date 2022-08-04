@@ -24,16 +24,18 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-center">
-                <div class="input-group mb-3">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" wire:model="profil" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                      <label class="custom-file-label" for="inputGroupFile01">Choisir</label>
-                      <div wire:loading wire:target="profil">Chargement...</div>
-                    </div>
-                </div>
-                <button class="btn btn-icon icon-left btn-success" wire:click.prevent="editProfil">Changer</button>
-            </div>
+            @if (Auth()->user()->entreprise->nom !== "Demo")
+              <div class="card-footer text-center">
+                  <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" wire:model="profil" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choisir</label>
+                        <div wire:loading wire:target="profil">Chargement...</div>
+                      </div>
+                  </div>
+                    <button class="btn btn-icon icon-left btn-success" wire:click.prevent="editProfil">Changer</button>
+              </div>
+            @endif
           </div>
         </div>
         <div class="col-12 col-md-12 col-lg-9">
@@ -48,7 +50,7 @@
         </div>
     </div>
     
-    
+      @if (Auth()->user()->entreprise->nom !== "Demo")
         <div class="card card-primary">
           <form wire:submit.prevent="editPassword"  class="needs-validation" novalidate="">
             <div class="card-header">
@@ -95,6 +97,6 @@
             </div>
           </form>
         </div>
-    
+      @endif
     </div>
     

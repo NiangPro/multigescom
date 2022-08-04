@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function contrats()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contrat::class);
     }
 
     public function taches()

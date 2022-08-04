@@ -8,10 +8,10 @@
               <img alt="image" height="98" width="104" src="{{asset('storage/images/'.$ad->profil)}}" class="rounded-circle author-box-picture">
               <div class="clearfix mb-2"></div>
               <button wire:click.prevent="getAdmin({{$ad->id}})"  class="btn btn-outline-success btn-sm btn-rounded mr-2"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
-              <button type="button" wire:click.prevent="delete({{$ad->id}})" data-confirm-yes="remove()" class="btn btn-outline-danger btn-sm btn-rounded">
-                <i class="fa fa-trash" aria-hidden="true"></i></button>
-
+              @if (Auth()->user()->entreprise->nom !== "Demo")
+                <button type="button" wire:click.prevent="delete({{$ad->id}})" data-confirm-yes="remove()" class="btn btn-outline-danger btn-sm btn-rounded">
+                  <i class="fa fa-trash" aria-hidden="true"></i></button>
+              @endif
             </div>
             <div class="author-box-details">
               <div class="author-box-name">

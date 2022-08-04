@@ -51,9 +51,11 @@
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getTache({{$tache->id}})"><i class="far fa-eye"></i></button>
-                                @if (Auth()->user()->isAdmin())
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
-                                trigger--fire-modal-1" wire:click.prevent="delete({{$tache->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                @if (Auth()->user()->entreprise->nom !== "Demo") 
+                                    @if (Auth()->user()->isAdmin())
+                                        <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm
+                                        trigger--fire-modal-1" wire:click.prevent="delete({{$tache->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                    @endif
                                 @endif
                             </div>
                         </td>

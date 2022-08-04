@@ -109,16 +109,18 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-4">
-                <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                <button type="submit" class="btn btn-success">
-                    @if ($etat ==="info")
-                        Modifier
-                    @else
-                        Ajouter
-                    @endif
-                </button>
-            </div>
+            @if (Auth()->user()->entreprise->nom !== "Demo")
+                <div class="mb-4">
+                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-success">
+                        @if ($etat ==="info")
+                            Modifier
+                        @else
+                            Ajouter
+                        @endif
+                    </button>
+                </div>
+            @endif
         </form>
     </div>
 </div>

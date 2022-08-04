@@ -23,16 +23,18 @@
                             <img alt="Responsive image" src="storage/images/{{ $current_produit->image_produit}}" class="product_img">
                         @endif
                     </div>
-                    <div class="card-footer text-center mt-n4">
-                        <div class="input-group mb-3">
-                            <div class="custom-file mt-4">
-                                <input type="file" class="custom-file-input" wire:model="image_produit" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choisir</label>
-                                <div wire:loading wire:target="image_produit">Chargement...</div>
+                    @if (Auth()->user()->entreprise->nom !== "Demo")
+                        <div class="card-footer text-center mt-n4">
+                            <div class="input-group mb-3">
+                                <div class="custom-file mt-4">
+                                    <input type="file" class="custom-file-input" wire:model="image_produit" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choisir</label>
+                                    <div wire:loading wire:target="image_produit">Chargement...</div>
+                                </div>
                             </div>
+                            <button class="btn btn-icon icon-left btn-success" wire:click.prevent="editImage">Changer</button>
                         </div>
-                        <button class="btn btn-icon icon-left btn-success" wire:click.prevent="editImage">Changer</button>
-                    </div>
+                    @endif
                 </div>
             </div>
         @endif
@@ -122,16 +124,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                    <button type="submit" class="btn btn-success">
-                        @if ($status ==="editProduct")
-                            Modifier
-                        @else
-                            Ajouter
-                        @endif
-                    </button>
-                </div>
+                @if (Auth()->user()->entreprise->nom !== "Demo")
+                    <div class="mb-4">
+                        <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-success">
+                            @if ($status ==="editProduct")
+                                Modifier
+                            @else
+                                Ajouter
+                            @endif
+                        </button>
+                    </div>
+                @endif
             </form>
         </div>
     </div>

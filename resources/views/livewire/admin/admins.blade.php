@@ -5,7 +5,9 @@
           <div class="card-header-action">
             <div class="btn-group">
                 @if( $etat!== "info")
-                    <button  class="btn @if( $etat=== "add") btn-success @else btn-primary @endif " wire:click.prevent="changeEtat('add')"><i class="fa fa-plus"></i>  @if ($etat === "add" || $etat === "exist") Nouveau @elseif($etat === "list") Ajout @endif </button>
+                    @if (Auth()->user()->entreprise->nom !== "Demo")
+                        <button class="btn @if( $etat=== "add") btn-success @else btn-primary @endif " wire:click.prevent="changeEtat('add')"><i class="fa fa-plus"></i>  @if ($etat === "add" || $etat === "exist") Nouveau @elseif($etat === "list") Ajout @endif </button>
+                    @endif
                 @endif
                 @if ($etat === "add" || $etat === "exist")
                     <button  class="btn @if( $etat=== "exist") btn-success @else btn-primary @endif"  wire:click.prevent="changeEtat('exist')"><i class="fas fa-male"></i> Existant</button>

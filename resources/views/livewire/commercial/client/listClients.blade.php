@@ -24,8 +24,10 @@
                         <td>
                             <div class="d-flex">
                                 <button  class="btn btn-icon btn-outline-info btn-sm" wire:click.prevent="getClient({{$client->id}})"><i class="far fa-eye"></i></button>
-                                <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
-                                trigger--fire-modal-1" wire:click.prevent="deleteClient({{$client->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                @if (Auth()->user()->entreprise->nom !== "Demo")
+                                    <button  class="btn ml-1 btn-icon btn-outline-danger btn-sm  
+                                    trigger--fire-modal-1" wire:click.prevent="deleteClient({{$client->id}})" data-confirm-yes="remove()"><i class="fa fa-trash"></i></button>
+                                @endif
                             </div>
                         </td>
                     </tr>

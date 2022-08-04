@@ -24,9 +24,11 @@
                         <div class="card-header">
                             <span style="display: flex; flex-direction: column; left:3px;">
                                 <a target="_blank" href="storage/contrats/{{$contrat->fichier}}" class="btn mb-1 btn-icon btn-outline-success btn-sm" title="Ouvrir"><i class="fa fa-eye left-eye"></i></a>
-                                <button wire:click.prevent="deleteDocument({{$contrat->id}})"
-                                data-confirm-yes="removeDocument()"
-                                class="btn btn-icon btn-outline-danger btn-sm" title="Supprimer"><i class="fa fa-trash left-i"></i></button>
+                                @if (Auth()->user()->entreprise->nom !== "Demo")
+                                    <button wire:click.prevent="deleteDocument({{$contrat->id}})"
+                                    data-confirm-yes="removeDocument()"
+                                    class="btn btn-icon btn-outline-danger btn-sm" title="Supprimer"><i class="fa fa-trash left-i"></i></button>
+                                @endif    
                                 <button wire:click.prevent="download({{$contrat->id}})" class="btn btn-icon btn-sm btn-outline-info"><i class="fa fa-download left-i" aria-hidden="true"></i></button>
                             </span>
                         </div>

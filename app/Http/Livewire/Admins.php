@@ -73,6 +73,8 @@ class Admins extends Component
             $this->title = "Formulaire d'ajout administrateur";
         }elseif($this->etat==='exist'){
             $this->title = "Formulaire d'édition rôle vers administrateur";
+        }elseif($this->etat==='list'){
+            $this->title = "Liste des administrateurs";
         }
         $this->formInit();
     }
