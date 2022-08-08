@@ -1,8 +1,7 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
-    @if (Auth()->user()->entreprise->nom !== "Demo")
-        <button wire:click.prevent="changeEtat('addReunion')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
-    @endif
+   
+    <button wire:click.prevent="changeEtat('addReunion')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
     @if ($status ==="addReunion")
         @include('livewire.commercial.reunion.addReunion')
     @elseif($status ==="listReunions")

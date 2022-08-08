@@ -147,18 +147,20 @@
                     </div>
                 </div>
             </div>
-            @if (Auth()->user()->entreprise->nom !== "Demo")
-                <div class="mb-4">
-                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                    <button type="submit" class="btn btn-success">
-                        @if ($status ==="editClient")
-                            Modifier
-                        @else
-                            Ajouter
-                        @endif
+            
+            <div class="mb-4">
+                @if ($status ==="addTache") 
+                    <button type="submit" class="btn btn-icon icon-left btn-success"><i class="fa fa-plus"></i>
+                    Ajouter 
                     </button>
-                </div>
-            @endif
+                @endif
+                @if ($status ==="editTache" && Auth()->user()->entreprise->nom !== "Demo") 
+                    <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
+                        modifier 
+                    </button>
+                @endif
+                <button type="reset" class="btn btn-warning">Annuler</button>
+            </div>
         </form>
     </div>
 </div>

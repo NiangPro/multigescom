@@ -1,6 +1,6 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
-    @if (Auth()->user()->entreprise->nom !== "Demo")
+    @if ($status ==="listProspects")
         <button wire:click.prevent="changeEtat('addProspect')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
     @endif
     @if ($status ==="addProspect")

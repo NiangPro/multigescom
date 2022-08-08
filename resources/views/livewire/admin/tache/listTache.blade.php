@@ -38,7 +38,8 @@
                             </div>
                         </td>
                         <td>
-                            <div class="badge badge-warning
+                            <div style="position: relative;
+                                top: -1px;" class="badge badge-warning
                                 @if ($tache->statut==='Terminé')
                                     bg-success
                                 @elseif($tache->statut==='En cours')

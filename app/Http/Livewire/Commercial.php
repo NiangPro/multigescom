@@ -162,6 +162,7 @@ class Commercial extends Component
             ]);
 
             $user->delete();
+            return redirect()->to('/commerciaux');
             $this->etat= "list";
 
     }

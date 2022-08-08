@@ -122,7 +122,7 @@ class Clients extends Component
             'message' => 'Client',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/clients');
         $this->status = "listClients";
     }
 

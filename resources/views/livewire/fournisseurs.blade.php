@@ -1,5 +1,5 @@
 <div>
-    @if (Auth()->user()->entreprise->nom !== "Demo")
+    @if ($status ==="listFournisseurs")
         <button wire:click.prevent="changeEtat('addFournisseur')" class="btn btn-primary mb-2" > <i class="fa fa-plus" aria-hidden="true"></i> Ajout</button>
     @endif
     @if ($status ==="addFournisseur")

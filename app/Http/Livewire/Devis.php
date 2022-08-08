@@ -226,7 +226,7 @@ class Devis extends Component
             'message' => 'Dévis',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/devis');
         $this->etat="list";
     }
 

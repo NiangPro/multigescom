@@ -39,6 +39,10 @@ class Reunions extends Component
     public function changeEtat($etat){
         $this->status = $etat;
         $this->initForm();
+
+        if($etat === "listReunions"){
+            return redirect()->to('/reunions');
+        }
     }
 
     public function initForm(){

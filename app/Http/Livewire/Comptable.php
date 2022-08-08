@@ -162,6 +162,7 @@ class Comptable extends Component
             ]);
 
             $user->delete();
+            return redirect()->to('/comptables');
             $this->etat= "list";
 
     }

@@ -124,7 +124,7 @@ class Fournisseurs extends Component
             'message' => 'Fournisseur',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/fournisseurs');
         $this->status="listFournisseurs";
     }
 

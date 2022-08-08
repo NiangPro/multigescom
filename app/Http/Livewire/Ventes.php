@@ -220,7 +220,7 @@ class Ventes extends Component
             'message' => 'Vente',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/ventes');
         $this->etat="list";
     }
 

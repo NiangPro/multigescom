@@ -119,21 +119,25 @@
                         </div>
                     </div>
                 </div>
-                @if (Auth()->user()->entreprise->nom !== "Demo")
+                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="align-items-end">
-                                <button type="submit" class="btn btn-success">
-                                    @if ($etat === "add")
+                                <button type="reset" class="btn btn-warning">Annuler</button>
+                                @if ($etat === "add")
+                                    <button type="submit" class="btn btn-success">
                                         Ajouter
-                                    @else
+                                    </button>
+                                @endif
+                                @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo")
+                                    <button type="submit" class="btn btn-success">
                                         Modifier
-                                    @endif
-                                </button>
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
-                @endif
+
             </form>
         </div>
     </div>

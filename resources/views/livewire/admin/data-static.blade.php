@@ -24,8 +24,9 @@
                     <th>Valeur</th>
                     <th>Entreprise</th>
                     <th>Statut</th>
-
-                    <th>Action
+                    @if (Auth()->user()->entreprise->nom !== "Demo") 
+                    <th>Action</th>
+                    @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -40,10 +41,12 @@
                                     @endif wire:change="changeStatus({{$sd->id}})" name="custom-switch-checkbox" class="custom-switch-input">
                                     <span class="custom-switch-indicator"></span>
                                 </label></td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" wire:click.prevent="edit({{$sd->id}})"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                </td>
+                                @if (Auth()->user()->entreprise->nom !== "Demo") 
+                                    <td>
+                                        <button class="btn btn-warning btn-sm" wire:click.prevent="edit({{$sd->id}})"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                @endif
                             </tr>
                         @endif
                     @endforeach

@@ -93,7 +93,7 @@ class Produits extends Component
             'message' => 'Produit/Service',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/produits');
         $this->status = "listProduct";
     }
 

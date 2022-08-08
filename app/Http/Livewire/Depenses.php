@@ -11,7 +11,7 @@ use Livewire\Component;
 class Depenses extends Component
 {
 
-    public $etat;
+    public $etat='list';
     public $astuce;
     public $categories;
     public $paiement;
@@ -130,7 +130,7 @@ class Depenses extends Component
             'message' => 'Depense',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/depenses');
         $this->etat="list";
     }
 

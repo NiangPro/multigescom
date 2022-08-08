@@ -167,6 +167,7 @@ class Admins extends Component
             ]);
 
             $user->delete();
+            return redirect()->to('/administrateurs');
             $this->etat= "list";
 
     }

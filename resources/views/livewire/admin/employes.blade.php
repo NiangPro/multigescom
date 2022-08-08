@@ -1,7 +1,5 @@
 <div>
-  @if (Auth()->user()->entreprise->nom !== "Demo")
-    <button  wire:click.prevent="changeEtat()"  class="btn btn-primary mb-2" >@if($etat==="list")<i class="fa fa-plus" aria-hidden="true"></i> Ajout @else<i class="fa fa-list" aria-hidden="true"></i> Liste @endif</button>
-  @endif
+  <button  wire:click.prevent="changeEtat()"  class="btn btn-primary mb-2" >@if($etat==="list")<i class="fa fa-plus" aria-hidden="true"></i> Ajout @else<i class="fa fa-list" aria-hidden="true"></i> Liste @endif</button>
     @if ($etat === "list")
       <div class="row mt-3">
         @foreach ($employes as $item)

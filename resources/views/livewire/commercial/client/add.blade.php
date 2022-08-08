@@ -101,18 +101,22 @@
                     </div>   
                 </div>
             </div>
-            @if (Auth()->user()->entreprise->nom !== "Demo")
-                <div class="mb-4">
-                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+            
+            <div class="mb-4">
+                <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                @if ($status ==="addClient")
                     <button type="submit" class="btn btn-success">
-                        @if ($status ==="editClient")
-                            Modifier
-                        @else
-                            Ajouter
-                        @endif
+                        Ajouter
                     </button>
-                </div>
-            @endif
+                @endif
+                @if (Auth()->user()->entreprise->nom !== "Demo")
+                    @if ($status ==="editClient")
+                        <button type="submit" class="btn btn-success">
+                            Modifier
+                        </button>
+                    @endif
+                @endif
+            </div>
         </form>
     </div>
 </div>

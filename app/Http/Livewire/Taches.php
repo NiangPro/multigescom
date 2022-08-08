@@ -149,7 +149,7 @@ class Taches extends Component
             'message' => 'Tache',
             'text' => 'Suppression avec succéss!.'
         ]);
-
+        return redirect()->to('/taches');
         $this->status="listTaches";
     }
 

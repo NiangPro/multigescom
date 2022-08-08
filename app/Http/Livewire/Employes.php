@@ -181,6 +181,7 @@ class Employes extends Component
             $employe = User::where('id', $this->current_employe->id)->first();
             $this->astuce->addHistorique('Suppression d\'un employé ('.$this->current_employe->prenom.' '.$this->current_employe->nom.')', "delete");
             $employe->delete();
+            return redirect()->to('/employes');
         }else{
             $this->removeDocument();
         }

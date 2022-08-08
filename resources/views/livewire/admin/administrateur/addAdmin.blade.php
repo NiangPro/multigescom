@@ -163,10 +163,18 @@
               </div>
           </div>
           @endif
-          @if (Auth()->user()->entreprise->nom !== "Demo")
-            <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>@if ($etat === "add") Ajouter @else Modifier @endif</b>
-            <button type="reset" class="btn btn-warning ml-2"> Annuler</button>
+          
+          @if ($etat === "add") 
+            <button type="submit" class="btn btn-icon icon-left btn-success"><i class="fa fa-plus"></i>
+              Ajouter 
+            </button>
           @endif
+          @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo") 
+            <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
+              modifier 
+            </button>
+          @endif
+          <button type="reset" class="btn btn-warning ml-2"> Annuler</button>
         </form>
     @endif
     @if($etat === "exist")
