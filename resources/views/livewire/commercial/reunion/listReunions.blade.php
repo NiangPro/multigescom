@@ -1,6 +1,14 @@
 <div class="card mt-2 card-primary">
     <div class="card-body">
         <div class="section-title mt-0"><strong>Liste des Réunions</strong></div>
+        {{-- calendar --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div id='calendar'></div>
+            </div>
+        </div>
+
+        {{-- tableau --}}
         <div class="table-responsive">
             <table class="table table-hover" id="table-2">
             <thead>
@@ -30,12 +38,6 @@
                 @endforeach
             </tbody>
             </table>
-        </div>
-        {{-- calendar --}}
-        <div class="row">
-            <div class="col-md-12">
-                <div id='calendar'></div>
-            </div>
         </div>
     </div>
 </div>
