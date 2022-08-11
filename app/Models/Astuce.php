@@ -13,6 +13,38 @@ class Astuce extends Model
 {
     use HasFactory;
 
+    public function createEntrepriseDemo()
+    {
+        $entreprise = Entreprise::where("nom", "Demo")->first();
+
+        if(!$entreprise){
+            Entreprise::create([
+                'nom' =>'Demo',
+                'sigle' =>'DM',
+                'tel' =>'777777777',
+                'email' =>'demo@gmail.com',
+                'adresse' =>'Senegal',
+                'statut' =>1,
+                'fermeture' =>'2045-12-03',
+                'profil' =>'company.png',
+            ]);
+
+            $entreprise = Entreprise::where("nom", "Demo")->first();
+
+            User::create([
+                'nom'=>'Demo',
+                'prenom'=>'Demo',
+                'role'=>'Admin',
+                'email'=>'demo@gmail.com',
+                'tel'=>'788888888',
+                'sexe'=>'Femme',
+                'profil' => "user-female.png",
+                'entreprise_id'=>$entreprise->id,
+                'password'=>'$2y$10$/0sIDpuFUIn7EnnM.8RhTuHW4z5Yd4k/pduWLp5QZnPjbwb2qvM8a',//demo@1
+            ]);
+        }
+    }
+
     public function taches(){
         return Tache::orderBy('id', 'DESC')->get();
     }
@@ -25,7 +57,7 @@ class Astuce extends Model
         return Reunion::orderBy('id', 'DESC')->get();
     }
 
-    // vente du mois actuel 
+    // vente du mois actuel
     public function getTotalVente(){
         $som = 0;
         $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
@@ -40,7 +72,7 @@ class Astuce extends Model
             return $som ;
     }
 
-    // vente du mois actuel 
+    // vente du mois actuel
     public function getVenteByCurrentMonth(){
         $som = 0;
         $ventes = Vente::where('entreprise_id', Auth()->user()->entreprise_id)->select([
@@ -56,7 +88,7 @@ class Astuce extends Model
             return $som ;
     }
 
-    // depense du mois actuel 
+    // depense du mois actuel
     public function getDepenseByCurrentMonth(){
         $som = 0;
         $depenses = Depense::where('entreprise_id', Auth()->user()->entreprise_id)->select([
@@ -72,12 +104,12 @@ class Astuce extends Model
             return $som ;
     }
 
-    // les fournisseurs de l'année par mois 
+    // les fournisseurs de l'année par mois
     public function getFournisseur(){
         $data = [];
         $fournisseurs = Fournisseur::where('entreprise_id', Auth()->user()->entreprise_id)->select([
             DB::raw("DATE_FORMAT(created_at, '%m') as month"),
-            DB::raw("DATE_FORMAT(created_at, '%Y') as year"), 
+            DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
             DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
 
             for($i=1; $i<=intval(date("m")); $i++){
@@ -93,12 +125,12 @@ class Astuce extends Model
         return json_encode($data);
     }
 
-    // les clients de l'année par mois 
+    // les clients de l'année par mois
     public function getClient(){
         $data = [];
         $clients = Client::where('entreprise_id', Auth()->user()->entreprise_id)->select([
             DB::raw("DATE_FORMAT(created_at, '%m') as month"),
-            DB::raw("DATE_FORMAT(created_at, '%Y') as year"), 
+            DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
             DB::raw("count('*') as nombre")])->groupBy('month')->groupBy('year')->get();
 
             for($i=1; $i<=intval(date("m")); $i++){
@@ -117,7 +149,7 @@ class Astuce extends Model
     public function fournisseurs(){
         return Fournisseur::orderBy('id', 'DESC')->get();
     }
-    
+
     public function prospects(){
         return Prospect::orderBy('id', 'DESC')->get();
     }

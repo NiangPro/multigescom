@@ -31,6 +31,8 @@ class Home extends Component
     public $depenses;
     public $ventes;
     public $today;
+    public $dayclose;
+    public $dayleft;
 
     public $dataSuperAdmin = [
         'nbreEntreprise',
@@ -192,11 +194,21 @@ class Home extends Component
     {
         $this->astuce = new Astuce();
 
-        if(Auth::user()->role === "Admin"){
+        if(Auth::user()->isAdmin()){
             $this->today = Auth::user()->entreprise->fermeture;
+            $this->dayclose = Auth::user()->entreprise->fermeture;
 
             $this->today = strtotime($this->today) - 86400*5;
             $this->today = date("d-m-Y",$this->today);
+
+            $this->dayclose = strtotime($this->dayclose) + 86400*10;
+            $this->dayclose = date("d-m-Y",$this->dayclose);
+
+            if(date('Y-m-d', strtotime(Auth::user()->entreprise->fermeture)) < date('Y-m-d') ){
+                $this->dayleft = intval(date('d',strtotime($this->dayclose))) - intval(date('d'));
+
+                // dd($this->dayleft);
+            }
         }
 
 

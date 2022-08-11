@@ -42,6 +42,7 @@ class Login extends Component
     {
         $this->astuce = new Astuce();
         $this->astuce->createFirstSuperAdmin();
+        $this->astuce->createEntrepriseDemo();
         return view('livewire.login1'
     )->layout('layouts.app');
     }

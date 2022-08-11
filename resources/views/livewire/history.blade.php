@@ -35,15 +35,13 @@
                             <td>{{$histo['user']->prenom}} {{$histo['user']->nom}}</td>
                             <td>{{$histo['user']->role}}</td>
                             <td>
-                                @if (Auth()->user()->entreprise->nom !== "Demo")
-                                    @if ($histo['type'] === 'add')
+                                @if ($histo['type'] === 'add')
                                     <button  class="btn btn-icon btn-success btn-sm" title="Ajout"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     @elseif ($histo['type'] === 'update')
                                     <button  class="btn btn-icon btn-warning btn-sm" title="Mis à jour"><i class="far fa-edit"></i></button>
                                     @else
                                     <button  class="btn btn-icon btn-danger btn-sm" title="Suppression"><i class="fa fa-trash" aria-hidden="true"></i></button>
 
-                                    @endif
                                 @endif
                             </td>
                         </tr>
