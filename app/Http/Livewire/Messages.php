@@ -104,6 +104,13 @@ class Messages extends Component
         $this->astuce = new Astuce();
         $this->recent_message = $this->astuce->getLastedUsersDiscussions();
         $this->seenMessage();
+
+        if(session('id_admin')){
+            $this->idUser = (session('id_admin'));
+            $this->current_user = User::where('id', $this->idUser)->first();
+            $this->trouve = false;
+            $this->selectedMessages($this->idUser);
+        }
         return view('livewire.messages',[
             'users' => (Auth()->user()->role == "Super Admin") ? User::where('role', 'Super Admin')->orWhere('role', 'Admin')->where('id', '!=' ,Auth::user()->id)->get() : User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
             ])->layout('layouts.app', [

@@ -41,8 +41,10 @@
         <div class="card profile-widget card-primary">
           <div class="profile-widget-header">
               <img alt="image" height="80" width="80" src="storage/images/{{ $user->profil}}" class="rounded-circle profile-widget-picture">
-
-          </div>
+         </div>
+         <button type="submit" class="btn btn-primary float-right" wire:click.prevent="userMessage({{$user->id}})">
+            message <i class="far fa-paper-plane"></i>
+          </button>
           <div class="profile-widget-description">
               <div class="profile-widget-name">{{ $user->prenom}} {{ $user->nom}}
                   <div class="text-muted d-inline font-weight-normal">

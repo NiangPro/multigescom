@@ -78,10 +78,6 @@ class Employes extends Component
         'contratForm.fichier.file' => 'Selectionner un ficher pdf',
     ];
 
-    public function tester($contrat){
-        dd($contrat);
-    }
-
     public function changeEtat(){
 
         if($this->etat === 'list'){
@@ -95,7 +91,7 @@ class Employes extends Component
 
     public function changeStatut($statut){
         $this->statut = $statut;
-        dd($this->current_employe->contrats);
+        $this->contrats = Contrat::where('employe_id', $this->current_employe->id)->get();
     }
 
     public function deleteDocument($id){

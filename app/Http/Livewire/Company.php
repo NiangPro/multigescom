@@ -57,6 +57,10 @@ class Company extends Component
         'form.fermeture.required' => 'La date de fermeture est requise',
     ];
 
+    public function userMessage($id_user){
+        session()->put('id_admin', $id_user);
+        return redirect()->to('/messages');
+    }
 
     public function add()
     {
