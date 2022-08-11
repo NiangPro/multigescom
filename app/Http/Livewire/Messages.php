@@ -111,6 +111,7 @@ class Messages extends Component
             $this->trouve = false;
             $this->selectedMessages($this->idUser);
         }
+        
         return view('livewire.messages',[
             'users' => (Auth()->user()->role == "Super Admin") ? User::where('role', 'Super Admin')->orWhere('role', 'Admin')->where('id', '!=' ,Auth::user()->id)->get() : User::where('entreprise_id', Auth::user()->entreprise_id)->where('id', '!=' ,Auth::user()->id)->get(),
             ])->layout('layouts.app', [
