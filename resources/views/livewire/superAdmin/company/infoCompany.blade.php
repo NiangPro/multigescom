@@ -37,47 +37,28 @@
     </h4>
 <div class="row">
     @foreach ($entreprise->users as $user)
-<<<<<<< HEAD
-    <div class="col-12 col-md-12 col-lg-3">
-        <div class="card profile-widget card-primary">
-          <div class="profile-widget-header">
-              <img alt="image" height="80" width="80" src="storage/images/{{ $user->profil}}" class="rounded-circle profile-widget-picture">
-         </div>
-         <button type="submit" class="btn btn-primary float-right" wire:click.prevent="userMessage({{$user->id}})">
-            message <i class="far fa-paper-plane"></i>
-          </button>
-          <div class="profile-widget-description">
-              <div class="profile-widget-name">{{ $user->prenom}} {{ $user->nom}}
-                  <div class="text-muted d-inline font-weight-normal">
-                    <div class="slash"></div>
-                    <br><i class="fa fa-phone" aria-hidden="true"></i> {{ $user->tel}}
-                    <br><i class="fa fa-envelope" aria-hidden="true"></i> {{ $user->email}}
-                  </div>
-              </div>
-          </div>
-        </div>
-      </div>
-=======
         @if ($user->role === "Admin")
-            <div class="col-12 col-md-12 col-lg-3">
-                <div class="card profile-widget card-primary">
-                <div class="profile-widget-header">
-                    <img alt="image" height="80" width="80" src="storage/images/{{ $user->profil}}" class="rounded-circle profile-widget-picture">
-
-                </div>
-                <div class="profile-widget-description">
-                    <div class="profile-widget-name">{{ $user->prenom}} {{ $user->nom}}
-                        <div class="text-muted d-inline font-weight-normal">
-                            <div class="slash"></div>
-                            <br><i class="fa fa-phone" aria-hidden="true"></i> {{ $user->tel}}
-                            <br><i class="fa fa-envelope" aria-hidden="true"></i> {{ $user->email}}
-                        </div>
+            <div class="col-12 col-md-12 col-lg-4">
+            <div class="card profile-widget card-primary">
+            <div class="profile-widget-header">
+                <img alt="image" height="80" width="80" src="storage/images/{{ $user->profil}}" class="rounded-circle profile-widget-picture">
+            </div>
+            
+            <div class="profile-widget-description">
+                <div class="profile-widget-name"> {{ $user->prenom}} {{ $user->nom}}
+                    <button class="float-right btn-primary btn-sm rounded-circle" wire:click.prevent="userMessage({{$user->id}})">
+                        <i class="far fa-paper-plane"></i>
+                    </button>
+                    <div class="text-muted d-inline font-weight-normal">
+                        {{-- <div class="slash"></div> --}}
+                        <br><i class="fa fa-phone" aria-hidden="true"></i> {{ $user->tel}}
+                        <br><i class="fa fa-envelope" aria-hidden="true"></i> {{ $user->email}}
                     </div>
                 </div>
-                </div>
             </div>
+            </div>
+        </div>
+                
         @endif
-
->>>>>>> a11b48b (liste des grands membres)
     @endforeach
 </div>
