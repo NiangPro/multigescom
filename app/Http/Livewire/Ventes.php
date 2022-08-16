@@ -239,7 +239,7 @@ class Ventes extends Component
         }
 
         return view('livewire.comptable.ventes',[ 
-            'venteItem' => VenteItem::OrderBy('id', 'DESC')->get(),
+            'venteItem' => VenteItem::where('entreprise_id',Auth::user()->entreprise_id)->OrderBy('id', 'DESC')->get(),
             'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'clients' => Client::orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),

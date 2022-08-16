@@ -56,7 +56,7 @@
                                 <div class="input-group-text">Fonction</div>
                             </div>
                             <select class="form-control @error('form.entreprise_id') is-invalid @enderror"  wire:model="form.entreprise_id">
-                                <option value="">Selectionner une entreprise</option>
+                                <option value="">Selectionner une fonction</option>
                                 @foreach ($staticData as $f)
                                     <option value="{{$f->valeur}}">{{$f->valeur}}</option>
                                 @endforeach
@@ -114,17 +114,8 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text">Entreprise</div>
                       </div>
-                      <select class="form-control @error('form.entreprise_id') is-invalid @enderror"  wire:model="form.entreprise_id">
-                        <option value="">Selectionner une entreprise</option>
-                        @foreach ($entreprises as $en)
-                            <option value="{{ $en->id }}">{{ $en->nom }}</option>
-                        @endforeach
-                      </select>
-                      @error('form.entreprise_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                      <input type="text" readonly class="form-control" value="{{Auth()->user()->entreprise->nom}}">
+                      
                     </div>
                 </div>
             </div>

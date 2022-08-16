@@ -269,7 +269,7 @@ class Users extends Component
                     ]);
 
                     $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
-
+                    return redirect()->to('/utilisateurs');
                     $this->dispatchBrowserEvent("addSuccessful");
                     $this->formInit();
                 }

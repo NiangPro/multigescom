@@ -139,7 +139,7 @@ class Reunions extends Component
         $this->astuce = new Astuce();
         return view('livewire.commercial.reunions',
             [
-                "reunions" => Reunion::orderBy('id', 'DESC')->get(),
+                "reunions" => Reunion::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
                 // "events" => $this->astuce->getReunions()
             ]
         )->layout('layouts.app', [

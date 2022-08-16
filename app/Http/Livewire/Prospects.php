@@ -184,8 +184,8 @@ class Prospects extends Component
 
         return view('livewire.commercial.prospects',[
             "country" => Country::orderBy('nom_fr', 'ASC')->get(),
-            "prospects" => Prospect::orderBy('id', 'DESC')->get(),
-            "employes" => User::where('role', '!=', 'Super Admin')->get(),
+            "prospects" => Prospect::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
+            "employes" => User::where('entreprise_id',Auth::user()->entreprise_id)->where('role', '!=', 'Super Admin')->get(),
         ])->layout('layouts.app', [
             'title' => "Prospects",
             "page" => "prospect",

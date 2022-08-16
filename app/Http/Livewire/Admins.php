@@ -206,6 +206,7 @@ class Admins extends Component
             }
 
             $this->form['role']="Admin";
+            $this->form['entreprise_id'] = Auth()->user()->entreprise_id;
 
             if($this->form['role'] === "Admin" && $this->form['entreprise_id'] === null){
                 $this->dispatchBrowserEvent("adminNoCompany");
@@ -279,7 +280,7 @@ class Admins extends Component
         return view('livewire.admin.admins',[
             'employes' => $this->astuce->employes(),
             'entreprises' => Entreprise::orderBy('nom', 'ASC')->get(),
-            'admins' => $this->astuce->admins(),
+            'admins' => User::where('role', 'Admin')->where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->paginate(8),
         ]
         )->layout('layouts.app', [
             'title' => "Administrateurs",

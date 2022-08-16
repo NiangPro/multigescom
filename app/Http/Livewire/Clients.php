@@ -140,7 +140,7 @@ class Clients extends Component
         $this->astuce = new Astuce();
         return view('livewire.commercial.clients',
         [
-            "clients" => Client::orderBy('id', 'DESC')->get(),
+            "clients" => Client::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
             "country" => Country::orderBy('id', 'ASC')->get(),
         ])->layout('layouts.app', [
             'title' => "Clients",

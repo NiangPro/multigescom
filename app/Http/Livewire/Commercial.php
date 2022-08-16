@@ -45,7 +45,6 @@ class Commercial extends Component
         'form.nom' => 'required|string',
         'form.tel' => ['required', 'min:9', 'max:9', 'regex:/^[33|70|75|76|77|78]+[0-9]{7}$/'],
         'form.sexe' => 'required|string',
-        'form.entreprise_id' => 'nullable|string',
         'form.email' => ['required', 'email', 'unique:users,email'],
         'form.password' => 'required|string|min:6|confirmed',
     ];
@@ -184,7 +183,7 @@ class Commercial extends Component
             $user->prenom = ucfirst($this->form['prenom']);
             $user->nom = $this->form['nom'];
             $user->tel = $this->form['tel'];
-            $user->entreprise_id = $this->form['entreprise_id'];
+            $user->entreprise_id = Auth()->user->entreprise_id;
 
             $user->save();
             $this->astuce->addHistorique("Mis à jour des informations d'un commercial", "update");
@@ -202,6 +201,7 @@ class Commercial extends Component
 
             $this->form['role']="Commercial";
             $this->form['fonction']="Commercial";
+            $this->form['entreprise_id'] = Auth()->user()->entreprise_id;
             
             if($this->form['role'] === "Commercial" && $this->form['entreprise_id'] === null){
                 $this->dispatchBrowserEvent("adminNoCompany");
@@ -216,7 +216,7 @@ class Commercial extends Component
                     'fonction'=>$this->form['fonction'],
                     'sexe'=>$this->form['sexe'],
                     'profil' => $this->form['sexe'] === "Homme" ? "user-male.png" : "user-female.png",
-                    'entreprise_id'=>$this->form['entreprise_id'],
+                    'entreprise_id'=> $this->form['entreprise_id'],
                     'password'=>Hash::make($this->form['password']),
                 ]);
 

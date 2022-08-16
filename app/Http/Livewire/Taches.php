@@ -160,7 +160,7 @@ class Taches extends Component
 
         return view('livewire.admin.taches',[
             "employes" => User::where('role', '!=', 'Super Admin')->get(),
-            "taches" => Tache::orderBy('id', 'DESC')->get(),
+            "taches" => Tache::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
         ])->layout('layouts.app', [
             'title' => "Taches",
             "page" => "tache",

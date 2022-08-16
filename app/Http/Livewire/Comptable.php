@@ -202,6 +202,7 @@ class Comptable extends Component
 
             $this->form['role']="Comptable";
             $this->form['fonction']="Comptable";
+            $this->form['entreprise_id'] = Auth()->user()->entreprise_id;
             
             if($this->form['role'] === "Comptable" && $this->form['entreprise_id'] === null){
                 $this->dispatchBrowserEvent("adminNoCompany");

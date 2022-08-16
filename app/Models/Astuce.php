@@ -463,12 +463,12 @@ class Astuce extends Model
 
     public function commercials()
     {
-        return User::where('role', 'Commercial')->orderBy('id', 'DESC')->paginate(3);
+        return User::where('role', 'Commercial')->where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->paginate(3);
     }
 
     public function comptables()
     {
-        return User::where('role', 'Comptable')->orderBy('id', 'DESC')->paginate(3);
+        return User::where('role', 'Comptable')->where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->paginate(3);
     }
 
     public function entreprises()
@@ -478,14 +478,14 @@ class Astuce extends Model
 
     public function employes()
     {
-        return User::where('role', "Employe")->orderBy("Prenom", "ASC")->get();
+        return User::where('role', "Employe")->where('entreprise_id', Auth()->user()->entreprise_id)->orderBy("Prenom", "ASC")->get();
     }
 
     public function superAdminHistorique()
     {
         $data = [];
 
-        $users = User::orderBy('prenom', 'ASC')->get();
+        $users = User::orderBy('prenom', 'DESC')->get();
 
         foreach ($users as $user) {
             if ($user->role === "Super Admin") {
@@ -502,7 +502,7 @@ class Astuce extends Model
     {
         $data = [];
 
-        $users = User::orderBy('prenom', 'ASC')->get();
+        $users = User::orderBy('prenom', 'DESC')->get();
 
         foreach ($users as $user) {
             if ($user->role !== "Super Admin" && $user->entreprise_id === Auth::user()->entreprise_id) {

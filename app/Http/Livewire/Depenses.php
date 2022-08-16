@@ -141,7 +141,7 @@ class Depenses extends Component
         $this->categories = $this->astuce->getStaticData("Type de dépense");
         $this->paiements = $this->astuce->getStaticData("Mode de paiement");
         return view('livewire.comptable.depenses',[
-            "depenses" => Depense::orderBy("id", 'DESC')->get(),
+            "depenses" => Depense::where('entreprise_id',Auth::user()->entreprise_id)->orderBy("id", 'DESC')->get(),
         ]
         )->layout('layouts.app', [
             'title' => "Les Dépenses",

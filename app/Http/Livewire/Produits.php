@@ -115,6 +115,7 @@ class Produits extends Component
             $produit->save();
             $this->astuce->addHistorique("Mis à jour produit ou service", "update");
             $this->dispatchBrowserEvent("updateSuccessful");
+            return redirect()->to('/produits');
             $this->status =  "listProduct";
             $this->initForm();
 
@@ -132,6 +133,7 @@ class Produits extends Component
         
                 $this->astuce->addHistorique("Ajout produit", "add");
                 $this->dispatchBrowserEvent("addSuccessful");
+                return redirect()->to('/produits');
                 $this->status =  "listProduct";
                 $this->initForm();
         }
@@ -181,7 +183,7 @@ class Produits extends Component
         $this->tva = $this->astuce->getStaticData("TVA");
 
         return view('livewire.commercial.produits', [
-            "produits" => Produit::orderBy('id','DESC')->paginate(6),
+            "produits" => Produit::where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id','DESC')->paginate(6),
         ])->layout('layouts.app',[
             'title' => 'Produits & Services',
             "page" => "produit",

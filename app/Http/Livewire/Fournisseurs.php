@@ -141,7 +141,7 @@ class Fournisseurs extends Component
     {
         $this->astuce = new Astuce();
         return view('livewire.fournisseurs' ,[
-            "fournisseurs" => Fournisseur::orderBy('id', 'DESC')->get(),
+            "fournisseurs" => Fournisseur::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
             "country" => Country::orderBy('id', 'ASC')->get(),
         ])->layout('layouts.app', [
             'title' => "Fournisseurs",
