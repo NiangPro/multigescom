@@ -39,11 +39,16 @@ class Login extends Component
 
     }
     public function render()
-    {
-        $this->astuce = new Astuce();
-        $this->astuce->createFirstSuperAdmin();
-        $this->astuce->createEntrepriseDemo();
-        return view('livewire.login1'
-    )->layout('layouts.app');
+    {   
+        if(isset (Auth()->user()->entreprise->statut) && Auth()->user()->entreprise->statut == 0 ){
+            Auth::logout();
+            return redirect(route('login'));
+        }else{
+            $this->astuce = new Astuce();
+            $this->astuce->createFirstSuperAdmin();
+            $this->astuce->createEntrepriseDemo();
+            return view('livewire.login1'
+            )->layout('layouts.app');
+        }
     }
 }

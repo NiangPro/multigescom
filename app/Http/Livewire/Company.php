@@ -212,6 +212,8 @@ class Company extends Component
 
             $this->dispatchBrowserEvent('addSuccessful');
             $this->init();
+            return redirect()->to('/entreprises');
+
         }
     }
 
