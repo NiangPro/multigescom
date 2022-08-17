@@ -70,6 +70,14 @@
           position: 'topRight'
           });
       })
+
+      window.addEventListener('accessDenied', event =>{
+          iziToast.error({
+          title: 'Connexion',
+          message: 'Votre espace est fermé, Veuillez renouveler votre abonnement svp!',
+          position: 'topRight'
+          });
+      })
   </script>
 
   @endsection
