@@ -5,10 +5,10 @@ namespace App\Http\Livewire;
 
 
 use App\Models\Astuce;
+use App\Models\Entreprise;
 use App\Models\Historique;
 use App\Models\Messenger;
 use App\Models\Todolist;
-use App\Models\Vente;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -33,6 +33,7 @@ class Home extends Component
     public $today;
     public $dayclose;
     public $dayleft;
+    public $print;
 
     public $dataSuperAdmin = [
         'nbreEntreprise',
@@ -193,21 +194,35 @@ class Home extends Component
     public function render()
     {
         $this->astuce = new Astuce();
+        if(isset(Auth::user()->entreprise_id) && Auth::user()->entreprise_id !== null){
+            if(Auth::user()->isAdmin()){
+                $this->today = Auth::user()->entreprise->fermeture;
+                $this->dayclose = Auth::user()->entreprise->fermeture;
 
-        if(Auth::user()->isAdmin()){
-            $this->today = Auth::user()->entreprise->fermeture;
-            $this->dayclose = Auth::user()->entreprise->fermeture;
+                $this->today = strtotime($this->today) - 86400*5;
+                $this->today = date("d-m-Y",$this->today);
 
-            $this->today = strtotime($this->today) - 86400*5;
-            $this->today = date("d-m-Y",$this->today);
+                $this->dayclose = strtotime($this->dayclose) + 86400*10;
+                $this->dayclose = date("d-m-Y",$this->dayclose);
 
-            $this->dayclose = strtotime($this->dayclose) + 86400*10;
-            $this->dayclose = date("d-m-Y",$this->dayclose);
+                if( date('Y-m-d') >= date('Y-m-d', strtotime($this->today)) && date('Y-m-d', strtotime(Auth::user()->entreprise->fermeture)) >= date('Y-m-d') ){
+                    $this->print = "before";
+                }elseif( date('Y-m-d') >= date('Y-m-d', strtotime(Auth::user()->entreprise->fermeture)) &&  date('Y-m-d', strtotime($this->dayclose))> date('Y-m-d') ){
+                    $this->dayleft = intval(date('d',strtotime($this->dayclose))) - intval(date('d'));
+                    $this->print = "after";
+                }
 
-            if(date('Y-m-d', strtotime(Auth::user()->entreprise->fermeture)) < date('Y-m-d') ){
-                $this->dayleft = intval(date('d',strtotime($this->dayclose))) - intval(date('d'));
 
-                // dd($this->dayleft);
+            }
+
+
+            if(date('Y-m-d', strtotime($this->dayclose))<= date('Y-m-d')){
+                $en = Entreprise::where("id", Auth::user()->entreprise_id)->first();
+
+                if ($en->statut!== 0) {
+                    $en->statut = 0;
+                    $en->save();
+                }
             }
         }
 
