@@ -53,7 +53,15 @@
         message: 'Email ou mot de passe incorrect',
         position: 'topLeft'
         });
-    })
+    });
+    
+     window.addEventListener('accessDenied', event =>{
+        iziToast.error({
+        title: 'Accés',
+        message: 'Veuillez renouveler votre abonnement',
+        position: 'topLeft'
+        });
+    });
 </script>
 
 @endsection
