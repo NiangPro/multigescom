@@ -32,7 +32,12 @@ class Login extends Component
 
         if(Auth::attempt(['email' => $this->form['email'], 'password' => $this->form['password']]))
         {
-            return redirect(route('home'));
+            if(isset (Auth()->user()->entreprise->statut) && Auth()->user()->entreprise->statut === 0 ){
+                $this->dispatchBrowserEvent("accessDenied");
+                Auth::logout();
+            }else{
+                return redirect(route('home'));
+            }
         }else{
             $this->dispatchBrowserEvent('errorLogin');
         }
@@ -40,15 +45,11 @@ class Login extends Component
     }
     public function render()
     {   
-        if(isset (Auth()->user()->entreprise->statut) && Auth()->user()->entreprise->statut == 0 ){
-            Auth::logout();
-            return redirect(route('login'));
-        }else{
             $this->astuce = new Astuce();
             $this->astuce->createFirstSuperAdmin();
             $this->astuce->createEntrepriseDemo();
             return view('livewire.login1'
             )->layout('layouts.app');
-        }
+        
     }
 }
