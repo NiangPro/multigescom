@@ -79,9 +79,9 @@ class Rapports extends Component
         $depense = json_decode($this->astuce->getDepensesMonth());
         $vente = json_decode($this->astuce->getVentesMonth());
 
-        $this->depenseTotal = isset($depense[0])?$depense[0]:0;
-        $this->venteTotal = isset($vente[0])?$vente[0]:0;
-        $this->revenusTotal = $this->venteTotal-$this->depenseTotal;
+        $this->depenseTotal = isset($depense) ? $depense : 0;
+        $this->venteTotal = isset($vente) ? $vente : 0;
+        $this->revenusTotal = $this->venteTotal - $this->depenseTotal;
 
 
 

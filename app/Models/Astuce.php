@@ -389,6 +389,7 @@ class Astuce extends Model
                         break;
                     }
                 }
+                // dd($data);
 
             return json_encode($data);
     }
