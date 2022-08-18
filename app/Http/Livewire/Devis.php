@@ -247,7 +247,7 @@ class Devis extends Component
         return view('livewire.comptable.devis',[
             'sous_total' => $sous_total,
             'total' => $this->total,
-            'devisItem' => DevisItem::where('entreprise_id',Auth::user()->entreprise_id)->OrderBy('id', 'DESC')->get(),
+            'devisItem' => DevisItem::OrderBy('id', 'DESC')->get(),
             'all_product' => Produit::OrderBy('id', 'DESC')->get(),
             'clients' => Client::orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),

@@ -155,19 +155,19 @@ class Astuce extends Model
     }
 
     public function ventes(){
-        return Vente::orderBy('id', 'DESC')->get();
+        return Vente::where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->get();
     }
 
     public function clients(){
-        return Client::orderBy('id', 'DESC')->get();
+        return Client::where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->get();
     }
 
     public function devis(){
-        return Devis::orderBy('id', 'DESC')->get();
+        return Devis::where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->get();
     }
 
     public function produits(){
-        return Produit::orderBy('id', 'DESC')->get();
+        return Produit::where('entreprise_id', Auth()->user()->entreprise_id)->orderBy('id', 'DESC')->get();
     }
 
     public function getLastedUsersDiscussions()
