@@ -10,7 +10,7 @@
                   <div class="author-box-left">
                     <img alt="image" height="98" width="104" src="{{asset('storage/images/'.$item->profil)}}" class="rounded-circle author-box-picture">
                     <div class="clearfix mb-2"></div>
-                    <button wire:click.prevent="getEmploye({{$item->id}})"  class="btn btn-outline-success btn-sm btn-rounded mr-2"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    <button wire:click.prevent="getEmploye({{$item->id}})" class="btn btn-outline-success btn-sm btn-rounded mr-2"><i class="fa fa-eye" aria-hidden="true"></i></button>
                     @if (Auth()->user()->entreprise->nom !== "Demo")
                       <button type="button" wire:click.prevent="delete({{$item->id}})" class="btn btn-outline-danger btn-sm btn-rounded">
                         <i class="fa fa-trash" aria-hidden="true"></i></button>

@@ -88,7 +88,6 @@
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>Modifier</b>
-    
                     </div>
                 </div>
     

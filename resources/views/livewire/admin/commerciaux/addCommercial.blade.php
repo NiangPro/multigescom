@@ -136,7 +136,7 @@
               Ajouter 
             </button>
             @endif
-            @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo") 
+            @if ($etat === "info" && Auth()->user()->entreprise->nom !== "Demo") 
               <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
                 modifier 
               </button>

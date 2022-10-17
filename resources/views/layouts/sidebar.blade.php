@@ -7,7 +7,7 @@
 
                     <img class="avatar mr-2" src="{{asset('storage/images/'.Auth()->user()->entreprise->profil)}}" alt="logo">{{Auth()->user()->entreprise->nom}}
                 @else
-                    <img class="avatar mr-2" src="{{asset('storage/images/'.config('app.logo'))}}" alt="logo">{{config('app.name')}}
+                    <img style="width: 100px;" class="avatar mr-2" src="{{asset('storage/images/'.config('app.logo'))}}" alt="logo">{{config('app.name')}}
                 @endif
               </figure>
             </a>

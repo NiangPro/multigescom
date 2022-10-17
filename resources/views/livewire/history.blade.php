@@ -6,12 +6,6 @@
                 <table class="table table-striped" id="table-2">
                 <thead>
                     <tr>
-                        <th class="text-center">
-                            <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                            <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                            </div>
-                        </th>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Utilisateurs</th>
@@ -22,12 +16,6 @@
                 <tbody>
                     @foreach ($historiques as $histo)
                         <tr>
-                            <td>
-                                <div class="custom-checkbox custom-control">
-                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                </div>
-                            </td>
                             <td>
                                 {{ date("d/m/Y à H:i:s ", strtotime($histo['date']))}}
                             </td>

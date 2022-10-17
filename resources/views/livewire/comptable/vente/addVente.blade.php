@@ -137,14 +137,14 @@
                                 </table>
                             </div>
                         </div>
-                        @if (Auth()->user()->entreprise->nom !== "Demo")
+                        
                             <div class="form-group row">
                                 <div class="col-lg-4 col-md-6 text-left">
                                     <button class="btn btn-icon icon-right btn-warning" type="button" wire:click="back(1)"><i class="fas fa-arrow-left"></i> Retour</button>
                                     <button wire:click.prevent="store" class="btn btn-icon icon-right btn-success ml-2"> Ajouter <i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
-                        @endif
+                        
                     </div>
                 @endif
           {{-- </form> --}}

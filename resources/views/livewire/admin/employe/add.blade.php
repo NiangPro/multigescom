@@ -110,9 +110,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Pays <span class="text-danger">*</span></label>
                             <select class="form-control @error('form.pays') is-invalid @enderror" wire:model="form.pays" id="exampleFormControlSelect1">
-                                <option value="">Selectionner un pays</option>
+                                <option value="Sénégal" selected="selected">Sénégal</option>
                                 @foreach ($country as $c)
-                                    <option value="{{$c->nom_fr}}">{{$c->nom_fr}}</option>
+                                    <option selected="{{$c->nom_fr}} == Senegal" value="{{$c->nom_fr}}">{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
                             @error('form.pays') <span class="error text-danger">{{$message}}</span> @enderror
@@ -129,7 +129,7 @@
                                         Ajouter
                                     </button>
                                 @endif
-                                @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo")
+                                @if ($etat === "info" && Auth()->user()->entreprise->nom !== "Demo")
                                     <button type="submit" class="btn btn-success">
                                         Modifier
                                     </button>

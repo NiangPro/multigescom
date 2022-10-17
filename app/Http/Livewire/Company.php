@@ -109,7 +109,7 @@ class Company extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'company'.\md5($this->entreprise->id).'jpg';
+            $imageName = 'company'.\md5($this->entreprise->id).'.jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 

@@ -54,17 +54,21 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text">Entreprise</div>
                       </div>
-                      <select class="form-control @error('form.entreprise_id') is-invalid @enderror"  wire:model="form.entreprise_id">
-                        <option></option>
-                        @foreach ($entreprises as $en)
-                            <option value="{{ $en->id }}">{{ $en->nom }}</option>
-                        @endforeach
-                      </select>
-                      @error('form.entreprise_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                      @if (Auth()->user()->role === 'Super Admin')
+                        <select class="form-control @error('form.entreprise_id') is-invalid @enderror"  wire:model="form.entreprise_id">
+                          <option></option>
+                          @foreach ($entreprises as $en)
+                              <option value="{{ $en->id }}">{{ $en->nom }}</option>
+                          @endforeach
+                        </select>
+                        @error('form.entreprise_id')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
                         @enderror
+                      @else
+                      <input type="text" readonly class="form-control" value="{{ Auth()->user()->entreprise->nom }}" placeholder="{{ Auth()->user()->entreprise->nom }}"> 
+                      @endif
                     </div>
                 </div>
             </div>

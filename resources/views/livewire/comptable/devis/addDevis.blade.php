@@ -142,12 +142,12 @@
                         
                             <div class="form-group row">
                                 @if ($etat ==="add") 
-                                    <button type="submit" class="btn btn-icon icon-left btn-success"><i class="fa fa-plus"></i>
+                                    <button type="submit" wire:click.prevent="store" class="btn btn-icon icon-left btn-success"><i class="fa fa-plus"></i>
                                         Ajouter 
                                     </button>
                                 @endif
                                 @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo") 
-                                    <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
+                                    <button wire:click.prevent="store" type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
                                         modifier 
                                     </button>
                                 @endif

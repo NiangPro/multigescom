@@ -145,7 +145,7 @@ class Produits extends Component
             $this->validate([
                 'image_produit' => 'image'
             ]);
-            $imageName = 'produit'.\md5($this->current_produit->id).'jpg';
+            $imageName = 'produit'.\md5($this->current_produit->id).'.jpg';
 
             $this->image_produit->storeAs('public/images', $imageName);
 

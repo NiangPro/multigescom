@@ -7,8 +7,10 @@ use App\Models\Client;
 use App\Models\Messenger;
 use App\Models\Produit;
 use App\Models\User;
-use App\Models\Vente;
+use App\Models\Vente as ModelsVente;
 use App\Models\VenteItem;
+
+
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -239,9 +241,9 @@ class Ventes extends Component
         }
 
         return view('livewire.comptable.ventes',[ 
-            'venteItem' => VenteItem::OrderBy('id', 'DESC')->get(),
-            'all_product' => Produit::OrderBy('id', 'DESC')->get(),
-            'clients' => Client::orderBy('id', 'DESC')->get(),
+            'venteItem' => ModelsVente::where('entreprise_id', Auth::user()->entreprise_id)->OrderBy('id', 'DESC')->get(),
+            'all_product' => Produit::where('entreprise_id', Auth::user()->entreprise_id)->OrderBy('id', 'DESC')->get(),
+            'clients' => Client::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
             'employes' => User::where('entreprise_id', Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
             'sous_total' => $sous_total,
             'total' => $this->total,

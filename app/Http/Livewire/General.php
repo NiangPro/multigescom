@@ -120,7 +120,7 @@ class General extends Component
                 $this->validate([
                     'logo' => 'image'
                 ]);
-                $imageName = 'company'.\md5($en->id).'jpg';
+                $imageName = 'company'.\md5($en->id).'.jpg';
 
                 $this->logo->storeAs('public/images', $imageName);
 

@@ -80,7 +80,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Montant<span class="text-danger">*</span></div>
                           </div>
-                          <input type="text" class="form-control @error('form.montant') is-invalid
+                          <input type="number" class="form-control @error('form.montant') is-invalid
                             @enderror" placeholder="Montant" wire:model="form.montant">
                             @error('form.montant')
                                 <span class="invalid-feedback" role="alert">
@@ -115,7 +115,7 @@
                             Ajouter 
                         </button>
                     @endif
-                    @if ($etat === "edit" && Auth()->user()->entreprise->nom !== "Demo") 
+                    @if ($etat === "info" && Auth()->user()->entreprise->nom !== "Demo") 
                         <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
                             modifier 
                         </button>

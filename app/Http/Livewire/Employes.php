@@ -183,7 +183,10 @@ class Employes extends Component
         }
     }
 
-
+    public function download($contrat_id){
+        $contrat = Contrat::where('id', $contrat_id)->first();
+        return response()->download('storage/contrats/'.$contrat->fichier);
+    }
 
     public function getEmploye($id){
         $this->etat="info";
@@ -229,7 +232,7 @@ class Employes extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'employe'.\md5($this->current_employe->id).'jpg';
+            $imageName = 'employe'.\md5($this->current_employe->id).'.jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 
@@ -298,6 +301,10 @@ class Employes extends Component
     {
         $this->astuce = new Astuce();
         $this->staticData = $this->astuce->getStaticData("Type de fonction");
+
+        // $val = "path\ggh\ggh";
+
+        // dd(\str_replace("\\", "/", $val));
 
 
         return view('livewire.admin.employes', [

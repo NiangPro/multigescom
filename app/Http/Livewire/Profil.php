@@ -93,7 +93,7 @@ class Profil extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'user'.\md5($this->user->id).'jpg';
+            $imageName = 'user'.\md5($this->user->id).'.jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 

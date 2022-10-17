@@ -121,7 +121,7 @@ class Admins extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'user'.\md5($this->user->id).'jpg';
+            $imageName = 'user'.\md5($this->user->id).'.jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 
@@ -160,6 +160,7 @@ class Admins extends Component
     {
 
         $user = User::where('id', $this->idDeleting)->first();
+        dd($user);
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
                 'message' => 'Admin !',

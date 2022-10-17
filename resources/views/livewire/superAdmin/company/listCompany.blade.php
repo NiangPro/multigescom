@@ -2,7 +2,7 @@
 <div class="row">
 
     @foreach ($companies as $company)
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1 card-primary">
           <div class="card-icon ">
             <img src="{{asset('storage/images/'.$company->profil)}}" alt="" height="80" width="80">

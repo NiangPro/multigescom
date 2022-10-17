@@ -8,10 +8,11 @@
               <img alt="image" height="98" width="104" src="{{asset('storage/images/'.$sa->profil)}}" class="rounded-circle author-box-picture">
               <div class="clearfix mb-2"></div>
               <button wire:click.prevent="info({{$sa->id}})"  class="btn btn-outline-success btn-sm btn-rounded mr-2"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
-              <button type="button" wire:click.prevent="delete({{$sa->id}})" class="btn btn-outline-danger btn-sm btn-rounded">
-                <i class="fa fa-trash" aria-hidden="true"></i></button>
-
+              
+              @if (count($superAdmins)>1)
+                <button type="button" wire:click.prevent="delete({{$sa->id}})" class="btn btn-outline-danger btn-sm btn-rounded">
+                  <i class="fa fa-trash" aria-hidden="true"></i></button>
+              @endif
             </div>
             <div class="author-box-details">
               <div class="author-box-name">

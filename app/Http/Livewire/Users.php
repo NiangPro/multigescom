@@ -95,16 +95,19 @@ class Users extends Component
     {
 
         $user = User::where('id', $this->idDeleting)->first();
-
         if ($user->role === "Admin"){
             $countAdmin = User::where("role", "Admin")->where("entreprise_id", $user->entreprise_id)->count();
-            dd($countAdmin);
+            // dd($countAdmin);
         }else{
             $countAdmin = User::where("role", "Super Admin")->count();
         }
 
         if ($countAdmin <= 1) {
-
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'error',
+                'message' => 'Entreprise!',
+                'text' => 'Impossible de supprimer tous les utilisateurs.'
+            ]);
         }else{
 
             $this->dispatchBrowserEvent('swal:modal', [
@@ -193,7 +196,7 @@ class Users extends Component
             $this->validate([
                 'profil' => 'image'
             ]);
-            $imageName = 'user'.\md5($this->user->id).'jpg';
+            $imageName = 'user'.\md5($this->user->id).'.jpg';
 
             $this->profil->storeAs('public/images', $imageName);
 
