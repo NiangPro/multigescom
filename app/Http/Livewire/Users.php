@@ -27,6 +27,7 @@ class Users extends Component
     public $astuce;
     public $user;
     public $idDeleting;
+    public $role = "";
 
     public $form = [
         'id' => null,
@@ -56,7 +57,7 @@ class Users extends Component
         'form.role' => 'required|string',
         'form.tel' => ['required', 'min:9', 'max:9', 'regex:/^[33|70|75|76|77|78]+[0-9]{7}$/'],
         'form.sexe' => 'required|string',
-        'form.entreprise_id' => 'nullable|string',
+        'form.entreprise_id' => 'required',
         'form.email' => ['required', 'email', 'unique:users,email'],
         'form.password' => 'required|string|min:6|confirmed',
     ];
@@ -219,17 +220,22 @@ class Users extends Component
         $this->idDeleting = $id;
         $this->alertConfirm();
     }
+
+    public function changeEvent(){
+        $this->role = $this->form['role'];
+    }
+
     public function store()
     {
-
+        
         if(isset($this->user->id) && $this->user->id !== null){
             $user = User::where('id', $this->user->id)->first();
             $this->validate([
                 'form.email' => ["unique:users,email,$user->id"],
                 'form.prenom' => 'required|string',
                 'form.nom' => 'required|string',
+                'form.entreprise_id' => 'required',
                 'form.tel' => ['required', 'min:9', 'max:9', 'regex:/^[33|70|75|76|77|78]+[0-9]{7}$/'],
-                'form.entreprise_id' => 'nullable|string',
             ]);
 
             $user->email = ucfirst($this->form['email']);
@@ -246,37 +252,33 @@ class Users extends Component
 
         }else{
             // Traitement ajout utilisateur
+            if($this->role =="Super Admin"){
+                $this->form['entreprise_id'] = Auth()->user()->entreprise_id;
+            }
             $this->validate();
 
             if(empty($this->form['sexe'])){
                 $this->dispatchBrowserEvent("sexEmpty");
             }
+            
+            User::create([
+                'nom'=>$this->form['nom'],
+                'prenom'=>$this->form['prenom'],
+                'role'=>$this->form['role'],
+                'email'=>$this->form['email'],
+                'tel'=>$this->form['tel'],
+                'sexe'=>$this->form['sexe'],
+                'profil' => $this->form['sexe'] === "Homme" ? "user-male.png" : "user-female.png",
+                'entreprise_id'=>$this->form['entreprise_id'],
+                'password'=>Hash::make($this->form['password']),
+            ]);
 
-
-            if($this->form['role'] === "Admin" && $this->form['entreprise_id'] === null){
-                $this->dispatchBrowserEvent("adminNoCompany");
-            }else{
-                if ($this->form['role'] === "Super Admin" && $this->form['entreprise_id'] !== null) {
-                    $this->dispatchBrowserEvent("haveNotService");
-                }else{
-                    User::create([
-                        'nom'=>$this->form['nom'],
-                        'prenom'=>$this->form['prenom'],
-                        'role'=>$this->form['role'],
-                        'email'=>$this->form['email'],
-                        'tel'=>$this->form['tel'],
-                        'sexe'=>$this->form['sexe'],
-                        'profil' => $this->form['sexe'] === "Homme" ? "user-male.png" : "user-female.png",
-                        'entreprise_id'=>$this->form['entreprise_id'],
-                        'password'=>Hash::make($this->form['password']),
-                    ]);
-
-                    $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
-                    return redirect()->to('/utilisateurs');
-                    $this->dispatchBrowserEvent("addSuccessful");
-                    $this->formInit();
-                }
-            }
+            $this->astuce->addHistorique("Ajout ".$this->form['role'], "add");
+            $this->dispatchBrowserEvent("addSuccessful");
+            return redirect()->to('/utilisateurs');
+            $this->formInit();        
+                
+           
 
         }
 

@@ -5,7 +5,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="storage/images/{{config('app.icon')}}">
 
-  <title>{{config('app.name')}}</title>
+  <title>@if (Auth::user())
+    {{Auth::user()->entreprise->nom}}
+  @else {{config('app.name')}}@endif</title>
 
   @if (Auth()->user())
 

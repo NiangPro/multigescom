@@ -30,6 +30,7 @@ class Astuce extends Model
             ]);
 
             $entreprise = Entreprise::where("nom", "Demo")->first();
+            $this->initStaticData();
 
             User::create([
                 'nom'=>'Demo',
@@ -438,6 +439,19 @@ class Astuce extends Model
         $countUser = User::count();
 
         if($countUser < 1){
+            Entreprise::create([
+                'nom' =>'SuperAdmin',
+                'sigle' =>'SAM',
+                'tel' =>'777777777',
+                'email' =>'demo@gmail.com',
+                'adresse' =>'Senegal',
+                'statut' =>1,
+                'fermeture' =>'3045-12-03',
+                'profil' =>'company.png',
+            ]);
+
+            $entreprise = Entreprise::where("nom", "SuperAdmin")->first();
+
             User::create([
                 'nom'=>"Niang",
                 'prenom'=>"Bassirou",
@@ -446,7 +460,7 @@ class Astuce extends Model
                 'tel'=>"783123657",
                 'sexe'=>"Homme",
                 'profil' => "user-male.png",
-                'entreprise_id'=>null,
+                'entreprise_id'=>$entreprise->id,
                 'password'=>'$2y$10$rAVZ/DGGDV5KooV1NqJ48Om35GkkYcqFd/lAkehgzA3.D5A5YcrtC',
             ]);
         }

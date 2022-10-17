@@ -103,8 +103,8 @@
             </div>
             
             <div class="mb-4">
-                <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
                 @if ($status ==="addClient")
+                    <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
                     <button type="submit" class="btn btn-success">
                         Ajouter
                     </button>

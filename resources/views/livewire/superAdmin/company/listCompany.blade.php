@@ -2,6 +2,8 @@
 <div class="row">
 
     @foreach ($companies as $company)
+    @if ($company->sigle !== "SAM")
+      
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1 card-primary">
           <div class="card-icon ">
@@ -26,6 +28,8 @@
           </div>
         </div>
     </div>
+    
+    @endif
     @endforeach
     <div class="container">
         {{ $companies->links() }}

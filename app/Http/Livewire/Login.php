@@ -46,6 +46,7 @@ class Login extends Component
     public function render()
     {
             $this->astuce = new Astuce();
+            $this->astuce->initCountries();
             $this->astuce->createFirstSuperAdmin();
             $this->astuce->createEntrepriseDemo();
             return view('livewire.login1'

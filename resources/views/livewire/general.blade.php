@@ -104,15 +104,7 @@
 
     });
 
-    window.addEventListener('editSuccessfulSuperAdmin', event =>{
-        iziToast.success({
-        title: 'Configuration du systeme',
-        message: 'Mis à jour avec succes',
-        position: 'topRight'
-        });
 
-        location.reload();
-    });
 
 </script>
 

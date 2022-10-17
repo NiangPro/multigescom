@@ -126,7 +126,9 @@
                 </div>
                 @if (Auth()->user()->entreprise->nom !== "Demo")
                     <div class="mb-4">
-                        <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                        @if ($status !=="editProduct")
+                            <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                        @endif
                         <button type="submit" class="btn btn-success">
                             @if ($status ==="editProduct")
                                 Modifier

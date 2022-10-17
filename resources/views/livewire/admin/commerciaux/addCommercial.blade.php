@@ -135,13 +135,13 @@
             <button type="submit" class="btn btn-icon icon-left btn-success"><i class="fa fa-plus"></i>
               Ajouter 
             </button>
+            <button type="reset" class="btn btn-warning">Annuler</button>
             @endif
             @if ($etat === "info" && Auth()->user()->entreprise->nom !== "Demo") 
               <button type="submit" class="btn btn-icon icon-left btn-success"><i class="far fa-edit"></i>
                 modifier 
               </button>
             @endif
-            <button type="reset" class="btn btn-warning">Annuler</button>
         </form>
     @endif
     @if($etat === "exist")

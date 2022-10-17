@@ -96,7 +96,7 @@
                                             {{$item->text}}
                                         </div>
                                         <div class="chat-time" >
-                                            {{$item->created_at}}
+                                          {{ date("d/m/Y à h:i:s", strtotime($item->created_at)) }}
                                         </div>
                                     </div>
                               </div>
@@ -109,7 +109,7 @@
                                               {{$item->text}}
                                           </div>
                                           <div class="chat-time" >
-                                              {{$item->created_at}}
+                                              {{ date("d/m/Y à h:i:s", strtotime($item->created_at)) }}
                                           </div>
                                       </div>
                                 </div>

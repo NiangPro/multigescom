@@ -49,16 +49,20 @@
                 </div>
             </div>
             <div class="col-md-6">
+              @if ($role !=="Super Admin")            
                 <div class="form-group">
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text">Entreprise</div>
                       </div>
                       @if (Auth()->user()->role === 'Super Admin')
+                      
                         <select class="form-control @error('form.entreprise_id') is-invalid @enderror"  wire:model="form.entreprise_id">
                           <option></option>
                           @foreach ($entreprises as $en)
+                            @if ($en->sigle !== "SAM")
                               <option value="{{ $en->id }}">{{ $en->nom }}</option>
+                            @endif
                           @endforeach
                         </select>
                         @error('form.entreprise_id')
@@ -71,6 +75,7 @@
                       @endif
                     </div>
                 </div>
+              @endif
             </div>
 
 
@@ -78,7 +83,7 @@
         @if ($etat === "add")
         <div class="form-group">
             <label class="form-label">Rôle</label>
-            <div class="selectgroup selectgroup-pills">
+            <div class="selectgroup selectgroup-pills" wire:change="changeEvent">
               <label class="selectgroup-item">
                 <input type="radio" name="role" wire:model="form.role" value="Super Admin" class="selectgroup-input" checked="">
             <span class="selectgroup-button">Super Admin</span>

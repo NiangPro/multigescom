@@ -47,6 +47,10 @@ class Messages extends Component
             ]);
 
             $this->astuce->addHistorique("Ajout Message", "add");
+            $this->recent_message = $this->astuce->getLastedUsersDiscussions();
+
+        $this->selectedMessages($this->current_user->id);
+
             $this->initForm();
             $this->trouve = false;
         }

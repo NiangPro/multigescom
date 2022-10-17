@@ -195,9 +195,9 @@ class Home extends Component
     {
         $this->astuce = new Astuce();
         if(isset(Auth::user()->entreprise_id) && Auth::user()->entreprise_id !== null){
+            $this->today = Auth::user()->entreprise->fermeture;
+            $this->dayclose = Auth::user()->entreprise->fermeture;
             if(Auth::user()->isAdmin()){
-                $this->today = Auth::user()->entreprise->fermeture;
-                $this->dayclose = Auth::user()->entreprise->fermeture;
 
                 $this->today = strtotime($this->today) - 86400*5;
                 $this->today = date("d-m-Y",$this->today);

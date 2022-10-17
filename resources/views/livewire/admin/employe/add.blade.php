@@ -110,9 +110,10 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Pays <span class="text-danger">*</span></label>
                             <select class="form-control @error('form.pays') is-invalid @enderror" wire:model="form.pays" id="exampleFormControlSelect1">
-                                <option value="Sénégal" selected="selected">Sénégal</option>
                                 @foreach ($country as $c)
-                                    <option selected="{{$c->nom_fr}} == Senegal" value="{{$c->nom_fr}}">{{$c->nom_fr}}</option>
+                                    <option value="{{$c->nom_fr}}" @if ($c->nom_fr == "Sénégal")
+                                        selected
+                                    @endif >{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
                             @error('form.pays') <span class="error text-danger">{{$message}}</span> @enderror
@@ -123,8 +124,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="align-items-end">
-                                <button type="reset" class="btn btn-warning">Annuler</button>
                                 @if ($etat === "add")
+                                    <button type="reset" class="btn btn-warning">Annuler</button>
+                                
                                     <button type="submit" class="btn btn-success">
                                         Ajouter
                                     </button>
