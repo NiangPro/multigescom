@@ -80,7 +80,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Montant<span class="text-danger">*</span></div>
                           </div>
-                          <input type="number" class="form-control @error('form.montant') is-invalid
+                          <input min="0" type="number" class="form-control @error('form.montant') is-invalid
                             @enderror" placeholder="Montant" wire:model="form.montant">
                             @error('form.montant')
                                 <span class="invalid-feedback" role="alert">
