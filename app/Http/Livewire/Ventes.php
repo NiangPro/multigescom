@@ -97,7 +97,7 @@ class Ventes extends Component
         $this->validate();
 
         if($this->emptyDevisItem($this->tab_product)){
-            $vente = Vente::create([
+            $vente = ModelsVente::create([
                 'client_id' => $this->form['client_id'],
                 'employe_id' => $this->form['employe_id'],
                 'description' => $this->form['description'],
@@ -111,7 +111,7 @@ class Ventes extends Component
                 VenteItem::create([
                     'nom' => $this->tab_product[$key]['nom'],
                     'description' => $this->description,
-                    'montant' => $this->tab_product[$key]['montant'],
+                    'montant' => $this->tab_product[$key]['tarif'],
                     'taxe' => $this->tab_product[$key]['taxe'],
                     'quantite' => $this->tab_product[$key]['quantite'],
                     'vente_id' => $vente->id,
@@ -190,7 +190,7 @@ class Ventes extends Component
     }
 
     public function getVentes($id){
-        $this->current_vente = VenteItem::where("id", $id)->first();
+        $this->current_vente = ModelsVente::where("id", $id)->first();
         $this->mtHt = $this->current_vente->montant * $this->current_vente->quantite ;
 
         $this->etat = "info";
@@ -235,10 +235,10 @@ class Ventes extends Component
 
         foreach ($this->tab_product as $product) {
             if($product['montant'] && $product['quantite']){
-                $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
-                $this->total = $sous_total*(1 - $this->remise/100);
+                $sous_total += ($product['montant']);
             }
         }
+        $this->total = $sous_total*(1 - $this->remise/100);
 
         return view('livewire.comptable.ventes',[ 
             'venteItem' => ModelsVente::where('entreprise_id', Auth::user()->entreprise_id)->OrderBy('id', 'DESC')->get(),

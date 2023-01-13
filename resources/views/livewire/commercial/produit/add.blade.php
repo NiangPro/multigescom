@@ -124,20 +124,22 @@
                         </div>
                     </div>
                 </div>
-                @if (Auth()->user()->entreprise->nom !== "Demo")
-                    <div class="mb-4">
-                        @if ($status !=="editProduct")
-                            <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
-                        @endif
+               
+                <div class="mb-4">
+                    @if ($status !=="editProduct")
+                        <button type="reset" class="btn btn-warning">Annuler</button>&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-success">
+                            Ajouter
+                        </button>
+                    @endif
+                    @if (Auth()->user()->entreprise->nom !== "Demo")
                         <button type="submit" class="btn btn-success">
                             @if ($status ==="editProduct")
                                 Modifier
-                            @else
-                                Ajouter
                             @endif
                         </button>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </form>
         </div>
     </div>

@@ -159,7 +159,7 @@ class Taches extends Component
         $this->staticData = $this->astuce->getStaticData("Priorité des tâches");
 
         return view('livewire.admin.taches',[
-            "employes" => User::where('role', '!=', 'Super Admin')->get(),
+            "employes" => User::where('role', '!=', 'Super Admin')->where("entreprise_id", Auth()->user()->entreprise_id)->get(),
             "taches" => Tache::where('entreprise_id',Auth::user()->entreprise_id)->orderBy('id', 'DESC')->get(),
         ])->layout('layouts.app', [
             'title' => "Taches",

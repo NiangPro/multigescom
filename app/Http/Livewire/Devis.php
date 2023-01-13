@@ -29,6 +29,7 @@ class Devis extends Component
     public $staticData;
     public $idprod = null;
     public $remise=0;
+    public $mtHt =0;
 
     public $form = [
         'date' => '',
@@ -195,7 +196,9 @@ class Devis extends Component
     }
 
     public function getDevis($id){
-        $this->current_devis = DevisItem::where("id", $id)->first();
+        $this->current_devis = ModelsDevis::where("id", $id)->first();
+        $this->mtHt = $this->current_devis->montant * $this->current_devis->quantite ;
+
         $this->etat = "info";
     }
 
@@ -215,7 +218,7 @@ class Devis extends Component
 
     // delete reunion
     public function remove(){
-        $tache = DevisItem::where("id", $this->idDeleting)->first();
+        $tache = ModelsDevis::where("id", $this->idDeleting)->first();
         $tache->delete();
 
         $this->astuce->addHistorique('Suppression d\'un dévis', "delete");
@@ -237,10 +240,10 @@ class Devis extends Component
 
         foreach ($this->tab_product as $product) {
             if($product['montant'] && $product['quantite']){
-                $sous_total += ($product['montant'] * $product['quantite'])*(1 + ($product['taxe']/100));
-                $this->total = $sous_total*(1 - $this->remise/100);
+                $sous_total += ($product['montant']);
             }
         }
+        $this->total = $sous_total*(1 - $this->remise/100);
 
         $this->staticData = $this->astuce->getStaticData("Statut des devis");
 

@@ -195,9 +195,9 @@ class Home extends Component
     {
         $this->astuce = new Astuce();
         if(isset(Auth::user()->entreprise_id) && Auth::user()->entreprise_id !== null){
-            $this->today = Auth::user()->entreprise->fermeture;
-            $this->dayclose = Auth::user()->entreprise->fermeture;
             if(Auth::user()->isAdmin()){
+                $this->today = Auth::user()->entreprise->fermeture;
+                $this->dayclose = Auth::user()->entreprise->fermeture;
 
                 $this->today = strtotime($this->today) - 86400*5;
                 $this->today = date("d-m-Y",$this->today);
@@ -213,15 +213,14 @@ class Home extends Component
                 }
 
 
-            }
-
-
-            if(date('Y-m-d', strtotime($this->dayclose))<= date('Y-m-d')){
-                $en = Entreprise::where("id", Auth::user()->entreprise_id)->first();
-
-                if ($en->statut!== 0) {
+                
+                
+                if(date('Y-m-d', strtotime($this->dayclose))<= date('Y-m-d')){
+                    $en = Entreprise::where("id", Auth::user()->entreprise_id)->first();
+                    
                     $en->statut = 0;
-                    $en->save();
+                        $en->save();
+                    
                 }
             }
         }

@@ -91,9 +91,10 @@
                                 <div class="input-group-text">Pays<span class="text-danger">*</span></div>
                             </div>
                             <select class="form-control @error('form.country_id') is-invalid @enderror" wire:model="form.country_id" id="exampleFormControlSelect1">
-                                <option value="">Selectionner un pays</option>
                                 @foreach ($country as $c)
-                                    <option value="{{$c->id}}">{{$c->nom_fr}}</option>
+                                    <option value="{{$c->id}}" @if ($c->nom_fr === "Sénégal")
+                                        selected
+                                    @endif>{{$c->nom_fr}}</option>
                                 @endforeach
                             </select>
                             @error('form.country_id') <span class="error text-danger">{{$message}}</span> @enderror
